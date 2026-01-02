@@ -1,0 +1,144 @@
+@import 'tailwindcss';
+
+/* Custom fonts - ported from baobabKoodaa/ouija */
+@font-face {
+  font-family: 'Feral';
+  src: url('/fonts/Feral-Regular.woff2') format('woff2'),
+       url('/fonts/Feral-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Carnivalee Freakshow';
+  src: url('/fonts/CarnivaleeFreakshow.woff2') format('woff2'),
+       url('/fonts/CarnivaleeFreakshow.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Kingthings Trypewriter 2';
+  src: url('/fonts/KingthingsTrypewriter2.woff2') format('woff2'),
+       url('/fonts/KingthingsTrypewriter2.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Custom theme configuration */
+@theme {
+  --color-ouija-dark: #0a0a0a;
+  --color-ouija-wood: #3d2817;
+  --color-ouija-gold: #d35400;
+  --color-ouija-text: #fbedc8;
+  
+  --font-family-feral: 'Feral', cursive;
+  --font-family-spooky: 'Carnivalee Freakshow', cursive;
+  --font-family-vintage: 'Kingthings Trypewriter 2', monospace;
+}
+
+/* Base styles */
+@layer base {
+  * {
+    box-sizing: border-box;
+    user-select: none;
+  }
+
+  body {
+    margin: 0;
+    background-color: black;
+    color: var(--color-ouija-text);
+    font-family: var(--font-family-vintage);
+    overflow: hidden;
+  }
+}
+
+/* Custom animations */
+@layer utilities {
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .bg-gradient-radial {
+    background: radial-gradient(circle, var(--tw-gradient-stops));
+  }
+}
+
+/* Board glow animation */
+@keyframes board-glow {
+  0% {
+    box-shadow: 0 0 50px var(--color-ouija-gold);
+  }
+  100% {
+    box-shadow: 0 0 50px 20px var(--color-ouija-gold);
+  }
+}
+
+/* Glow effects */
+.glow-gold {
+  box-shadow: 0 0 20px rgba(211, 84, 0, 0.5);
+}
+
+.text-glow {
+  text-shadow: 0 0 10px rgba(211, 84, 0, 0.8);
+}
+
+/* Glitch effect for spirit message */
+@keyframes glitch-effect {
+  0% {
+    left: -4px;
+    top: -4px;
+  }
+  25% {
+    left: 4px;
+    top: 0px;
+  }
+  50% {
+    left: -2px;
+    top: 4px;
+  }
+  75% {
+    left: 2px;
+    top: -2px;
+  }
+  100% {
+    left: 0px;
+    top: -4px;
+  }
+}
+
+/* Blinking caret */
+@keyframes blink-caret {
+  from, to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: #ff9900;
+  }
+}
+
+.blinking-caret {
+  border-right: .15em solid #ff9900;
+  animation: blink-caret .75s step-end infinite;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--color-ouija-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-ouija-gold);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  opacity: 0.8;
+}
