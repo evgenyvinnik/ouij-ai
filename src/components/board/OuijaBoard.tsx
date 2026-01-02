@@ -22,7 +22,16 @@ export function OuijaBoard() {
   }, [turn, userMessage, conversationHistory, sendMessage]);
 
   return (
-    <div className="ouija-board relative mx-auto h-[600px] w-full max-w-4xl overflow-hidden rounded-lg shadow-2xl">
+    <div
+      className="ouija-board relative mx-auto overflow-hidden"
+      style={{
+        width: '50%',
+        position: 'absolute',
+        left: '50%',
+        top: '50%',
+        transform: 'translate(-50%, -50%)',
+      }}
+    >
       {/* Background */}
       <BoardBackground />
 
@@ -32,8 +41,11 @@ export function OuijaBoard() {
       {/* Message Display */}
       <MessageDisplay />
 
-      {/* Atmospheric effects */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-radial from-transparent to-ouija-dark opacity-50"></div>
+      {/* Hover area to catch mouse events on rounded corners */}
+      <div
+        className="pointer-events-auto absolute inset-0 z-[13]"
+        style={{ cursor: 'none' }}
+      />
     </div>
   );
 }

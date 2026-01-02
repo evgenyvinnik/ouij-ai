@@ -16,30 +16,60 @@ function AppContent() {
   useOuijaSession(); // Initialize keyboard handling
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-ouija-dark to-black py-8">
-      <div className="container mx-auto px-4">
-        {/* Header */}
-        <header className="mb-8 text-center">
-          <h1 className="mb-2 font-spooky text-6xl text-ouija-gold text-glow">
-            OUIJ-AI
-          </h1>
-          <p className="font-vintage text-xl text-ouija-gold opacity-70">
-            Ask the AI Spirits
-          </p>
-        </header>
+    <div
+      className="relative h-screen w-screen bg-black"
+      style={{
+        margin: 0,
+        padding: 0,
+        overflow: 'hidden',
+      }}
+    >
+      {/* Header - matching original style */}
+      <header
+        className="absolute left-1/2 top-8 z-10 -translate-x-1/2 text-center"
+      >
+        <h1
+          className="mb-2 text-glow"
+          style={{
+            fontFamily: 'Carnivalee Freakshow, cursive',
+            fontSize: '6vw',
+            color: '#d35400',
+          }}
+        >
+          OUIJ-AI
+        </h1>
+        <p
+          style={{
+            fontFamily: 'Kingthings Trypewriter 2, monospace',
+            fontSize: '2vw',
+            color: '#d35400',
+            opacity: 0.7,
+          }}
+        >
+          Ask the AI Spirits
+        </p>
+      </header>
 
-        {/* Main Board */}
-        <OuijaBoard />
+      {/* Main Board - Centered */}
+      <OuijaBoard />
 
-        {/* Chat Panel */}
+      {/* Chat Panel - Below board */}
+      <div className="absolute bottom-8 left-1/2 w-full max-w-4xl -translate-x-1/2 px-4">
         <ChatPanel />
+      </div>
 
-        {/* Instructions */}
-        <div className="mt-8 text-center">
-          <p className="text-sm text-ouija-gold opacity-50">
-            Type your question and press Enter to consult the spirits
-          </p>
-        </div>
+      {/* Instructions */}
+      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 text-center">
+        <p
+          style={{
+            fontFamily: 'Kingthings Trypewriter 2, monospace',
+            fontSize: '1.2vw',
+            color: '#d35400',
+            opacity: 0.5,
+          }}
+        >
+          Type your question and press Enter to consult the spirits
+        </p>
       </div>
     </div>
   );

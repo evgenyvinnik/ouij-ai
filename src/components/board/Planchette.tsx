@@ -6,51 +6,32 @@ export function Planchette() {
 
   return (
     <div
-      className={`absolute z-20 cursor-grab transition-shadow ${
-        isDragging ? 'cursor-grabbing scale-110' : ''
+      className={`absolute z-20 cursor-grab ${
+        isDragging ? 'cursor-grabbing' : ''
       }`}
       style={{
         left: `${position.x}%`,
         top: `${position.y}%`,
         transform: 'translate(-50%, -50%)',
+        width: '18%',
       }}
       onMouseDown={handleMouseDown}
     >
-      <div
-        className={`relative h-24 w-24 ${
-          isDragging ? '' : 'animate-pulse-slow'
-        }`}
-      >
-        {/* Planchette body - heart/teardrop shape */}
-        <svg
-          viewBox="0 0 100 100"
-          className="h-full w-full drop-shadow-2xl"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          {/* Outer glow */}
-          <circle
-            cx="50"
-            cy="40"
-            r="45"
-            className="fill-ouija-gold opacity-20 blur-xl"
-          />
-
-          {/* Main body */}
-          <path
-            d="M 50,20 C 30,20 20,30 20,45 C 20,60 35,75 50,90 C 65,75 80,60 80,45 C 80,30 70,20 50,20 Z"
-            className="fill-gradient-to-b from-amber-100 to-amber-300 stroke-ouija-wood"
-            strokeWidth="2"
-          />
-
-          {/* Inner circle (viewing hole) */}
-          <circle
-            cx="50"
-            cy="45"
-            r="12"
-            className="fill-transparent stroke-ouija-wood"
-            strokeWidth="2"
-          />
-        </svg>
+      <div className="relative">
+        {/* Actual planchette image from original */}
+        <img
+          src="/planchette2.png"
+          alt="Planchette"
+          className={`w-full transition-all duration-300 ${
+            isDragging ? 'scale-110' : ''
+          }`}
+          style={{
+            filter: isDragging
+              ? 'drop-shadow(5px 5px 5px rgb(255, 198, 198))'
+              : 'drop-shadow(5px 5px 5px #222)',
+            transform: 'rotate(130deg)',
+          }}
+        />
 
         {/* Magnifying glass effect */}
         <MagnifyingGlass />

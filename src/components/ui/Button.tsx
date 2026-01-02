@@ -17,10 +17,10 @@ export function Button({
 
   const variantStyles = {
     primary:
-      'bg-ouija-gold text-ouija-dark hover:bg-opacity-90 shadow-lg hover:shadow-xl',
+      'bg-[#958219] text-white hover:bg-[#968a47] hover:shadow-[0_0_15px_#5c533b] hover:text-shadow-[0_0_5px_#5c533b]',
     secondary:
-      'bg-ouija-wood text-ouija-gold border-2 border-ouija-gold hover:bg-opacity-80',
-    ghost: 'text-ouija-gold hover:bg-ouija-wood hover:bg-opacity-30',
+      'bg-[#ebebeb] border-2 border-black hover:text-gray-500',
+    ghost: 'text-black hover:bg-black hover:bg-opacity-10',
   };
 
   const sizeStyles = {
@@ -32,6 +32,10 @@ export function Button({
   return (
     <button
       className={`${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${className}`}
+      style={{
+        fontFamily: 'Carnivalee Freakshow, cursive',
+        border: '1px solid black',
+      }}
       {...props}
     >
       {children}

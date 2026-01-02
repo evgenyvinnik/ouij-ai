@@ -10,36 +10,87 @@ export function MessageDisplay() {
   const displayMessage = revealedMessage ? zalgoifyLight(revealedMessage) : '';
 
   return (
-    <div className="absolute bottom-8 left-0 right-0 z-10 px-8">
-      <div className="mx-auto max-w-2xl space-y-4">
-        {/* User input display */}
-        {isUserTurn && (
-          <div className="rounded-lg bg-ouija-dark bg-opacity-80 p-4 text-center backdrop-blur-sm">
-            <p className="text-sm text-ouija-gold opacity-70">
-              Ask the spirits...
-            </p>
-            <p className="mt-2 min-h-[1.5rem] font-vintage text-xl text-ouija-gold">
-              {inputBuffer}
-              <span className="animate-pulse">|</span>
-            </p>
-          </div>
-        )}
-
-        {/* Spirit's message display */}
-        {(turn === 'animating' || displayMessage) && (
-          <div className="rounded-lg bg-ouija-dark bg-opacity-90 p-6 text-center backdrop-blur-sm">
-            <p className="text-sm text-ouija-gold opacity-70">
-              The spirits speak...
-            </p>
-            <p className="mt-3 min-h-[2rem] font-spooky text-2xl leading-relaxed text-ouija-gold">
+    <div className="pointer-events-none absolute left-0 right-0 z-10">
+      {/* Spirit's message display - above board */}
+      {(turn === 'animating' || displayMessage) && (
+        <div
+          className="absolute text-center"
+          style={{
+            top: '-13%',
+            left: '-50%',
+            width: '100vw',
+            letterSpacing: '3vw',
+            textIndent: '3vw',
+          }}
+        >
+          <div
+            className="relative uppercase"
+            style={{
+              fontSize: '2vw',
+              color: '#fff',
+              textShadow: '0 0 5px #d35400',
+              fontFamily: 'Feral, cursive',
+            }}
+            data-text={displayMessage}
+          >
+            {displayMessage}
+            {turn === 'animating' && (
+              <span className="ml-2 inline-block h-2 w-2 animate-pulse rounded-full bg-ouija-gold"></span>
+            )}
+            {/* Glitch effect layers */}
+            <div
+              className="absolute left-0 top-0 h-full w-full"
+              style={{
+                content: 'attr(data-text)',
+                color: '#f3ba39',
+                animation: 'glitch-effect 6s infinite',
+                zIndex: -1,
+              }}
+            >
               {displayMessage}
-              {turn === 'animating' && (
-                <span className="ml-2 inline-block h-2 w-2 animate-pulse rounded-full bg-ouija-gold"></span>
-              )}
-            </p>
+            </div>
+            <div
+              className="absolute left-0 top-0 h-full w-full"
+              style={{
+                content: 'attr(data-text)',
+                color: '#f3ba39',
+                animation: 'glitch-effect 4s infinite',
+                zIndex: -1,
+              }}
+            >
+              {displayMessage}
+            </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
+
+      {/* User message - below board */}
+      {isUserTurn && (
+        <div
+          className="absolute flex justify-center"
+          style={{
+            left: '-50%',
+            bottom: '-13%',
+            width: '100vw',
+            height: '3vh',
+          }}
+        >
+          <pre
+            className="blinking-caret uppercase"
+            style={{
+              height: '3vh',
+              lineHeight: '3vh',
+              fontSize: '2vw',
+              letterSpacing: '0.8vw',
+              fontFamily: 'Kingthings Trypewriter 2, monospace',
+              color: '#fff',
+              transition: 'color 1.0s ease-out',
+            }}
+          >
+            {inputBuffer}
+          </pre>
+        </div>
+      )}
     </div>
   );
 }
