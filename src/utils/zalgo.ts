@@ -32,13 +32,16 @@ const ZALGO_MID = [
   '\u0362', '\u0338', '\u0337', '\u0361', '\u0489'
 ];
 
+// Maximum diacritical marks to add per character
+const MAX_MARKS_MULTIPLIER = 5;
+
 /**
  * Generate zalgo text with specified intensity
  * @param text - Input text to transform
  * @param intensity - How many marks to add (0-1)
  */
 export function zalgoify(text: string, intensity: number = 0.5): string {
-  const maxMarks = Math.floor(intensity * 5) + 1;
+  const maxMarks = Math.floor(intensity * MAX_MARKS_MULTIPLIER) + 1;
   
   return text
     .split('')

@@ -32,7 +32,7 @@ export function usePlanchetteAnimation() {
     const letterCoord = getLetterCoord(currentLetter);
     const targetPercent = coordToPercent(letterCoord, boardWidth, boardHeight);
 
-    // Store start position
+    // Store start position from current planchette location
     const currentPos = useOuijaStore.getState().planchette.position;
     startPosRef.current = { x: currentPos.x, y: currentPos.y };
     targetPosRef.current = targetPercent;
