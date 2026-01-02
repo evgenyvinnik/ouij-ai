@@ -1,0 +1,72 @@
+@import 'tailwindcss';
+
+/* Custom theme configuration */
+@theme {
+  --color-ouija-dark: #0a0a0a;
+  --color-ouija-wood: #3d2817;
+  --color-ouija-gold: #d4af37;
+  
+  --font-family-spooky: 'Carnivalee Freakshow', cursive;
+  --font-family-vintage: 'Kingthings Trypewriter', monospace;
+}
+
+/* Custom fonts */
+@layer base {
+  @font-face {
+    font-family: 'Carnivalee Freakshow';
+    font-style: normal;
+    font-weight: normal;
+    /* Font would be loaded from assets or CDN */
+  }
+
+  @font-face {
+    font-family: 'Kingthings Trypewriter';
+    font-style: normal;
+    font-weight: normal;
+    /* Font would be loaded from assets or CDN */
+  }
+
+  body {
+    background-color: var(--color-ouija-dark);
+    color: var(--color-ouija-gold);
+    font-family: var(--font-family-vintage);
+  }
+}
+
+/* Custom animations */
+@layer utilities {
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .bg-gradient-radial {
+    background: radial-gradient(circle, var(--tw-gradient-stops));
+  }
+}
+
+/* Glow effects */
+.glow-gold {
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+}
+
+.text-glow {
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--color-ouija-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-ouija-gold);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  opacity: 0.8;
+}
