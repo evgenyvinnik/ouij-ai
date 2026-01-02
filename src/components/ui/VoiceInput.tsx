@@ -114,7 +114,7 @@ export function VoiceInput({ onTranscript, disabled = false }: VoiceInputProps) 
         className="text-center"
         style={{
           fontFamily: 'Kingthings Trypewriter 2, monospace',
-          fontSize: '1vw',
+          fontSize: 'clamp(0.75rem, 1vw, 1rem)',
           minHeight: '1.5em',
         }}
       >

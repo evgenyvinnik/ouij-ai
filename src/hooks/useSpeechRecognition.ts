@@ -112,9 +112,9 @@ export function useSpeechRecognition(): UseSpeechRecognitionReturn {
 
     try {
       recognitionRef.current.start();
-    } catch (err) {
-      // Handle case where recognition is already running
-      console.error('Speech recognition start error:', err);
+    } catch {
+      // Speech recognition may already be running - this is expected in some edge cases
+      // The onstart/onend handlers will manage the listening state correctly
     }
   }, [isListening]);
 
