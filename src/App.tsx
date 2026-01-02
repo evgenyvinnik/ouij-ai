@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { OuijaBoard } from './components/board/OuijaBoard';
 import { ChatPanel } from './components/chat/ChatPanel';
+import { VoiceInput } from './components/ui/VoiceInput';
 import { useOuijaSession } from './hooks/useOuijaSession';
 
 const queryClient = new QueryClient({
@@ -53,6 +54,11 @@ function AppContent() {
       {/* Main Board - Centered */}
       <OuijaBoard />
 
+      {/* Voice Input - Right side of board */}
+      <div className="absolute right-8 top-1/2 z-20 -translate-y-1/2">
+        <VoiceInput />
+      </div>
+
       {/* Chat Panel - Below board */}
       <div className="absolute bottom-8 left-1/2 w-full max-w-4xl -translate-x-1/2 px-4">
         <ChatPanel />
@@ -68,7 +74,7 @@ function AppContent() {
             opacity: 0.5,
           }}
         >
-          Type your question and press Enter to consult the spirits
+          Type your question or click the microphone to speak
         </p>
       </div>
     </div>
