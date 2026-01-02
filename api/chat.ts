@@ -88,7 +88,6 @@ export default async function handler(req: Request) {
             stream: true,
           });
 
-          let currentText = '';
           let toolUseId = '';
           let toolInput = '';
 
@@ -99,7 +98,6 @@ export default async function handler(req: Request) {
               event.delta.type === 'text_delta'
             ) {
               const text = event.delta.text;
-              currentText += text;
               controller.enqueue(
                 encoder.encode(formatSSE('token', { token: text }))
               );
