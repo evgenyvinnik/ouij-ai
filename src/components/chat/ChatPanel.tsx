@@ -219,40 +219,6 @@ export function ChatPanel() {
           </div>
         ))}
 
-        {/* Current user message being processed */}
-        {turn === 'spirit' && userMessage && (
-          <div className="flex justify-end">
-            <div
-              className="max-w-[75%] rounded-2xl rounded-br-none px-4 py-3 shadow-lg"
-              style={{
-                background: 'linear-gradient(135deg, rgba(211, 84, 0, 0.3), rgba(211, 84, 0, 0.2))',
-                border: '1px solid rgba(211, 84, 0, 0.4)',
-                backdropFilter: 'blur(10px)',
-              }}
-            >
-              <div
-                className="mb-1 text-xs font-bold uppercase tracking-wider opacity-70"
-                style={{
-                  fontFamily: 'Kingthings Trypewriter 2, monospace',
-                  color: '#ff9933',
-                }}
-              >
-                You
-              </div>
-              <p
-                style={{
-                  fontFamily: 'Kingthings Trypewriter 2, monospace',
-                  fontSize: '0.95rem',
-                  lineHeight: '1.5',
-                  color: '#fbedc8',
-                }}
-              >
-                {userMessage}
-              </p>
-            </div>
-          </div>
-        )}
-
         {/* Thinking indicator */}
         {(turn === 'spirit' || turn === 'animating') && (
           <div className="flex justify-center">

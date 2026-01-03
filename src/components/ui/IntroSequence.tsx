@@ -177,11 +177,13 @@ export function IntroSequence({ onComplete }: IntroSequenceProps) {
           <div className="text-center">
             {/* Status message */}
             <p
-              className="mb-8 text-3xl"
+              className="mb-8 px-8 text-2xl leading-relaxed"
               style={{
                 fontFamily: 'Kingthings Trypewriter 2, monospace',
                 color: verification.status === 'rejected' ? '#ff4444' : '#d35400',
                 textShadow: `0 0 20px ${verification.status === 'rejected' ? 'rgba(255, 68, 68, 0.6)' : 'rgba(211, 84, 0, 0.6)'}`,
+                maxWidth: '600px',
+                margin: '0 auto',
               }}
             >
               {verification.message}

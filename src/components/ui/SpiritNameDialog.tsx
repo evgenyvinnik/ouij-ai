@@ -34,6 +34,10 @@ export function SpiritNameDialog({ onSubmit, isVisible }: SpiritNameDialogProps)
       // Auto-focus input when dialog appears
       inputRef.current.focus();
     }
+    // Clear input when dialog becomes visible (after rejection)
+    if (isVisible) {
+      setName('');
+    }
   }, [isVisible]);
 
   const handleSubmit = (e: React.FormEvent) => {

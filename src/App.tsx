@@ -80,6 +80,7 @@ function AppContent() {
         @media (min-width: 1024px) {
           .header-title {
             left: calc(50% - 150px) !important;
+            transform: translateX(-50%) !important;
           }
           .header-title h1 {
             font-size: 4vw !important;
@@ -91,6 +92,7 @@ function AppContent() {
         @media (min-width: 1600px) {
           .header-title {
             left: calc(50% - 150px) !important;
+            transform: translateX(-50%) !important;
           }
           .header-title h1 {
             font-size: 3.5vw !important;
