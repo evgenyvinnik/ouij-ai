@@ -3,6 +3,7 @@ import { Message } from '../types/ouija';
 interface ChatRequest {
   message: string;
   history: Message[];
+  spiritName?: string;
 }
 
 interface SSECallback {

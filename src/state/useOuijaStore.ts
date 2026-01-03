@@ -21,6 +21,8 @@ export const useOuijaStore = create<OuijaState>((set) => ({
   turn: 'user',
   userMessage: '',
   conversationHistory: [],
+  spiritName: null,
+  hasCompletedIntro: false,
 
   // Actions
   movePlanchette: (position: Position) =>
@@ -100,6 +102,12 @@ export const useOuijaStore = create<OuijaState>((set) => ({
   setTurn: (turn: 'user' | 'spirit' | 'animating') =>
     set(() => ({ turn })),
 
+  setSpiritName: (name: string) =>
+    set(() => ({ spiritName: name })),
+
+  completeIntro: () =>
+    set(() => ({ hasCompletedIntro: true })),
+
   resetSession: () =>
     set(() => ({
       planchette: {
@@ -116,5 +124,7 @@ export const useOuijaStore = create<OuijaState>((set) => ({
       turn: 'user',
       userMessage: '',
       conversationHistory: [],
+      spiritName: null,
+      hasCompletedIntro: false,
     })),
 }));

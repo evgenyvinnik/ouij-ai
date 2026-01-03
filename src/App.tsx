@@ -2,7 +2,9 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { OuijaBoard } from './components/board/OuijaBoard';
 import { ChatPanel } from './components/chat/ChatPanel';
 import { VoiceInput } from './components/ui/VoiceInput';
+import { IntroSequence } from './components/ui/IntroSequence';
 import { useOuijaSession } from './hooks/useOuijaSession';
+import { useOuijaStore } from './state/useOuijaStore';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -15,6 +17,21 @@ const queryClient = new QueryClient({
 
 function AppContent() {
   useOuijaSession(); // Initialize keyboard handling
+
+  const hasCompletedIntro = useOuijaStore((state) => state.hasCompletedIntro);
+  const spiritName = useOuijaStore((state) => state.spiritName);
+  const setSpiritName = useOuijaStore((state) => state.setSpiritName);
+  const completeIntro = useOuijaStore((state) => state.completeIntro);
+
+  const handleIntroComplete = (name: string) => {
+    setSpiritName(name);
+    completeIntro();
+  };
+
+  // Show intro sequence if not completed
+  if (!hasCompletedIntro) {
+    return <IntroSequence onComplete={handleIntroComplete} />;
+  }
 
   return (
     <div
@@ -47,7 +64,7 @@ function AppContent() {
             opacity: 0.7,
           }}
         >
-          Ask the AI Spirits
+          Communing with {spiritName}
         </p>
       </header>
 

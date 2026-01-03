@@ -6,6 +6,7 @@ import { Message } from '../types/ouija';
 interface ChatMutationVariables {
   message: string;
   history: Message[];
+  spiritName?: string;
 }
 
 /**
@@ -15,11 +16,11 @@ export function useAIChat() {
   const { queueLetters, addToHistory, setTurn, clearAnimation } = useOuijaStore();
 
   const mutation = useMutation({
-    mutationFn: async ({ message, history }: ChatMutationVariables) => {
+    mutationFn: async ({ message, history, spiritName }: ChatMutationVariables) => {
       let assistantResponse = '';
 
       await sendChatMessage(
-        { message, history },
+        { message, history, spiritName },
         {
           onToken: (token) => {
             assistantResponse += token;

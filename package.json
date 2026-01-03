@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.32.1",
+    "@react-spring/web": "^10.0.3",
     "@tanstack/react-query": "^5.62.8",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

@@ -14,6 +14,7 @@ interface Message {
 interface RequestBody {
   message: string;
   history?: Message[];
+  spiritName?: string;
 }
 
 export default async function handler(req: Request) {
@@ -51,6 +52,7 @@ export default async function handler(req: Request) {
     const body = (await req.json()) as RequestBody;
     const userMessage = sanitizeInput(body.message);
     const history = body.history || [];
+    const spiritName = body.spiritName;
 
     if (!userMessage) {
       return new Response(JSON.stringify({ error: 'Message is required' }), {
@@ -60,6 +62,12 @@ export default async function handler(req: Request) {
     }
 
     const anthropic = new Anthropic({ apiKey });
+
+    // Build system prompt with spirit name
+    let systemPrompt = SYSTEM_PROMPT;
+    if (spiritName) {
+      systemPrompt = `${SYSTEM_PROMPT}\n\nYou are channeling the spirit of ${spiritName}. Embody their essence, knowledge, and personality while maintaining the mysterious Ouija board communication style.`;
+    }
 
     // Build messages array from history
     const messages: Anthropic.MessageParam[] = [
@@ -82,7 +90,7 @@ export default async function handler(req: Request) {
             model: MODEL_CONFIG.model,
             max_tokens: MODEL_CONFIG.max_tokens,
             temperature: MODEL_CONFIG.temperature,
-            system: SYSTEM_PROMPT,
+            system: systemPrompt,
             messages,
             tools: MODEL_CONFIG.tools,
             stream: true,

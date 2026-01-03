@@ -33,6 +33,8 @@ export interface OuijaState {
   turn: 'user' | 'spirit' | 'animating';
   userMessage: string;
   conversationHistory: Message[];
+  spiritName: string | null;
+  hasCompletedIntro: boolean;
 
   // Actions
   movePlanchette: (position: Position) => void;
@@ -44,6 +46,8 @@ export interface OuijaState {
   submitQuestion: (message: string) => void;
   addToHistory: (message: Message) => void;
   setTurn: (turn: 'user' | 'spirit' | 'animating') => void;
+  setSpiritName: (name: string) => void;
+  completeIntro: () => void;
   resetSession: () => void;
 }
 
