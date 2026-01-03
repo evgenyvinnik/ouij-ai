@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { animated, useSpring, useChain, useSpringRef } from '@react-spring/web';
+import { useState, useEffect } from 'react';
+import { animated, useSpring } from '@react-spring/web';
 import { SpiritNameDialog } from './SpiritNameDialog';
 
 interface IntroSequenceProps {
@@ -15,32 +15,48 @@ export function IntroSequence({ onComplete }: IntroSequenceProps) {
   const [showDialog, setShowDialog] = useState(false);
   const [verification, setVerification] = useState<VerificationState>({ status: 'idle' });
 
-  // Animation refs for chaining
-  const titleRef = useSpringRef();
-  const fadeOutRef = useSpringRef();
+  // Simple sequential animation approach
+  const [animationPhase, setAnimationPhase] = useState<'fadeIn' | 'hold' | 'fadeOut' | 'done'>('fadeIn');
 
-  // Title fade-in animation
+  // Single spring that handles all phases
   const titleSpring = useSpring({
-    ref: titleRef,
     from: { opacity: 0, scale: 0.5 },
-    to: { opacity: 1, scale: 1 },
-    config: { tension: 240, friction: 30 },
-  });
-
-  // Title fade-out animation
-  const fadeOutSpring = useSpring({
-    ref: fadeOutRef,
-    from: { opacity: 1 },
-    to: { opacity: 0 },
+    to: {
+      opacity: animationPhase === 'fadeOut' || animationPhase === 'done' ? 0 : 1,
+      scale: animationPhase === 'fadeOut' || animationPhase === 'done' ? 0.8 : 1,
+    },
     config: { tension: 240, friction: 30 },
     onRest: () => {
-      // Show dialog after fade out completes
-      setShowDialog(true);
+      console.log('Spring onRest - current phase:', animationPhase);
+      if (animationPhase === 'fadeIn') {
+        console.log('Transitioning from fadeIn to hold');
+        setAnimationPhase('hold');
+      } else if (animationPhase === 'fadeOut') {
+        console.log('Transitioning from fadeOut to done');
+        setAnimationPhase('done');
+        setShowDialog(true);
+      }
     },
   });
 
-  // Chain the animations: fade in, wait, then fade out
-  useChain([titleRef, fadeOutRef], [0, 2.5]);
+  // Handle phase transitions
+  useEffect(() => {
+    if (animationPhase === 'hold') {
+      // Wait 1.5 seconds then fade out
+      const timer = setTimeout(() => {
+        setAnimationPhase('fadeOut');
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [animationPhase]);
+
+  useEffect(() => {
+    console.log('=== IntroSequence State ===');
+    console.log('  showDialog:', showDialog);
+    console.log('  phase:', animationPhase);
+    console.log('  verification:', verification.status);
+    console.log('  dialog should be visible:', showDialog && verification.status === 'idle');
+  }, [showDialog, animationPhase, verification]);
 
   // Verification message animation
   const verificationSpring = useSpring({
@@ -53,17 +69,34 @@ export function IntroSequence({ onComplete }: IntroSequenceProps) {
     setVerification({ status: 'verifying', message: 'Reaching beyond the veil...' });
 
     try {
-      const response = await fetch('/api/verify-spirit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name }),
-      });
+      // In development, if API is not available, allow all names
+      const isDevelopment = import.meta.env.DEV;
 
-      if (!response.ok) {
-        throw new Error('Verification failed');
+      let result;
+      try {
+        const response = await fetch('/api/verify-spirit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Verification failed');
+        }
+
+        result = await response.json();
+      } catch (fetchError) {
+        // If in development and API fails, bypass verification
+        if (isDevelopment) {
+          console.warn('API not available in dev mode, bypassing verification');
+          result = {
+            isDeceased: true,
+            message: `Channeling ${name} (dev mode - verification bypassed)`,
+          };
+        } else {
+          throw fetchError;
+        }
       }
-
-      const result = await response.json();
 
       if (result.isDeceased) {
         setVerification({
@@ -101,14 +134,25 @@ export function IntroSequence({ onComplete }: IntroSequenceProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black">
+      {/* Debug: Skip button */}
+      <button
+        onClick={() => {
+          setAnimationPhase('done');
+          setShowDialog(true);
+        }}
+        className="absolute right-4 top-4 z-[100] rounded bg-red-500 px-4 py-2 text-white opacity-50 hover:opacity-100"
+      >
+        Skip Intro (Debug)
+      </button>
+
       {/* Background atmosphere */}
       <div className="absolute inset-0 bg-gradient-radial from-ouija-dark/20 to-black" />
 
       {/* Animated title screen */}
-      {!showDialog && (
+      {animationPhase !== 'done' && (
         <animated.div
           style={{
-            opacity: fadeOutSpring.opacity,
+            opacity: titleSpring.opacity,
             transform: titleSpring.scale.to(s => `scale(${s})`),
           }}
           className="relative z-10"

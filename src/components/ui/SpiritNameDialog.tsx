@@ -34,11 +34,13 @@ export function SpiritNameDialog({ onSubmit, isVisible }: SpiritNameDialogProps)
       // Auto-focus input when dialog appears
       inputRef.current.focus();
     }
+    console.log('SpiritNameDialog - isVisible:', isVisible);
   }, [isVisible]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (name.trim().length > 0) {
+      console.log('Submitting name:', name.trim());
       onSubmit(name.trim());
     }
   };
@@ -50,7 +52,8 @@ export function SpiritNameDialog({ onSubmit, isVisible }: SpiritNameDialogProps)
     }
   };
 
-  if (!isVisible) return null;
+  // Always render, but control visibility with opacity and spring animation
+  if (!isVisible) return null; // Actually let's keep it simple and return null
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
@@ -145,11 +148,11 @@ export function SpiritNameDialog({ onSubmit, isVisible }: SpiritNameDialogProps)
                 onChange={(e) => setName(e.target.value)}
                 onKeyDown={handleKeyDown}
                 maxLength={30}
-                className="blinking-caret w-full border-b-2 border-ouija-gold/50 bg-transparent px-4 py-4 text-center text-3xl text-ouija-gold outline-none transition-all duration-300 focus:border-ouija-gold"
+                className="w-full border-b-2 border-ouija-gold/50 bg-transparent px-4 py-4 text-center text-3xl text-ouija-gold outline-none transition-all duration-300 focus:border-ouija-gold"
                 style={{
                   fontFamily: 'Kingthings Trypewriter 2, monospace',
                   textShadow: '0 0 10px rgba(211, 84, 0, 0.6)',
-                  caretColor: 'transparent', // Hide default caret, use CSS animation
+                  caretColor: '#d35400', // Show normal cursor in gold color
                 }}
                 placeholder=""
                 autoComplete="off"
