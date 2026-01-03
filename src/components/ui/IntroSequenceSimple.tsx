@@ -11,7 +11,7 @@ interface VerificationState {
 }
 
 export function IntroSequenceSimple({ onComplete }: IntroSequenceProps) {
-  const [showDialog, setShowDialog] = useState(true); // Start with dialog visible for testing
+  const [showDialog] = useState(true); // Start with dialog visible for testing
   const [verification, setVerification] = useState<VerificationState>({ status: 'idle' });
 
   const handleNameSubmit = async (name: string) => {

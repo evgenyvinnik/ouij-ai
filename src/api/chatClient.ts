@@ -88,7 +88,6 @@ export async function sendChatMessage(
       console.warn('Chat API not available in dev mode, using mock response');
 
       // Simulate a mock spirit response
-      const spiritName = request.spiritName || 'spirit';
       const mockMessages = [
         'YES',
         'HELLO',

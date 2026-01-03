@@ -120,6 +120,7 @@ export const useOuijaStore = create<OuijaState>((set) => ({
         position: { x: 50, y: 50 },
         offset: { x: 0, y: 0 },
         isDragging: false,
+        rotation: 0,
       },
       animation: {
         isAnimating: false,
