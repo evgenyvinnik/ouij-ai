@@ -123,18 +123,18 @@ OuijaState {
     offset: { x: number, y: number }    // drag offset
     isDragging: boolean
   }
-  
+
   animation: {
     isAnimating: boolean
     letterQueue: string[]               // letters to spell
     revealedLetters: string[]           // already shown
     currentLetterIndex: number
   }
-  
+
   turn: 'user' | 'spirit' | 'animating'
   userMessage: string
   conversationHistory: Message[]
-  
+
   // Actions...
 }
 ```
@@ -221,14 +221,14 @@ data: {"error":"API key not configured"}
 function animate() {
   const now = Date.now()
   const elapsed = now - startTime
-  
+
   if (phase === 'moving') {
     const progress = Math.min(elapsed / MOVE_DURATION, 1)
     const eased = easeOutCubic(progress)
     const x = lerp(startX, targetX, eased)
     const y = lerp(startY, targetY, eased)
     movePlanchette({ x, y })
-    
+
     if (progress >= 1) {
       phase = 'paused'
       pauseStartTime = now
@@ -239,7 +239,7 @@ function animate() {
       return // Exit, will restart for next letter
     }
   }
-  
+
   requestAnimationFrame(animate)
 }
 ```
@@ -265,7 +265,7 @@ const yPercent = 50 + (-58.17 / 300) * 100  // ~30%
 
 ```json
 {
-  "buildCommand": "npm run build",
+  "buildCommand": "bun run build",
   "outputDirectory": "dist",
   "framework": "vite",
   "functions": {
