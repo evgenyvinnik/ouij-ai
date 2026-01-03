@@ -23,9 +23,11 @@ export function OuijaBoard() {
 
   return (
     <div
-      className="ouija-board relative mx-auto overflow-hidden"
+      className="ouija-board relative mx-auto"
       style={{
-        width: '50%',
+        width: '80vw',
+        maxWidth: '1200px',
+        aspectRatio: '1920 / 1282',
         position: 'absolute',
         left: '50%',
         top: '50%',
