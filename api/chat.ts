@@ -133,7 +133,19 @@ export default async function handler(req: Request) {
                 const parsedInput = JSON.parse(toolInput);
                 if (parsedInput.message) {
                   const cleanedMessage = validateMessage(parsedInput.message);
-                  const letters = cleanedMessage.split('');
+
+                  // Special handling for YES, NO, GOODBYE - treat as single tokens
+                  const upperMessage = cleanedMessage.toUpperCase();
+                  let letters: string[];
+
+                  if (upperMessage === 'YES' || upperMessage === 'NO' || upperMessage === 'GOODBYE') {
+                    // Send as a single token to move planchette to special position
+                    letters = [upperMessage];
+                  } else {
+                    // Normal letter-by-letter spelling
+                    letters = cleanedMessage.split('');
+                  }
+
                   controller.enqueue(
                     encoder.encode(formatSSE('letters', { letters }))
                   );

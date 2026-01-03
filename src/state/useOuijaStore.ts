@@ -7,6 +7,7 @@ export const useOuijaStore = create<OuijaState>((set) => ({
     position: { x: 50, y: 50 }, // Start at center
     offset: { x: 0, y: 0 },
     isDragging: false,
+    rotation: 0, // Default rotation (pointing down)
   },
 
   // Animation state
@@ -25,9 +26,13 @@ export const useOuijaStore = create<OuijaState>((set) => ({
   hasCompletedIntro: false,
 
   // Actions
-  movePlanchette: (position: Position) =>
+  movePlanchette: (position: Position, rotation?: number) =>
     set((state) => ({
-      planchette: { ...state.planchette, position },
+      planchette: {
+        ...state.planchette,
+        position,
+        ...(rotation !== undefined && { rotation }),
+      },
     })),
 
   setOffset: (offset: Position) =>
@@ -47,6 +52,7 @@ export const useOuijaStore = create<OuijaState>((set) => ({
         letterQueue: letters,
         isAnimating: true,
         currentLetterIndex: 0,
+        revealedLetters: [], // Clear previous answer when starting new one
       },
       turn: 'animating',
     })),

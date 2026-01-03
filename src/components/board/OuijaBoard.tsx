@@ -1,9 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { BoardBackground } from './BoardBackground';
 import { Planchette } from './Planchette';
-import { MessageDisplay } from './MessageDisplay';
-import { CalibrationOverlay } from './CalibrationOverlay';
-import { InteractiveCalibration } from './InteractiveCalibration';
 import { usePlanchetteAnimation } from '../../hooks/usePlanchetteAnimation';
 import { useOuijaStore } from '../../state/useOuijaStore';
 import { useAIChat } from '../../hooks/useAIChat';
@@ -11,28 +8,8 @@ import { useAIChat } from '../../hooks/useAIChat';
 export function OuijaBoard() {
   const { turn, userMessage, conversationHistory, spiritName } = useOuijaStore();
   const { mutate: sendMessage } = useAIChat();
-  const [showCalibration, setShowCalibration] = useState(false);
-  const [showInteractive, setShowInteractive] = useState(false);
-  const [hidePlanchette, setHidePlanchette] = useState(false);
 
   usePlanchetteAnimation();
-
-  // Toggle calibration overlay with F1 key (won't interfere with chat)
-  useEffect(() => {
-    const handleKeyPress = (e: KeyboardEvent) => {
-      if (e.key === 'F1') {
-        e.preventDefault(); // Prevent browser help menu
-        setShowCalibration(prev => {
-          const newState = !prev;
-          console.log('Calibration mode:', newState ? 'ON' : 'OFF');
-          return newState;
-        });
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyPress);
-    return () => window.removeEventListener('keydown', handleKeyPress);
-  }, []);
 
   // Trigger AI chat when it's the spirit's turn
   useEffect(() => {
@@ -58,39 +35,45 @@ export function OuijaBoard() {
         transform: 'translate(-50%, -50%)',
       }}
     >
-      {/* Calibration Toggle Button */}
-      <button
-        onClick={() => setShowCalibration(prev => !prev)}
-        className="absolute -top-12 right-40 z-50 rounded-lg bg-red-600 px-4 py-2 text-sm font-bold text-white shadow-lg hover:bg-red-700"
-      >
-        {showCalibration ? '✓ View Mode' : 'View Mode'}
-      </button>
-
-      {/* Interactive Calibration Toggle */}
-      <button
-        onClick={() => setShowInteractive(prev => !prev)}
-        className="absolute -top-12 right-0 z-50 rounded-lg bg-green-600 px-4 py-2 text-sm font-bold text-white shadow-lg hover:bg-green-700"
-      >
-        {showInteractive ? '✓ Edit Mode' : 'Edit Mode'}
-      </button>
-
+      {/* Mobile-specific positioning */}
+      <style>{`
+        @media (max-width: 768px) {
+          .ouija-board {
+            top: 32% !important;
+            width: 95vw !important;
+          }
+        }
+        @media (max-height: 700px) {
+          .ouija-board {
+            top: 25% !important;
+          }
+        }
+        @media (min-width: 769px) and (max-width: 1199px) {
+          .ouija-board {
+            top: 42% !important;
+            width: 70vw !important;
+          }
+        }
+        @media (min-width: 1200px) {
+          .ouija-board {
+            width: 60vw !important;
+            max-width: 900px !important;
+            top: 40% !important;
+          }
+        }
+        @media (min-width: 1600px) {
+          .ouija-board {
+            width: 50vw !important;
+            max-width: 800px !important;
+            top: 38% !important;
+          }
+        }
+      `}</style>
       {/* Background */}
       <BoardBackground />
 
-      {/* Planchette - can be hidden during calibration */}
-      {!hidePlanchette && <Planchette />}
-
-      {/* Calibration Overlay */}
-      <CalibrationOverlay visible={showCalibration} />
-
-      {/* Interactive Calibration */}
-      <InteractiveCalibration
-        visible={showInteractive}
-        onHidePlanchette={setHidePlanchette}
-      />
-
-      {/* Message Display */}
-      <MessageDisplay />
+      {/* Planchette */}
+      <Planchette />
 
       {/* Hover area to catch mouse events on rounded corners */}
       <div

@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { OuijaBoard } from './components/board/OuijaBoard';
 import { ChatPanel } from './components/chat/ChatPanel';
-import { VoiceInput } from './components/ui/VoiceInput';
+import { MessageDisplay } from './components/board/MessageDisplay';
 import { IntroSequence } from './components/ui/IntroSequence';
 import { useOuijaSession } from './hooks/useOuijaSession';
 import { useOuijaStore } from './state/useOuijaStore';
@@ -44,7 +44,7 @@ function AppContent() {
     >
       {/* Header - matching original style */}
       <header
-        className="absolute left-1/2 top-8 z-30 -translate-x-1/2 text-center"
+        className="header-title absolute left-1/2 top-8 z-30 -translate-x-1/2 text-center"
       >
         <h1
           className="mb-2 text-glow"
@@ -57,6 +57,7 @@ function AppContent() {
           OUIJ-AI
         </h1>
         <p
+          className="spirit-subtitle"
           style={{
             fontFamily: 'Kingthings Trypewriter 2, monospace',
             fontSize: '2vw',
@@ -67,33 +68,96 @@ function AppContent() {
           Communing with {spiritName}
         </p>
       </header>
+      <style>{`
+        @media (max-width: 768px) {
+          .header-title h1 {
+            font-size: 10vw !important;
+          }
+          .spirit-subtitle {
+            font-size: 4vw !important;
+          }
+        }
+        @media (min-width: 1200px) {
+          .header-title h1 {
+            font-size: 4vw !important;
+          }
+          .spirit-subtitle {
+            font-size: 1.5vw !important;
+          }
+        }
+        @media (min-width: 1600px) {
+          .header-title h1 {
+            font-size: 3.5vw !important;
+          }
+          .spirit-subtitle {
+            font-size: 1.2vw !important;
+          }
+        }
+      `}</style>
 
       {/* Main Board - Centered */}
       <OuijaBoard />
 
-      {/* Voice Input - Right side of board */}
-      <div className="absolute right-8 top-1/2 z-20 -translate-y-1/2">
-        <VoiceInput />
+      {/* Spirit Message Display - Below board */}
+      <div className="spirit-message-container absolute left-1/2 top-1/2 z-25 -translate-x-1/2 -translate-y-1/2" style={{
+        width: '80vw',
+        maxWidth: '1200px',
+        aspectRatio: '1920 / 1282',
+        pointerEvents: 'none',
+      }}>
+        <MessageDisplay />
       </div>
+      <style>{`
+        @media (max-width: 768px) {
+          .spirit-message-container {
+            top: 32% !important;
+            width: 95vw !important;
+          }
+        }
+        @media (max-height: 700px) {
+          .spirit-message-container {
+            top: 25% !important;
+          }
+        }
+        @media (min-width: 769px) and (max-width: 1199px) {
+          .spirit-message-container {
+            top: 42% !important;
+            width: 70vw !important;
+          }
+        }
+        @media (min-width: 1200px) {
+          .spirit-message-container {
+            width: 60vw !important;
+            max-width: 900px !important;
+            top: 40% !important;
+          }
+        }
+        @media (min-width: 1600px) {
+          .spirit-message-container {
+            width: 50vw !important;
+            max-width: 800px !important;
+            top: 38% !important;
+          }
+        }
+      `}</style>
 
       {/* Chat Panel - Below board */}
-      <div className="absolute bottom-8 left-1/2 z-30 w-full max-w-4xl -translate-x-1/2 px-4">
+      <div className="chat-panel-container absolute bottom-8 left-1/2 z-30 w-full max-w-4xl -translate-x-1/2 px-4">
         <ChatPanel />
       </div>
-
-      {/* Instructions */}
-      <div className="absolute bottom-2 left-1/2 z-30 -translate-x-1/2 text-center">
-        <p
-          style={{
-            fontFamily: 'Kingthings Trypewriter 2, monospace',
-            fontSize: '1.2vw',
-            color: '#d35400',
-            opacity: 0.5,
-          }}
-        >
-          Type your question or click the microphone to speak
-        </p>
-      </div>
+      <style>{`
+        @media (min-width: 1200px) {
+          .chat-panel-container {
+            max-width: 800px !important;
+            bottom: 2rem !important;
+          }
+        }
+        @media (min-width: 768px) and (max-width: 1199px) {
+          .chat-panel-container {
+            bottom: 1rem !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }

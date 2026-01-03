@@ -19,6 +19,7 @@ export interface OuijaState {
     position: Position;
     offset: Position;
     isDragging: boolean;
+    rotation: number; // Rotation angle in degrees
   };
 
   // Animation
@@ -37,7 +38,7 @@ export interface OuijaState {
   hasCompletedIntro: boolean;
 
   // Actions
-  movePlanchette: (position: Position) => void;
+  movePlanchette: (position: Position, rotation?: number) => void;
   setOffset: (offset: Position) => void;
   setDragging: (isDragging: boolean) => void;
   queueLetters: (letters: string[]) => void;

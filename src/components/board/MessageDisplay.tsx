@@ -8,17 +8,17 @@ export function MessageDisplay() {
   const displayMessage = revealedMessage ? zalgoifyLight(revealedMessage) : '';
 
   return (
-    <div className="pointer-events-none absolute left-0 right-0 z-10">
-      {/* Spirit's message display - above board */}
+    <>
+      {/* Spirit's message display - bottom edge of board */}
       {(turn === 'animating' || displayMessage) && (
         <div
           className="absolute text-center"
           style={{
-            top: '-13%',
-            left: '-50%',
-            width: '100vw',
-            letterSpacing: '3vw',
-            textIndent: '3vw',
+            bottom: '2%',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: '100%',
+            letterSpacing: '0.3em',
           }}
         >
           <div
@@ -61,6 +61,6 @@ export function MessageDisplay() {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }
