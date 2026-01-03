@@ -6,6 +6,7 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+bun-debug.log*
 
 # Dependencies
 node_modules
@@ -45,3 +46,4 @@ coverage
 # Misc
 .cache
 .turbo
+.env*.local
