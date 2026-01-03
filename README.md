@@ -18,7 +18,7 @@ An AI-powered Ouija board web experience combining mystical aesthetics with cutt
 
 ### Prerequisites
 
-- Node.js 18+ or Bun
+- [Bun](https://bun.sh/) (recommended) or Node.js 18+
 - Anthropic API key ([get one here](https://console.anthropic.com/))
 
 ### Installation
@@ -29,8 +29,6 @@ git clone https://github.com/evgenyvinnik/ouij-ai.git
 cd ouij-ai
 
 # Install dependencies
-npm install
-# or
 bun install
 
 # Create environment file
@@ -42,8 +40,6 @@ cp .env.example .env
 
 ```bash
 # Start dev server
-npm run dev
-# or
 bun run dev
 
 # Open http://localhost:3000
@@ -53,12 +49,10 @@ bun run dev
 
 ```bash
 # Build for production
-npm run build
-# or
 bun run build
 
 # Preview production build
-npm run preview
+bun run preview
 ```
 
 ## 🎮 How to Use
@@ -74,7 +68,7 @@ npm run preview
 - **Build Tool**: Vite 6
 - **Language**: TypeScript (strict mode)
 - **Styling**: Tailwind CSS v4
-- **State Management**: 
+- **State Management**:
   - Zustand for client state
   - TanStack Query for server state
 - **AI Backend**: Anthropic Claude API via Vercel Edge Functions
@@ -134,7 +128,7 @@ Coordinate system ported from [baobabKoodaa/ouija](https://github.com/baobabKood
 
 ```bash
 # Install Vercel CLI
-npm i -g vercel
+bun add -g vercel
 
 # Deploy
 vercel

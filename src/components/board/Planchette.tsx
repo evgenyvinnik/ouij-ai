@@ -1,6 +1,5 @@
 import { usePlanchette } from '../../hooks/usePlanchette';
 import { MagnifyingGlass } from './MagnifyingGlass';
-import planchette2 from '/planchette2.png';
 
 export function Planchette() {
   const { position, isDragging, handleMouseDown } = usePlanchette();
@@ -21,7 +20,7 @@ export function Planchette() {
       <div className="relative">
         {/* Actual planchette image from original */}
         <img
-          src={planchette2}
+          src="/planchette2.png"
           alt="Planchette"
           className={`w-full transition-all duration-300 ${
             isDragging ? 'scale-110' : ''

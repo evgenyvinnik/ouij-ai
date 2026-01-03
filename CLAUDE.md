@@ -76,11 +76,11 @@ ouij-ai/
 
 ### State Management
 
-- **Zustand for client state**: 
+- **Zustand for client state**:
   - Single store in `useOuijaStore.ts`
   - Actions defined in store
   - Selectors used for granular subscriptions
-  
+
 - **TanStack Query for server state**:
   - Used in `useAIChat` hook
   - Handles mutations for AI chat
@@ -105,7 +105,7 @@ ouij-ai/
 ### 1. SSE Streaming for AI Responses
 
 **Why**: Real-time character-by-character streaming creates engaging UX
-**Implementation**: 
+**Implementation**:
 - Edge function returns SSE stream
 - Client parses events: `token`, `letters`, `done`, `error`
 - Letters queued in Zustand for animation
@@ -164,10 +164,10 @@ ouij-ai/
 
 ## Testing Approach
 
-- **Dev testing**: Use `npm run dev` for rapid iteration
-- **Type checking**: `npm run type-check` before commit
-- **Linting**: `npm run lint` to catch issues
-- **Build verification**: `npm run build` to ensure production build works
+- **Dev testing**: Use `bun run dev` for rapid iteration
+- **Type checking**: `bun run type-check` before commit
+- **Linting**: `bun run lint` to catch issues
+- **Build verification**: `bun run build` to ensure production build works
 
 ## Deployment
 
@@ -189,7 +189,7 @@ ouij-ai/
 - Look for SSE parsing errors in console
 
 ### TypeScript Errors
-- Run `npm run type-check` to see all errors
+- Run `bun run type-check` to see all errors
 - Check for missing type definitions
 - Ensure imports are correct
 

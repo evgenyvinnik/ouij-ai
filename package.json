@@ -5,7 +5,7 @@
   "private": true,
   "description": "AI-Powered Ouija Board Web Experience",
   "scripts": {
-    "dev": "vite",
+    "dev:frontend": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "lint": "eslint .",
