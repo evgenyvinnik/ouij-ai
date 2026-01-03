@@ -48,24 +48,29 @@ export function OuijaBoard() {
             top: 25% !important;
           }
         }
-        @media (min-width: 769px) and (max-width: 1199px) {
+        @media (min-width: 769px) and (max-width: 1023px) {
           .ouija-board {
-            top: 42% !important;
-            width: 70vw !important;
+            top: 50% !important;
+            width: 75vw !important;
+            left: 50% !important;
           }
         }
-        @media (min-width: 1200px) {
+        @media (min-width: 1024px) {
           .ouija-board {
             width: 60vw !important;
-            max-width: 900px !important;
-            top: 40% !important;
+            max-width: 850px !important;
+            top: 58% !important;
+            left: calc(50% - 150px) !important;
+            transform: translate(-50%, -50%) !important;
           }
         }
         @media (min-width: 1600px) {
           .ouija-board {
-            width: 50vw !important;
-            max-width: 800px !important;
-            top: 38% !important;
+            width: 55vw !important;
+            max-width: 900px !important;
+            top: 58% !important;
+            left: calc(50% - 150px) !important;
+            transform: translate(-50%, -50%) !important;
           }
         }
       `}</style>

@@ -1,6 +1,6 @@
 {
   "buildCommand": "bun run build",
-  "devCommand": "vite",
+  "devCommand": "vite --port 3000",
   "outputDirectory": "dist",
   "framework": "vite",
   "headers": [

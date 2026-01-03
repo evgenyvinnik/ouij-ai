@@ -143,10 +143,10 @@ export function SpiritNameDialog({ onSubmit, isVisible }: SpiritNameDialogProps)
                 ref={inputRef}
                 type="text"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => setName(e.target.value.toUpperCase())}
                 onKeyDown={handleKeyDown}
                 maxLength={30}
-                className="w-full border-b-2 border-ouija-gold/50 bg-transparent px-4 py-4 text-center text-3xl text-ouija-gold outline-none transition-all duration-300 focus:border-ouija-gold"
+                className="w-full border-b-2 border-ouija-gold/50 bg-transparent px-4 py-4 text-center text-3xl text-ouija-gold outline-none transition-all duration-300 focus:border-ouija-gold uppercase"
                 style={{
                   fontFamily: 'Kingthings Trypewriter 2, monospace',
                   textShadow: '0 0 10px rgba(211, 84, 0, 0.6)',
@@ -174,7 +174,7 @@ export function SpiritNameDialog({ onSubmit, isVisible }: SpiritNameDialogProps)
 
             {/* Instructions */}
             <div
-              className="text-center text-sm opacity-50"
+              className="text-center text-base opacity-50"
               style={{
                 fontFamily: 'Kingthings Trypewriter 2, monospace',
                 color: '#d35400',

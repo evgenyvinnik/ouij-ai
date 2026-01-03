@@ -77,7 +77,10 @@ function AppContent() {
             font-size: 4vw !important;
           }
         }
-        @media (min-width: 1200px) {
+        @media (min-width: 1024px) {
+          .header-title {
+            left: calc(50% - 150px) !important;
+          }
           .header-title h1 {
             font-size: 4vw !important;
           }
@@ -86,6 +89,9 @@ function AppContent() {
           }
         }
         @media (min-width: 1600px) {
+          .header-title {
+            left: calc(50% - 150px) !important;
+          }
           .header-title h1 {
             font-size: 3.5vw !important;
           }
@@ -119,40 +125,63 @@ function AppContent() {
             top: 25% !important;
           }
         }
-        @media (min-width: 769px) and (max-width: 1199px) {
+        @media (min-width: 769px) and (max-width: 1023px) {
           .spirit-message-container {
-            top: 42% !important;
-            width: 70vw !important;
+            top: 50% !important;
+            width: 75vw !important;
+            left: 50% !important;
           }
         }
-        @media (min-width: 1200px) {
+        @media (min-width: 1024px) {
           .spirit-message-container {
             width: 60vw !important;
-            max-width: 900px !important;
-            top: 40% !important;
+            max-width: 850px !important;
+            top: 58% !important;
+            left: calc(50% - 150px) !important;
+            transform: translateX(-50%) !important;
           }
         }
         @media (min-width: 1600px) {
           .spirit-message-container {
-            width: 50vw !important;
-            max-width: 800px !important;
-            top: 38% !important;
+            width: 55vw !important;
+            max-width: 900px !important;
+            top: 58% !important;
+            left: calc(50% - 150px) !important;
+            transform: translateX(-50%) !important;
           }
         }
       `}</style>
 
-      {/* Chat Panel - Below board */}
-      <div className="chat-panel-container absolute bottom-8 left-1/2 z-30 w-full max-w-4xl -translate-x-1/2 px-4">
+      {/* Chat Panel - Right side on desktop, bottom on mobile */}
+      <div
+        className="chat-panel-container absolute z-30"
+        style={{
+          bottom: '2rem',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '100%',
+          maxWidth: '1024px',
+          padding: '0 1rem',
+        }}
+      >
         <ChatPanel />
       </div>
       <style>{`
-        @media (min-width: 1200px) {
+        @media (min-width: 1024px) {
           .chat-panel-container {
-            max-width: 800px !important;
-            bottom: 2rem !important;
+            right: 0 !important;
+            left: auto !important;
+            top: 50% !important;
+            bottom: auto !important;
+            transform: translateY(-50%) !important;
+            max-width: 350px !important;
+            width: 350px !important;
+            height: 100vh !important;
+            padding: 0 !important;
+            margin: 0 !important;
           }
         }
-        @media (min-width: 768px) and (max-width: 1199px) {
+        @media (min-width: 768px) and (max-width: 1023px) {
           .chat-panel-container {
             bottom: 1rem !important;
           }

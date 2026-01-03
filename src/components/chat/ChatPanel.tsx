@@ -97,9 +97,16 @@ export function ChatPanel() {
       }}
     >
       <style>{`
+        @media (min-width: 1024px) {
+          .chat-panel {
+            max-height: 100% !important;
+            height: 100% !important;
+            border-radius: 0 !important;
+          }
+        }
         @media (min-width: 1200px) {
           .chat-panel {
-            background: linear-gradient(135deg, rgba(61, 40, 23, 0.7), rgba(10, 10, 10, 0.75)) !important;
+            background: linear-gradient(135deg, rgba(61, 40, 23, 0.85), rgba(10, 10, 10, 0.9)) !important;
             backdrop-filter: blur(20px) !important;
           }
         }
@@ -248,30 +255,34 @@ export function ChatPanel() {
 
         {/* Thinking indicator */}
         {(turn === 'spirit' || turn === 'animating') && (
-          <div className="flex justify-start">
+          <div className="flex justify-center">
             <div
-              className="rounded-2xl rounded-bl-none px-4 py-3 shadow-lg"
+              className="rounded-full px-6 py-3 shadow-xl"
               style={{
-                background: 'linear-gradient(135deg, rgba(251, 237, 200, 0.15), rgba(251, 237, 200, 0.1))',
-                border: '1px solid rgba(251, 237, 200, 0.2)',
-                backdropFilter: 'blur(10px)',
+                background: 'linear-gradient(135deg, rgba(211, 84, 0, 0.3), rgba(211, 84, 0, 0.2))',
+                border: '2px solid rgba(211, 84, 0, 0.5)',
+                backdropFilter: 'blur(15px)',
+                boxShadow: '0 0 20px rgba(211, 84, 0, 0.3), inset 0 0 20px rgba(211, 84, 0, 0.1)',
               }}
             >
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-3">
+                <div className="flex space-x-1.5">
+                  <div className="h-2.5 w-2.5 animate-pulse rounded-full bg-ouija-gold shadow-lg" style={{ animationDelay: '0ms', boxShadow: '0 0 10px #d35400' }}></div>
+                  <div className="h-2.5 w-2.5 animate-pulse rounded-full bg-ouija-gold shadow-lg" style={{ animationDelay: '150ms', boxShadow: '0 0 10px #d35400' }}></div>
+                  <div className="h-2.5 w-2.5 animate-pulse rounded-full bg-ouija-gold shadow-lg" style={{ animationDelay: '300ms', boxShadow: '0 0 10px #d35400' }}></div>
+                </div>
                 <span
+                  className="italic"
                   style={{
-                    fontFamily: 'Kingthings Trypewriter 2, monospace',
-                    fontSize: '0.95rem',
-                    color: '#fbedc8',
+                    fontFamily: 'Carnivalee Freakshow, cursive',
+                    fontSize: '1.1rem',
+                    color: '#d35400',
+                    textShadow: '0 0 10px rgba(211, 84, 0, 0.5)',
+                    letterSpacing: '0.05em',
                   }}
                 >
-                  {turn === 'spirit' ? `${spiritName || 'The spirit'} is contemplating` : `${spiritName || 'The spirit'} is speaking`}
+                  {turn === 'spirit' ? 'Summoning...' : 'Speaking...'}
                 </span>
-                <div className="flex space-x-1">
-                  <div className="h-2 w-2 animate-pulse rounded-full bg-ouija-gold" style={{ animationDelay: '0ms' }}></div>
-                  <div className="h-2 w-2 animate-pulse rounded-full bg-ouija-gold" style={{ animationDelay: '150ms' }}></div>
-                  <div className="h-2 w-2 animate-pulse rounded-full bg-ouija-gold" style={{ animationDelay: '300ms' }}></div>
-                </div>
               </div>
             </div>
           </div>
