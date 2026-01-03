@@ -27,12 +27,9 @@ export function IntroSequence({ onComplete }: IntroSequenceProps) {
     },
     config: { tension: 240, friction: 30 },
     onRest: () => {
-      console.log('Spring onRest - current phase:', animationPhase);
       if (animationPhase === 'fadeIn') {
-        console.log('Transitioning from fadeIn to hold');
         setAnimationPhase('hold');
       } else if (animationPhase === 'fadeOut') {
-        console.log('Transitioning from fadeOut to done');
         setAnimationPhase('done');
         setShowDialog(true);
       }
@@ -49,14 +46,6 @@ export function IntroSequence({ onComplete }: IntroSequenceProps) {
       return () => clearTimeout(timer);
     }
   }, [animationPhase]);
-
-  useEffect(() => {
-    console.log('=== IntroSequence State ===');
-    console.log('  showDialog:', showDialog);
-    console.log('  phase:', animationPhase);
-    console.log('  verification:', verification.status);
-    console.log('  dialog should be visible:', showDialog && verification.status === 'idle');
-  }, [showDialog, animationPhase, verification]);
 
   // Verification message animation
   const verificationSpring = useSpring({
@@ -134,17 +123,6 @@ export function IntroSequence({ onComplete }: IntroSequenceProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black">
-      {/* Debug: Skip button */}
-      <button
-        onClick={() => {
-          setAnimationPhase('done');
-          setShowDialog(true);
-        }}
-        className="absolute right-4 top-4 z-[100] rounded bg-red-500 px-4 py-2 text-white opacity-50 hover:opacity-100"
-      >
-        Skip Intro (Debug)
-      </button>
-
       {/* Background atmosphere */}
       <div className="absolute inset-0 bg-gradient-radial from-ouija-dark/20 to-black" />
 

@@ -44,7 +44,7 @@ function AppContent() {
     >
       {/* Header - matching original style */}
       <header
-        className="absolute left-1/2 top-8 z-10 -translate-x-1/2 text-center"
+        className="absolute left-1/2 top-8 z-30 -translate-x-1/2 text-center"
       >
         <h1
           className="mb-2 text-glow"
@@ -77,12 +77,12 @@ function AppContent() {
       </div>
 
       {/* Chat Panel - Below board */}
-      <div className="absolute bottom-8 left-1/2 w-full max-w-4xl -translate-x-1/2 px-4">
+      <div className="absolute bottom-8 left-1/2 z-30 w-full max-w-4xl -translate-x-1/2 px-4">
         <ChatPanel />
       </div>
 
       {/* Instructions */}
-      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 text-center">
+      <div className="absolute bottom-2 left-1/2 z-30 -translate-x-1/2 text-center">
         <p
           style={{
             fontFamily: 'Kingthings Trypewriter 2, monospace',

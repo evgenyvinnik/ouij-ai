@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useOuijaStore } from '../state/useOuijaStore';
-import { getLetterCoord, coordToPercent } from '../utils/letterCoords';
+import { getLetterCoord, coordToPercent, shouldUseTipPointer } from '../utils/letterCoords';
 import { easeOutCubic, lerp } from '../utils/animations';
 
 /**
@@ -30,7 +30,8 @@ export function usePlanchetteAnimation() {
 
     // Get target coordinates for current letter
     const letterCoord = getLetterCoord(currentLetter);
-    const targetPercent = coordToPercent(letterCoord, boardWidth, boardHeight);
+    const useTip = shouldUseTipPointer(currentLetter);
+    const targetPercent = coordToPercent(letterCoord, boardWidth, boardHeight, useTip);
 
     // Store start position from current planchette location
     const currentPos = useOuijaStore.getState().planchette.position;
@@ -66,7 +67,7 @@ export function usePlanchetteAnimation() {
         }
       } else if (phase === 'paused') {
         const pauseElapsed = now - pauseStartTime;
-        
+
         if (pauseElapsed >= PAUSE_DURATION) {
           // Reveal letter and move to next
           revealNextLetter();

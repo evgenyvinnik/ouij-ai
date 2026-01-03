@@ -1,10 +1,8 @@
 import { useOuijaStore } from '../../state/useOuijaStore';
-import { useOuijaSession } from '../../hooks/useOuijaSession';
 import { zalgoifyLight } from '../../utils/zalgo';
 
 export function MessageDisplay() {
   const { animation, turn } = useOuijaStore();
-  const { inputBuffer, isUserTurn } = useOuijaSession();
 
   const revealedMessage = animation.revealedLetters.join('');
   const displayMessage = revealedMessage ? zalgoifyLight(revealedMessage) : '';
@@ -61,34 +59,6 @@ export function MessageDisplay() {
               {displayMessage}
             </div>
           </div>
-        </div>
-      )}
-
-      {/* User message - below board */}
-      {isUserTurn && (
-        <div
-          className="absolute flex justify-center"
-          style={{
-            left: '-50%',
-            bottom: '-13%',
-            width: '100vw',
-            height: '3vh',
-          }}
-        >
-          <pre
-            className="blinking-caret uppercase"
-            style={{
-              height: '3vh',
-              lineHeight: '3vh',
-              fontSize: '2vw',
-              letterSpacing: '0.8vw',
-              fontFamily: 'Kingthings Trypewriter 2, monospace',
-              color: '#fff',
-              transition: 'color 1.0s ease-out',
-            }}
-          >
-            {inputBuffer}
-          </pre>
         </div>
       )}
     </div>

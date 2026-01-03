@@ -34,13 +34,11 @@ export function SpiritNameDialog({ onSubmit, isVisible }: SpiritNameDialogProps)
       // Auto-focus input when dialog appears
       inputRef.current.focus();
     }
-    console.log('SpiritNameDialog - isVisible:', isVisible);
   }, [isVisible]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (name.trim().length > 0) {
-      console.log('Submitting name:', name.trim());
       onSubmit(name.trim());
     }
   };
