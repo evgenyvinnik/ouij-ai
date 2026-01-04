@@ -54,14 +54,7 @@ function AppContent() {
   }
 
   return (
-    <div
-      className="relative h-screen w-screen bg-black"
-      style={{
-        margin: 0,
-        padding: 0,
-        overflow: 'hidden',
-      }}
-    >
+    <div className="app-main-container">
       {/* Header */}
       <header className="header-title">
         <h1 className="text-glow">OUIJ-AI</h1>
@@ -77,40 +70,9 @@ function AppContent() {
       </div>
 
       {/* Chat Panel - Right side on desktop, bottom on mobile */}
-      <div
-        className="chat-panel-container absolute z-30"
-        style={{
-          bottom: '2rem',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: '100%',
-          maxWidth: '1024px',
-          padding: '0 1rem',
-        }}
-      >
+      <div className="chat-panel-container">
         <ChatPanel />
       </div>
-      <style>{`
-        @media (min-width: 1024px) {
-          .chat-panel-container {
-            right: 0 !important;
-            left: auto !important;
-            top: 50% !important;
-            bottom: auto !important;
-            transform: translateY(-50%) !important;
-            max-width: 350px !important;
-            width: 350px !important;
-            height: 100vh !important;
-            padding: 0 !important;
-            margin: 0 !important;
-          }
-        }
-        @media (min-width: 768px) and (max-width: 1023px) {
-          .chat-panel-container {
-            bottom: 1rem !important;
-          }
-        }
-      `}</style>
     </div>
   );
 }
