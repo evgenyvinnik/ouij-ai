@@ -20,7 +20,7 @@ export function Planchette() {
         className={`w-full ${isAnimating ? 'scale-110' : ''}`}
         style={{
           filter: isAnimating
-            ? 'drop-shadow(5px 5px 5px rgb(255, 198, 198))'
+            ? 'drop-shadow(5px 5px 5px rgb(255, 255, 255))'
             : 'drop-shadow(5px 5px 5px #222)',
           transform: `rotate(${planchette.rotation}deg)`,
           transition: isAnimating
