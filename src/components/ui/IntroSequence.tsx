@@ -182,7 +182,7 @@ export function IntroSequence({ onComplete }: IntroSequenceProps) {
                 fontFamily: 'Kingthings Trypewriter 2, monospace',
                 color: verification.status === 'rejected' ? '#ff4444' : '#d35400',
                 textShadow: `0 0 20px ${verification.status === 'rejected' ? 'rgba(255, 68, 68, 0.6)' : 'rgba(211, 84, 0, 0.6)'}`,
-                maxWidth: '600px',
+                maxWidth: verification.status === 'rejected' ? '500px' : '600px',
                 margin: '0 auto',
               }}
             >
