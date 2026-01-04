@@ -71,14 +71,27 @@ export const useOuijaStore = create<OuijaState>()(
             state.animation.letterQueue[state.animation.currentLetterIndex];
 
           if (nextIndex >= state.animation.letterQueue.length) {
-            // Animation complete
+            // Animation complete - add the full message to history
+            const fullMessage = [
+              ...state.animation.revealedLetters,
+              letter,
+            ].join('');
+
             return {
               animation: {
                 ...state.animation,
                 isAnimating: false,
                 revealedLetters: [...state.animation.revealedLetters, letter],
               },
+              conversationHistory: [
+                ...state.conversationHistory,
+                {
+                  role: 'assistant' as const,
+                  content: fullMessage,
+                },
+              ],
               turn: 'user',
+              lastActivityTimestamp: Date.now(),
             };
           }
 

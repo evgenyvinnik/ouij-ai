@@ -13,8 +13,7 @@ interface ChatMutationVariables {
  * Hook for AI chat with SSE streaming using TanStack Query
  */
 export function useAIChat() {
-  const { queueLetters, addToHistory, setTurn, clearAnimation, setError } =
-    useOuijaStore();
+  const { queueLetters, setTurn, clearAnimation, setError } = useOuijaStore();
 
   const mutation = useMutation({
     mutationFn: async ({
@@ -32,15 +31,11 @@ export function useAIChat() {
           },
           onLetters: (letters) => {
             // Queue letters for animation
+            // Message will be added to history when animation completes
             queueLetters(letters);
-            // Add assistant message to history
-            addToHistory({
-              role: 'assistant',
-              content: letters.join(''),
-            });
           },
           onDone: () => {
-            // Animation will handle turn change
+            // Animation will handle turn change and add message to history
           },
           onError: (error) => {
             console.error('Chat error:', error);
