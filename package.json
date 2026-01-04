@@ -14,7 +14,7 @@
     "type-check": "tsc -b --noEmit"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.32.1",
+    "@anthropic-ai/sdk": "^0.71.2",
     "@react-spring/web": "^10.0.3",
     "@tanstack/react-query": "^5.62.8",
     "@vercel/analytics": "^1.6.1",
