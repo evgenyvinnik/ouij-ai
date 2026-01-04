@@ -25,6 +25,7 @@ ouij-ai/
 │   └── tsconfig.json
 ├── src/
 │   ├── components/
+│   │   ├── AppContent.tsx        # Main app content wrapper
 │   │   ├── board/                # Board components
 │   │   │   ├── OuijaBoard.tsx
 │   │   │   ├── BoardBackground.tsx

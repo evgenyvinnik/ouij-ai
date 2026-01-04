@@ -7,12 +7,14 @@ An AI-powered Ouija board web experience combining mystical aesthetics with cutt
 ## ✨ Features
 
 - **AI-Powered Responses**: Powered by Anthropic's Claude Sonnet 4 for cryptic, mysterious responses
-- **Smooth Animations**: 60fps planchette animations using requestAnimationFrame
+- **Smooth Animations**: 60fps planchette animations using requestAnimationFrame with bezier curves
 - **Real-time Streaming**: Server-Sent Events (SSE) for live AI responses
-- **Interactive Board**: Drag the planchette or watch it move autonomously
+- **Spirit Name Verification**: AI verifies if the spirit you're contacting is a deceased individual
+- **Voice Input**: Speak your questions using the Web Speech API (Chrome, Safari, Edge)
+- **Text Input**: Type questions directly and press Enter to submit
+- **Session Persistence**: Automatically restores your séance for 5 minutes after page refresh
+- **Conversation History**: Track your full dialogue with the spirits
 - **Spooky Effects**: Zalgo text effects and atmospheric styling
-- **Conversation History**: Track your dialogue with the spirits
-- **Keyboard Input**: Type questions directly and press Enter to submit
 
 ## 🚀 Quick Start
 
@@ -57,10 +59,13 @@ bun run preview
 
 ## 🎮 How to Use
 
-1. **Type Your Question**: Use your keyboard to type a question
-2. **Press Enter**: Submit your question to the spirits
-3. **Watch the Magic**: The planchette will move to spell out the AI's cryptic response
-4. **Continue the Conversation**: Ask follow-up questions to dig deeper
+1. **Enter a Spirit Name**: When prompted, enter the name of the spirit you wish to contact
+2. **Ask Your Question**:
+   - Type your question using the keyboard and press Enter, OR
+   - Click the microphone button and speak your question (Chrome/Safari/Edge)
+3. **Watch the Magic**: The planchette will autonomously move to spell out the AI's cryptic response
+4. **Continue the Conversation**: Ask follow-up questions to dig deeper into the mysteries
+5. **Session Persistence**: Refresh the page within 5 minutes to continue your séance
 
 ## 🏗️ Tech Stack
 

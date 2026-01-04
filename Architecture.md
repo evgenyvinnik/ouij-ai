@@ -105,6 +105,7 @@ App
         ├── OuijaBoard
         │   ├── BoardBackground (SVG/visual)
         │   ├── Planchette (AI-controlled, no interaction)
+        │   ├── MagnifyingGlass
         │   └── MessageDisplay
         │       ├── User input buffer
         │       └── Spirit revealed message (zalgo)
@@ -196,10 +197,11 @@ data: {"error":"API key not configured"}
 **Model**: `claude-sonnet-4-20250514`
 
 **System Prompt**: Defines spirit personality
-- Cryptic and mysterious
-- Brief responses (under 20 chars)
+- Shows unique personality through word choice (not generically cryptic)
+- Brief responses (1-4 words reflecting character traits)
 - Must use `spell_message` tool
 - Never breaks character
+- Examples: Einstein uses "RELATIVE", Shakespeare uses "AYE", Mark Twain uses "HELL YES"
 
 **Tool Definition**:
 ```json
@@ -267,6 +269,10 @@ const yPercent = 50 + (-58.17 / 300) * 100  // ~30%
 ```
 
 ## Vercel Deployment
+
+### Production Domain
+
+**Live Site**: https://www.ouija.chat/
 
 ### Configuration (`vercel.json`)
 
@@ -409,13 +415,14 @@ const position = useOuijaStore(state => state.planchette.position)
 
 ### Possible Features
 
-1. **Voice Input**: ✅ IMPLEMENTED - Speech-to-text for questions
+1. **Voice Input**: ✅ IMPLEMENTED - Speech-to-text for questions (100-char limit)
 2. **Sound Effects**: Eerie sounds during animation
-3. **Multiple Spirits**: Different AI personalities
+3. **Multiple Spirits**: ✅ IMPLEMENTED - AI shows unique personality per spirit
 4. **Session Persistence**: ✅ IMPLEMENTED - Save conversation history with 5-minute timeout
 5. **Multiplayer**: Multiple users on same board
 6. **Custom Boards**: User-uploaded board images
 7. **Spirit Verification**: ✅ IMPLEMENTED - AI verifies if spirit name is deceased
+8. **Mobile Optimizations**: ✅ IMPLEMENTED - Dynamic viewport, compact layouts, optimized positioning
 
 ### Technical Debt
 
@@ -423,7 +430,7 @@ const position = useOuijaStore(state => state.planchette.position)
 - Implement proper error boundaries
 - Add analytics/monitoring
 - Optimize bundle size
-- Add progressive web app (PWA) support
+- ~~Add progressive web app (PWA) support~~ ✅ IMPLEMENTED - PWA manifest and icons
 
 ## Monitoring & Debugging
 
