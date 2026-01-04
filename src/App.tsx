@@ -140,7 +140,7 @@ function AppContent() {
             max-width: 850px !important;
             top: 58% !important;
             left: calc(50% - 150px) !important;
-            transform: translateX(-50%) !important;
+            transform: translate(-50%, -50%) !important;
           }
         }
         @media (min-width: 1600px) {
@@ -149,7 +149,7 @@ function AppContent() {
             max-width: 900px !important;
             top: 58% !important;
             left: calc(50% - 150px) !important;
-            transform: translateX(-50%) !important;
+            transform: translate(-50%, -50%) !important;
           }
         }
       `}</style>

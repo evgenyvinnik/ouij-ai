@@ -13,7 +13,7 @@ interface ChatMutationVariables {
  * Hook for AI chat with SSE streaming using TanStack Query
  */
 export function useAIChat() {
-  const { queueLetters, addToHistory, setTurn, clearAnimation } = useOuijaStore();
+  const { queueLetters, addToHistory, setTurn, clearAnimation, setError } = useOuijaStore();
 
   const mutation = useMutation({
     mutationFn: async ({ message, history, spiritName }: ChatMutationVariables) => {
@@ -39,6 +39,7 @@ export function useAIChat() {
           },
           onError: (error) => {
             console.error('Chat error:', error);
+            setError(error);
             setTurn('user');
             clearAnimation();
           },

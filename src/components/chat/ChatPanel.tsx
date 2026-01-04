@@ -4,7 +4,7 @@ import { useSpeechRecognition } from '../../hooks/useSpeechRecognition';
 import { Button } from '../ui/Button';
 
 export function ChatPanel() {
-  const { conversationHistory, resetSession, turn, userMessage, submitQuestion, addToHistory, spiritName } = useOuijaStore();
+  const { conversationHistory, resetSession, turn, userMessage, submitQuestion, addToHistory, spiritName, errorMessage, setError } = useOuijaStore();
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -358,6 +358,38 @@ export function ChatPanel() {
           >
             Listening... {interimTranscript && `"${interimTranscript}"`}
           </p>
+        )}
+
+        {/* Chat/API Error Messages */}
+        {errorMessage && (
+          <div className="mt-3 rounded-lg border border-red-500/40 bg-red-900/20 p-3 backdrop-blur-sm">
+            <div className="flex items-start justify-between gap-2">
+              <p
+                className="flex-1 text-sm leading-relaxed text-red-400"
+                style={{
+                  fontFamily: 'Kingthings Trypewriter 2, monospace',
+                  maxWidth: '100%',
+                  wordBreak: 'break-word',
+                }}
+              >
+                {errorMessage}
+              </p>
+              <button
+                onClick={() => setError(null)}
+                className="flex-shrink-0 text-red-400 hover:text-red-300 transition-colors"
+                title="Dismiss error"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  className="h-4 w-4"
+                >
+                  <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+                </svg>
+              </button>
+            </div>
+          </div>
         )}
       </div>
     </div>

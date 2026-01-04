@@ -24,6 +24,7 @@ export const useOuijaStore = create<OuijaState>((set) => ({
   conversationHistory: [],
   spiritName: null,
   hasCompletedIntro: false,
+  errorMessage: null,
 
   // Actions
   movePlanchette: (position: Position, rotation?: number) =>
@@ -114,6 +115,9 @@ export const useOuijaStore = create<OuijaState>((set) => ({
   completeIntro: () =>
     set(() => ({ hasCompletedIntro: true })),
 
+  setError: (error: string | null) =>
+    set(() => ({ errorMessage: error })),
+
   resetSession: () =>
     set(() => ({
       planchette: {
@@ -133,5 +137,6 @@ export const useOuijaStore = create<OuijaState>((set) => ({
       conversationHistory: [],
       spiritName: null,
       hasCompletedIntro: false,
+      errorMessage: null,
     })),
 }));

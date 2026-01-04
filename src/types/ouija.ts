@@ -36,6 +36,7 @@ export interface OuijaState {
   conversationHistory: Message[];
   spiritName: string | null;
   hasCompletedIntro: boolean;
+  errorMessage: string | null;
 
   // Actions
   movePlanchette: (position: Position, rotation?: number) => void;
@@ -50,6 +51,7 @@ export interface OuijaState {
   setSpiritName: (name: string) => void;
   completeIntro: () => void;
   resetSession: () => void;
+  setError: (error: string | null) => void;
 }
 
 export interface SSEEvent {
