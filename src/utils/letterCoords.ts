@@ -89,8 +89,7 @@ export function getLetterCoord(char: string): LetterCoord {
 export function coordToPercent(
   coord: LetterCoord,
   boardWidth: number,
-  boardHeight: number,
-  useTipPointer = false
+  boardHeight: number
 ): { x: number; y: number } {
   // Assuming board center is at 50%, 50%
   const xPercent = 50 + (coord.x / boardWidth) * 100;

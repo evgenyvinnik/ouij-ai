@@ -42,12 +42,7 @@ export function usePlanchetteAnimation() {
     // Get target coordinates for current letter
     const letterCoord = getLetterCoord(currentLetter);
     const useTip = shouldUseTipPointer(currentLetter);
-    const targetPercent = coordToPercent(
-      letterCoord,
-      boardWidth,
-      boardHeight,
-      useTip
-    );
+    const targetPercent = coordToPercent(letterCoord, boardWidth, boardHeight);
 
     // Store start position from current planchette location
     const currentPos = useOuijaStore.getState().planchette.position;
