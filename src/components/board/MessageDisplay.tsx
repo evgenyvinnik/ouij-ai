@@ -11,59 +11,17 @@ export function MessageDisplay() {
     <>
       {/* Spirit's message display - centered in board */}
       {(turn === 'animating' || displayMessage) && (
-        <div
-          className="spirit-message absolute text-center"
-          style={{
-            top: '50%',
-            left: '0',
-            right: '0',
-            width: '100%',
-            transform: 'translateY(-50%)',
-            letterSpacing: '0.3em',
-          }}
-        >
-          <style>{`
-            @media (max-width: 768px) {
-              .spirit-message .message-text {
-                font-size: 5vw !important;
-              }
-            }
-          `}</style>
-          <div
-            className="message-text relative uppercase"
-            style={{
-              fontSize: '2vw',
-              color: '#fff',
-              textShadow: '0 0 5px #d35400',
-              fontFamily: 'Feral, cursive',
-            }}
-            data-text={displayMessage}
-          >
+        <div className="spirit-message">
+          <div className="message-text" data-text={displayMessage}>
             {displayMessage}
             {turn === 'animating' && (
               <span className="ml-2 inline-block h-2 w-2 animate-pulse rounded-full bg-ouija-gold"></span>
             )}
             {/* Glitch effect layers */}
-            <div
-              className="absolute left-0 top-0 h-full w-full"
-              style={{
-                content: 'attr(data-text)',
-                color: '#f3ba39',
-                animation: 'glitch-effect 6s infinite',
-                zIndex: -1,
-              }}
-            >
+            <div className="glitch-layer glitch-layer-1">
               {displayMessage}
             </div>
-            <div
-              className="absolute left-0 top-0 h-full w-full"
-              style={{
-                content: 'attr(data-text)',
-                color: '#f3ba39',
-                animation: 'glitch-effect 4s infinite',
-                zIndex: -1,
-              }}
-            >
+            <div className="glitch-layer glitch-layer-2">
               {displayMessage}
             </div>
           </div>
