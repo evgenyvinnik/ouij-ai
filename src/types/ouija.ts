@@ -37,6 +37,7 @@ export interface OuijaState {
   spiritName: string | null;
   hasCompletedIntro: boolean;
   errorMessage: string | null;
+  lastActivityTimestamp: number;
 
   // Actions
   movePlanchette: (position: Position, rotation?: number) => void;

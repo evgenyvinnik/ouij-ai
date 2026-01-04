@@ -1,7 +1,12 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 import { OuijaState, Position, Message } from '../types/ouija';
 
-export const useOuijaStore = create<OuijaState>((set) => ({
+const CONVERSATION_TIMEOUT = 5 * 60 * 1000; // 5 minutes in milliseconds
+
+export const useOuijaStore = create<OuijaState>()(
+  persist(
+    (set) => ({
   // Planchette state
   planchette: {
     position: { x: 50, y: 50 }, // Start at center
@@ -25,6 +30,7 @@ export const useOuijaStore = create<OuijaState>((set) => ({
   spiritName: null,
   hasCompletedIntro: false,
   errorMessage: null,
+  lastActivityTimestamp: Date.now(),
 
   // Actions
   movePlanchette: (position: Position, rotation?: number) =>
@@ -99,11 +105,13 @@ export const useOuijaStore = create<OuijaState>((set) => ({
     set(() => ({
       userMessage: message,
       turn: 'spirit',
+      lastActivityTimestamp: Date.now(),
     })),
 
   addToHistory: (message: Message) =>
     set((state) => ({
       conversationHistory: [...state.conversationHistory, message],
+      lastActivityTimestamp: Date.now(),
     })),
 
   setTurn: (turn: 'user' | 'spirit' | 'animating') =>
@@ -138,5 +146,40 @@ export const useOuijaStore = create<OuijaState>((set) => ({
       spiritName: null,
       hasCompletedIntro: false,
       errorMessage: null,
+      lastActivityTimestamp: Date.now(),
     })),
-}));
+    }),
+    {
+      name: 'ouija-session',
+      partialize: (state) => ({
+        conversationHistory: state.conversationHistory,
+        spiritName: state.spiritName,
+        hasCompletedIntro: state.hasCompletedIntro,
+        lastActivityTimestamp: state.lastActivityTimestamp,
+      }),
+      // Custom merge function to check timeout
+      merge: (persistedState: any, currentState) => {
+        if (!persistedState) return currentState;
+
+        const now = Date.now();
+        const timeSinceLastActivity = now - (persistedState.lastActivityTimestamp || 0);
+
+        // If more than 5 minutes have passed, start fresh
+        if (timeSinceLastActivity > CONVERSATION_TIMEOUT) {
+          console.log('Session expired, starting fresh');
+          return currentState;
+        }
+
+        // Otherwise, restore the conversation
+        console.log('Restoring previous session');
+        return {
+          ...currentState,
+          conversationHistory: persistedState.conversationHistory || [],
+          spiritName: persistedState.spiritName || null,
+          hasCompletedIntro: persistedState.hasCompletedIntro || false,
+          lastActivityTimestamp: persistedState.lastActivityTimestamp || Date.now(),
+        };
+      },
+    }
+  )
+);
