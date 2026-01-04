@@ -10,6 +10,12 @@ export function useOuijaSession() {
 
   const handleKeyPress = useCallback(
     (e: KeyboardEvent) => {
+      // Ignore if user is typing in an input/textarea element
+      const target = e.target as HTMLElement;
+      if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') {
+        return;
+      }
+
       // Only accept input during user's turn
       if (turn !== 'user') return;
 
