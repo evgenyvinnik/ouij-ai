@@ -107,6 +107,8 @@ export function useSpeechRecognition(): UseSpeechRecognitionReturn {
 
   /** Ref to hold SpeechRecognition instance across renders */
   const recognitionRef = useRef<SpeechRecognition | null>(null);
+  /** Ref to hold error timeout for auto-dismissal */
+  const errorTimeoutRef = useRef<number | undefined>(undefined);
 
   /**
    * Check browser support for Web Speech API
@@ -218,8 +220,17 @@ export function useSpeechRecognition(): UseSpeechRecognitionReturn {
         'language-not-supported': 'Language is not supported.',
       };
 
-      setError(errorMessages[event.error] || `Error: ${event.error}`);
+      const errorMessage = errorMessages[event.error] || `Error: ${event.error}`;
+      setError(errorMessage);
       setIsListening(false);
+
+      // Auto-dismiss error after 5 seconds
+      if (errorTimeoutRef.current) {
+        clearTimeout(errorTimeoutRef.current);
+      }
+      errorTimeoutRef.current = window.setTimeout(() => {
+        setError(null);
+      }, 5000);
     };
 
     /**
@@ -241,10 +252,13 @@ export function useSpeechRecognition(): UseSpeechRecognitionReturn {
 
     recognitionRef.current = recognition;
 
-    // Cleanup: abort recognition on unmount
+    // Cleanup: abort recognition and clear timeout on unmount
     return () => {
       if (recognitionRef.current) {
         recognitionRef.current.abort();
+      }
+      if (errorTimeoutRef.current) {
+        clearTimeout(errorTimeoutRef.current);
       }
     };
   }, [isSupported]);
@@ -266,6 +280,11 @@ export function useSpeechRecognition(): UseSpeechRecognitionReturn {
    */
   const startListening = useCallback(() => {
     if (!recognitionRef.current || isListening) return;
+
+    // Clear any existing error timeout
+    if (errorTimeoutRef.current) {
+      clearTimeout(errorTimeoutRef.current);
+    }
 
     setError(null);
     setInterimTranscript('');

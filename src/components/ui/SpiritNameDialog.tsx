@@ -150,8 +150,11 @@ export function SpiritNameDialog({
             {/* Submit button (hidden, activated by Enter key) */}
             <button type="submit" className="hidden" aria-label="Submit name" />
 
-            {/* Instructions */}
-            <div className="spirit-input-instructions">
+            {/* Instructions - clickable to submit */}
+            <div
+              className="spirit-input-instructions cursor-pointer hover:opacity-100 transition-opacity"
+              onClick={handleSubmit}
+            >
               Press <span className="font-bold">ENTER</span> to summon
             </div>
           </form>
