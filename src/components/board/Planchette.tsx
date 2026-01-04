@@ -1,14 +1,9 @@
 import { usePlanchette } from '../../hooks/usePlanchette';
 import { useOuijaStore } from '../../state/useOuijaStore';
-import { shouldUseTipPointer } from '../../utils/letterCoords';
 
 export function Planchette() {
   const { position, isDragging, handleMouseDown } = usePlanchette();
-  const { animation, planchette } = useOuijaStore();
-
-  // Check if we're pointing at YES/NO/GOODBYE for debug visualization
-  const currentLetter = animation.letterQueue[animation.currentLetterIndex];
-  const isUsingTip = currentLetter && shouldUseTipPointer(currentLetter);
+  const { planchette } = useOuijaStore();
 
   return (
     <div
@@ -39,29 +34,6 @@ export function Planchette() {
               : 'filter 0.3s ease-out', // No transition on transform during animation
           }}
         />
-
-        {/* DEBUG: Show tip pointer location when pointing at YES/NO/GOODBYE */}
-        {isUsingTip && (
-          <div
-            className="absolute"
-            style={{
-              left: '50%',
-              top: '0%', // Top of planchette
-              transform: 'translate(-50%, -50%)',
-            }}
-          >
-            <div className="relative flex h-6 w-6 items-center justify-center">
-              {/* Outer glow */}
-              <div className="absolute inset-0 rounded-full bg-blue-500 opacity-60 blur-md animate-pulse"></div>
-
-              {/* Tip point indicator */}
-              <div className="relative h-4 w-4 rounded-full border-2 border-blue-500 bg-blue-500/50">
-                {/* Center dot */}
-                <div className="absolute left-1/2 top-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-500"></div>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
