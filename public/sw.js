@@ -1,5 +1,5 @@
 // Service Worker for OUIJ-AI PWA
-const CACHE_NAME = 'ouij-ai-v1';
+const CACHE_NAME = 'ouij-ai-v2'; // Incremented version to force update
 const urlsToCache = [
   '/',
   '/index.html',
