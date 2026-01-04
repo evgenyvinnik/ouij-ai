@@ -188,18 +188,17 @@ export const useOuijaStore = create<OuijaState>()(
         }
 
         // Otherwise, restore the conversation
-        // If there's a spirit name and conversation history, ensure intro is completed
+        // If there's a spirit name and intro was completed, restore the session
         const hasValidSession =
-          (state.spiritName && (state.conversationHistory?.length || 0) > 0) ||
-          state.hasCompletedIntro;
+          state.spiritName &&
+          (state.hasCompletedIntro ||
+            (state.conversationHistory?.length || 0) > 0);
 
         return {
           ...currentState,
           conversationHistory: state.conversationHistory || [],
           spiritName: state.spiritName || null,
-          hasCompletedIntro: hasValidSession
-            ? true
-            : state.hasCompletedIntro || false,
+          hasCompletedIntro: hasValidSession,
           lastActivityTimestamp: state.lastActivityTimestamp || Date.now(),
         };
       },
