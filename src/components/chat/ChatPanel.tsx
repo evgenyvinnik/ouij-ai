@@ -39,7 +39,8 @@ export function ChatPanel() {
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
     if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
     }
   }, [conversationHistory, turn]);
 
@@ -50,7 +51,11 @@ export function ChatPanel() {
 
       // Add to history only if it's not a duplicate
       const lastMessage = conversationHistory[conversationHistory.length - 1];
-      if (!lastMessage || lastMessage.role !== 'user' || lastMessage.content !== message) {
+      if (
+        !lastMessage ||
+        lastMessage.role !== 'user' ||
+        lastMessage.content !== message
+      ) {
         addToHistory({
           role: 'user',
           content: message,
@@ -60,7 +65,15 @@ export function ChatPanel() {
       submitQuestion(message);
       resetTranscript();
     }
-  }, [isListening, transcript, isUserTurn, submitQuestion, addToHistory, resetTranscript, conversationHistory]);
+  }, [
+    isListening,
+    transcript,
+    isUserTurn,
+    submitQuestion,
+    addToHistory,
+    resetTranscript,
+    conversationHistory,
+  ]);
 
   const handleSendMessage = useCallback(() => {
     if (!canSend) return;
@@ -69,7 +82,11 @@ export function ChatPanel() {
 
     // Add to history only if it's not a duplicate
     const lastMessage = conversationHistory[conversationHistory.length - 1];
-    if (!lastMessage || lastMessage.role !== 'user' || lastMessage.content !== message) {
+    if (
+      !lastMessage ||
+      lastMessage.role !== 'user' ||
+      lastMessage.content !== message
+    ) {
       addToHistory({
         role: 'user',
         content: message,
@@ -100,9 +117,7 @@ export function ChatPanel() {
 
       {/* Header */}
       <div className="chat-panel-header">
-        <h3 className="chat-panel-title text-glow">
-          Spirit Conversation
-        </h3>
+        <h3 className="chat-panel-title text-glow">Spirit Conversation</h3>
         <Button
           variant="ghost"
           size="sm"
@@ -118,7 +133,8 @@ export function ChatPanel() {
         {conversationHistory.length === 0 && (
           <div className="chat-empty-state">
             <p className="chat-empty-text">
-              Type your question or use the microphone to commune with the spirits...
+              Type your question or use the microphone to commune with the
+              spirits...
             </p>
           </div>
         )}
@@ -153,7 +169,10 @@ export function ChatPanel() {
 
       {/* Error Display */}
       <div className="relative z-10 px-3 pb-3">
-        <ErrorDisplay errorMessage={errorMessage} onDismiss={() => setError(null)} />
+        <ErrorDisplay
+          errorMessage={errorMessage}
+          onDismiss={() => setError(null)}
+        />
       </div>
     </div>
   );

@@ -39,13 +39,10 @@ export default async function handler(req: Request) {
 
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
-    return new Response(
-      JSON.stringify({ error: 'API key not configured' }),
-      {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
+    return new Response(JSON.stringify({ error: 'API key not configured' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 
   try {
@@ -138,7 +135,11 @@ export default async function handler(req: Request) {
                   const upperMessage = cleanedMessage.toUpperCase();
                   let letters: string[];
 
-                  if (upperMessage === 'YES' || upperMessage === 'NO' || upperMessage === 'GOODBYE') {
+                  if (
+                    upperMessage === 'YES' ||
+                    upperMessage === 'NO' ||
+                    upperMessage === 'GOODBYE'
+                  ) {
                     // Send as a single token to move planchette to special position
                     letters = [upperMessage];
                   } else {
@@ -172,8 +173,7 @@ export default async function handler(req: Request) {
           controller.enqueue(
             encoder.encode(
               formatSSE('error', {
-                error:
-                  error instanceof Error ? error.message : 'Unknown error',
+                error: error instanceof Error ? error.message : 'Unknown error',
               })
             )
           );

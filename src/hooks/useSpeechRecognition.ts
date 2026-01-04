@@ -76,8 +76,7 @@ export function useSpeechRecognition(): UseSpeechRecognitionReturn {
         network: 'Network error occurred. Please check your connection.',
         'not-allowed':
           'Microphone permission was denied. Please allow access to use voice input.',
-        'service-not-available':
-          'Speech recognition service is not available.',
+        'service-not-available': 'Speech recognition service is not available.',
         'bad-grammar': 'Speech grammar error occurred.',
         'language-not-supported': 'Language is not supported.',
       };

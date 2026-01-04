@@ -99,11 +99,12 @@ export async function sendChatMessage(
         'MYSTERIES ABOUND',
       ];
 
-      const mockResponse = mockMessages[Math.floor(Math.random() * mockMessages.length)];
+      const mockResponse =
+        mockMessages[Math.floor(Math.random() * mockMessages.length)];
       const letters = mockResponse.split('');
 
       // Simulate thinking delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
       // Send letters
       callbacks.onLetters?.(letters);

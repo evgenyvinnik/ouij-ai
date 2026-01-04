@@ -6,7 +6,8 @@ import { useOuijaStore } from '../../state/useOuijaStore';
 import { useAIChat } from '../../hooks/useAIChat';
 
 export function OuijaBoard() {
-  const { turn, userMessage, conversationHistory, spiritName } = useOuijaStore();
+  const { turn, userMessage, conversationHistory, spiritName } =
+    useOuijaStore();
   const { mutate: sendMessage } = useAIChat();
 
   usePlanchetteAnimation();

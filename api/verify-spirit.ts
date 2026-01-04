@@ -58,13 +58,10 @@ export default async function handler(req: Request) {
 
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
-    return new Response(
-      JSON.stringify({ error: 'API key not configured' }),
-      {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
+    return new Response(JSON.stringify({ error: 'API key not configured' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 
   try {
@@ -72,16 +69,13 @@ export default async function handler(req: Request) {
     const name = body.name?.trim();
 
     if (!name) {
-      return new Response(
-        JSON.stringify({ error: 'Name is required' }),
-        {
-          status: 400,
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-          },
-        }
-      );
+      return new Response(JSON.stringify({ error: 'Name is required' }), {
+        status: 400,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+      });
     }
 
     const anthropic = new Anthropic({ apiKey });
@@ -113,7 +107,7 @@ export default async function handler(req: Request) {
       const jsonMatch = content.text.match(/```json\n?([\s\S]*?)\n?```/);
       const jsonText = jsonMatch ? jsonMatch[1] : content.text;
       result = JSON.parse(jsonText);
-    } catch (parseError) {
+    } catch {
       console.error('Failed to parse Claude response:', content.text);
       throw new Error('Failed to parse verification response');
     }

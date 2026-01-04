@@ -13,10 +13,15 @@ interface ChatMutationVariables {
  * Hook for AI chat with SSE streaming using TanStack Query
  */
 export function useAIChat() {
-  const { queueLetters, addToHistory, setTurn, clearAnimation, setError } = useOuijaStore();
+  const { queueLetters, addToHistory, setTurn, clearAnimation, setError } =
+    useOuijaStore();
 
   const mutation = useMutation({
-    mutationFn: async ({ message, history, spiritName }: ChatMutationVariables) => {
+    mutationFn: async ({
+      message,
+      history,
+      spiritName,
+    }: ChatMutationVariables) => {
       let assistantResponse = '';
 
       await sendChatMessage(

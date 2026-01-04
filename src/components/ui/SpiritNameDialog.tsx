@@ -7,14 +7,19 @@ interface SpiritNameDialogProps {
   isVisible: boolean;
 }
 
-export function SpiritNameDialog({ onSubmit, isVisible }: SpiritNameDialogProps) {
+export function SpiritNameDialog({
+  onSubmit,
+  isVisible,
+}: SpiritNameDialogProps) {
   const [name, setName] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 
   // Dialog entrance animation
   const dialogSpring = useSpring({
     opacity: isVisible ? 1 : 0,
-    transform: isVisible ? 'scale(1) translateY(0%)' : 'scale(0.8) translateY(10%)',
+    transform: isVisible
+      ? 'scale(1) translateY(0%)'
+      : 'scale(0.8) translateY(10%)',
     config: { tension: 180, friction: 20 },
   });
 
@@ -112,9 +117,7 @@ export function SpiritNameDialog({ onSubmit, isVisible }: SpiritNameDialogProps)
               />
 
               {/* Character counter */}
-              <div className="spirit-input-counter">
-                {name.length}/30
-              </div>
+              <div className="spirit-input-counter">{name.length}/30</div>
             </div>
 
             {/* Submit button (hidden, activated by Enter key) */}

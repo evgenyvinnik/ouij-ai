@@ -1,7 +1,16 @@
 import { useEffect, useRef } from 'react';
 import { useOuijaStore } from '../state/useOuijaStore';
-import { getLetterCoord, coordToPercent, shouldUseTipPointer } from '../utils/letterCoords';
-import { easeOutCubic, bezierCurve, bezierTangentAngle, easeInOutCubic } from '../utils/animations';
+import {
+  getLetterCoord,
+  coordToPercent,
+  shouldUseTipPointer,
+} from '../utils/letterCoords';
+import {
+  easeOutCubic,
+  bezierCurve,
+  bezierTangentAngle,
+  easeInOutCubic,
+} from '../utils/animations';
 
 /**
  * Hook for animating the planchette to spell out letters
@@ -32,7 +41,12 @@ export function usePlanchetteAnimation() {
     // Get target coordinates for current letter
     const letterCoord = getLetterCoord(currentLetter);
     const useTip = shouldUseTipPointer(currentLetter);
-    const targetPercent = coordToPercent(letterCoord, boardWidth, boardHeight, useTip);
+    const targetPercent = coordToPercent(
+      letterCoord,
+      boardWidth,
+      boardHeight,
+      useTip
+    );
 
     // Store start position from current planchette location
     const currentPos = useOuijaStore.getState().planchette.position;
@@ -74,7 +88,11 @@ export function usePlanchetteAnimation() {
 
         if (startPosRef.current && targetPosRef.current) {
           // Use bezier curve for smooth, curved path
-          const position = bezierCurve(startPosRef.current, targetPosRef.current, positionEased);
+          const position = bezierCurve(
+            startPosRef.current,
+            targetPosRef.current,
+            positionEased
+          );
 
           // Calculate rotation angle based on the tangent of the curve
           // This makes the planchette follow the curve naturally

@@ -13,9 +13,7 @@ export function ErrorDisplay({ errorMessage, onDismiss }: ErrorDisplayProps) {
   return (
     <div className="chat-error-container">
       <div className="chat-error-content">
-        <p className="chat-error-text">
-          {errorMessage}
-        </p>
+        <p className="chat-error-text">{errorMessage}</p>
         <button
           onClick={onDismiss}
           className="chat-error-dismiss"

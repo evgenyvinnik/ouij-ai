@@ -18,12 +18,8 @@ export function MessageDisplay() {
               <span className="ml-2 inline-block h-2 w-2 animate-pulse rounded-full bg-ouija-gold"></span>
             )}
             {/* Glitch effect layers */}
-            <div className="glitch-layer glitch-layer-1">
-              {displayMessage}
-            </div>
-            <div className="glitch-layer glitch-layer-2">
-              {displayMessage}
-            </div>
+            <div className="glitch-layer glitch-layer-1">{displayMessage}</div>
+            <div className="glitch-layer glitch-layer-2">{displayMessage}</div>
           </div>
         </div>
       )}

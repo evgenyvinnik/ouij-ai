@@ -45,11 +45,15 @@ export function ChatInput({
         <input
           ref={inputRef}
           type="text"
-          value={isListening && interimTranscript ? interimTranscript : inputText}
+          value={
+            isListening && interimTranscript ? interimTranscript : inputText
+          }
           onChange={(e) => setInputText(e.target.value)}
           onKeyDown={handleKeyDown}
           disabled={!isUserTurn || isListening}
-          placeholder={isUserTurn ? 'Ask the spirits...' : 'Wait for the spirits...'}
+          placeholder={
+            isUserTurn ? 'Ask the spirits...' : 'Wait for the spirits...'
+          }
           className="chat-input-field"
         />
 
@@ -74,9 +78,7 @@ export function ChatInput({
             <MicrophoneIcon
               className={`chat-mic-icon ${isListening ? 'chat-mic-icon-listening' : ''}`}
             />
-            {isListening && (
-              <span className="chat-mic-ping"></span>
-            )}
+            {isListening && <span className="chat-mic-ping"></span>}
           </button>
         )}
 
@@ -95,11 +97,7 @@ export function ChatInput({
       </div>
 
       {/* Voice feedback */}
-      {speechError && (
-        <p className="chat-voice-error">
-          {speechError}
-        </p>
-      )}
+      {speechError && <p className="chat-voice-error">{speechError}</p>}
       {isListening && (
         <p className="chat-voice-listening">
           Listening... {interimTranscript && `"${interimTranscript}"`}

@@ -13,17 +13,23 @@ interface VerificationState {
 
 export function IntroSequence({ onComplete }: IntroSequenceProps) {
   const [showDialog, setShowDialog] = useState(false);
-  const [verification, setVerification] = useState<VerificationState>({ status: 'idle' });
+  const [verification, setVerification] = useState<VerificationState>({
+    status: 'idle',
+  });
 
   // Simple sequential animation approach
-  const [animationPhase, setAnimationPhase] = useState<'fadeIn' | 'hold' | 'fadeOut' | 'done'>('fadeIn');
+  const [animationPhase, setAnimationPhase] = useState<
+    'fadeIn' | 'hold' | 'fadeOut' | 'done'
+  >('fadeIn');
 
   // Single spring that handles all phases
   const titleSpring = useSpring({
     from: { opacity: 0, scale: 0.5 },
     to: {
-      opacity: animationPhase === 'fadeOut' || animationPhase === 'done' ? 0 : 1,
-      scale: animationPhase === 'fadeOut' || animationPhase === 'done' ? 0.8 : 1,
+      opacity:
+        animationPhase === 'fadeOut' || animationPhase === 'done' ? 0 : 1,
+      scale:
+        animationPhase === 'fadeOut' || animationPhase === 'done' ? 0.8 : 1,
     },
     config: { tension: 240, friction: 30 },
     onRest: () => {
@@ -50,12 +56,16 @@ export function IntroSequence({ onComplete }: IntroSequenceProps) {
   // Verification message animation
   const verificationSpring = useSpring({
     opacity: verification.status !== 'idle' ? 1 : 0,
-    transform: verification.status !== 'idle' ? 'translateY(0%)' : 'translateY(10%)',
+    transform:
+      verification.status !== 'idle' ? 'translateY(0%)' : 'translateY(10%)',
     config: { tension: 200, friction: 25 },
   });
 
   const handleNameSubmit = async (name: string) => {
-    setVerification({ status: 'verifying', message: 'Reaching beyond the veil...' });
+    setVerification({
+      status: 'verifying',
+      message: 'Reaching beyond the veil...',
+    });
 
     try {
       // In development, if API is not available, allow all names
@@ -100,7 +110,9 @@ export function IntroSequence({ onComplete }: IntroSequenceProps) {
       } else {
         setVerification({
           status: 'rejected',
-          message: result.message || 'This soul still walks among the living. Try another name.',
+          message:
+            result.message ||
+            'This soul still walks among the living. Try another name.',
         });
 
         // Reset after showing rejection
@@ -131,13 +143,11 @@ export function IntroSequence({ onComplete }: IntroSequenceProps) {
         <animated.div
           style={{
             opacity: titleSpring.opacity,
-            transform: titleSpring.scale.to(s => `scale(${s})`),
+            transform: titleSpring.scale.to((s) => `scale(${s})`),
           }}
           className="relative z-10"
         >
-          <h1 className="intro-title text-center text-glow">
-            OUIJ-AI
-          </h1>
+          <h1 className="intro-title text-center text-glow">OUIJ-AI</h1>
 
           {/* Pulsing glow effect */}
           <div className="intro-title-glow animate-pulse-slow" />
@@ -158,11 +168,15 @@ export function IntroSequence({ onComplete }: IntroSequenceProps) {
         >
           <div className="text-center">
             {/* Status message */}
-            <p className={`verification-message ${
-              verification.status === 'rejected' ? 'verification-message-rejected' :
-              verification.status === 'success' ? 'verification-message-success' :
-              'verification-message-verifying'
-            }`}>
+            <p
+              className={`verification-message ${
+                verification.status === 'rejected'
+                  ? 'verification-message-rejected'
+                  : verification.status === 'success'
+                    ? 'verification-message-success'
+                    : 'verification-message-verifying'
+              }`}
+            >
               {verification.message}
             </p>
 

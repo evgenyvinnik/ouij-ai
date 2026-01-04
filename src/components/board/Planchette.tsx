@@ -1,14 +1,9 @@
 import { usePlanchette } from '../../hooks/usePlanchette';
 import { useOuijaStore } from '../../state/useOuijaStore';
-import { shouldUseTipPointer } from '../../utils/letterCoords';
 
 export function Planchette() {
   const { position, isDragging, handleMouseDown } = usePlanchette();
-  const { animation, planchette } = useOuijaStore();
-
-  // Determine which pointer is active (still used by animation system)
-  const currentLetter = animation.letterQueue[animation.currentLetterIndex];
-  const isUsingTip = currentLetter && shouldUseTipPointer(currentLetter);
+  const { planchette } = useOuijaStore();
 
   return (
     <div
@@ -28,9 +23,7 @@ export function Planchette() {
         <img
           src="/planchette2.png"
           alt="Planchette"
-          className={`w-full ${
-            isDragging ? 'scale-110' : ''
-          }`}
+          className={`w-full ${isDragging ? 'scale-110' : ''}`}
           style={{
             filter: isDragging
               ? 'drop-shadow(5px 5px 5px rgb(255, 198, 198))'

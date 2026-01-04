@@ -111,8 +111,14 @@ export function bezierCurve(
 
   // Quadratic bezier formula: B(t) = (1-t)²P₀ + 2(1-t)tP₁ + t²P₂
   const oneMinusT = 1 - t;
-  const x = oneMinusT * oneMinusT * start.x + 2 * oneMinusT * t * controlX + t * t * end.x;
-  const y = oneMinusT * oneMinusT * start.y + 2 * oneMinusT * t * controlY + t * t * end.y;
+  const x =
+    oneMinusT * oneMinusT * start.x +
+    2 * oneMinusT * t * controlX +
+    t * t * end.x;
+  const y =
+    oneMinusT * oneMinusT * start.y +
+    2 * oneMinusT * t * controlY +
+    t * t * end.y;
 
   return { x, y };
 }
@@ -147,8 +153,10 @@ export function bezierTangentAngle(
   const controlY = (start.y + end.y) / 2 + perpY * controlOffset;
 
   // Derivative of quadratic bezier: B'(t) = 2(1-t)(P₁-P₀) + 2t(P₂-P₁)
-  const tangentX = 2 * (1 - t) * (controlX - start.x) + 2 * t * (end.x - controlX);
-  const tangentY = 2 * (1 - t) * (controlY - start.y) + 2 * t * (end.y - controlY);
+  const tangentX =
+    2 * (1 - t) * (controlX - start.x) + 2 * t * (end.x - controlX);
+  const tangentY =
+    2 * (1 - t) * (controlY - start.y) + 2 * t * (end.y - controlY);
 
   // Calculate angle from tangent vector (+90 to point tip in direction of movement)
   return Math.atan2(tangentY, tangentX) * (180 / Math.PI) + 90;
