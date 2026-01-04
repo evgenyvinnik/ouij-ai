@@ -213,7 +213,7 @@ export const useOuijaStore = create<OuijaState>()(
               revealedLetters: [...state.animation.revealedLetters, letter],
             },
           };
-        })),
+        }),
 
       /**
        * Clear all animation state

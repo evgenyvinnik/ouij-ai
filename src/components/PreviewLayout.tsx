@@ -15,6 +15,16 @@ import { ChatPanel } from './chat/ChatPanel';
  *    - twitter-image.png: 1200x600px
  *    - screenshot.png: 1280x720px or larger
  * 4. Save to /public/ folder
+ *
+ * @remarks
+ * This is a static preview layout without interactive functionality.
+ * Includes header, board, chat panel, and footer in a desktop-optimized arrangement.
+ */
+
+/**
+ * Renders the preview layout with board and chat panel side-by-side
+ *
+ * @returns JSX element containing the full-screen preview layout
  */
 export function PreviewLayout() {
   return (
