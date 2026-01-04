@@ -4,12 +4,9 @@ import { OuijaState, Position, Message } from '../types/ouija';
 
 const CONVERSATION_TIMEOUT = 5 * 60 * 1000; // 5 minutes in milliseconds
 
-console.log('[STORE] Creating Ouija store with persist middleware');
-
 export const useOuijaStore = create<OuijaState>()(
   persist(
     (set) => {
-      console.log('[STORE] Store initializer called');
       return {
       // Planchette state
       planchette: {
@@ -174,10 +171,7 @@ export const useOuijaStore = create<OuijaState>()(
       }),
       // Custom merge function to check timeout
       merge: (persistedState: unknown, currentState) => {
-        console.log('[MERGE] Called with persistedState:', persistedState);
-
         if (!persistedState) {
-          console.log('[MERGE] No persisted state, returning current');
           return currentState;
         }
 
@@ -190,17 +184,8 @@ export const useOuijaStore = create<OuijaState>()(
         };
         const timeSinceLastActivity = now - (state.lastActivityTimestamp || 0);
 
-        console.log('[MERGE] Persisted state:', {
-          spiritName: state.spiritName,
-          hasCompletedIntro: state.hasCompletedIntro,
-          conversationCount: state.conversationHistory?.length || 0,
-          timeSinceLastActivity,
-          timeout: CONVERSATION_TIMEOUT,
-        });
-
         // If more than 5 minutes have passed, start fresh
         if (timeSinceLastActivity > CONVERSATION_TIMEOUT) {
-          console.log('[MERGE] Session timeout, returning current');
           return currentState;
         }
 
@@ -211,15 +196,11 @@ export const useOuijaStore = create<OuijaState>()(
           (!!state.hasCompletedIntro ||
             (state.conversationHistory?.length || 0) > 0);
 
-        console.log('[MERGE] hasValidSession:', hasValidSession);
-
         // Only restore if we have a valid session
         if (!hasValidSession) {
-          console.log('[MERGE] No valid session, returning current');
           return currentState;
         }
 
-        console.log('[MERGE] Restoring session with spirit:', state.spiritName);
         return {
           ...currentState,
           conversationHistory: state.conversationHistory || [],
