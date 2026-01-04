@@ -1,4 +1,5 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Analytics } from '@vercel/analytics/react';
 import { OuijaBoard } from './components/board/OuijaBoard';
 import { ChatPanel } from './components/chat/ChatPanel';
 import { MessageDisplay } from './components/board/MessageDisplay';
@@ -197,6 +198,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AppContent />
+      <Analytics />
     </QueryClientProvider>
   );
 }

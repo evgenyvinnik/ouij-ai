@@ -172,11 +172,15 @@ export const useOuijaStore = create<OuijaState>()(
 
         // Otherwise, restore the conversation
         console.log('Restoring previous session');
+
+        // If there's a spirit name and conversation history, ensure intro is completed
+        const hasValidSession = persistedState.spiritName && (persistedState.conversationHistory?.length > 0 || persistedState.hasCompletedIntro);
+
         return {
           ...currentState,
           conversationHistory: persistedState.conversationHistory || [],
           spiritName: persistedState.spiritName || null,
-          hasCompletedIntro: persistedState.hasCompletedIntro || false,
+          hasCompletedIntro: hasValidSession ? true : (persistedState.hasCompletedIntro || false),
           lastActivityTimestamp: persistedState.lastActivityTimestamp || Date.now(),
         };
       },
