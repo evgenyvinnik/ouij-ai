@@ -104,7 +104,7 @@ export function SpiritNameDialog({
       {/* Dialog Box */}
       <animated.div
         style={dialogSpring}
-        className="relative w-full max-w-2xl px-8"
+        className="relative w-full max-w-2xl px-4 sm:px-8"
       >
         {/* Ornate border frame */}
         <div className="spirit-dialog-container">
@@ -115,7 +115,7 @@ export function SpiritNameDialog({
           <div className="spirit-dialog-corner spirit-dialog-corner-br" />
 
           {/* Content */}
-          <form onSubmit={handleSubmit} className="space-y-8">
+          <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
             {/* Question text with supernatural styling */}
             <div className="text-center">
               <h2 className="spirit-dialog-title text-glow">
