@@ -35,29 +35,41 @@ export function ChatPanel() {
   useEffect(() => {
     if (!isListening && transcript.trim() && isUserTurn) {
       const message = transcript.trim();
+
+      // Add to history only if it's not a duplicate
+      const lastMessage = conversationHistory[conversationHistory.length - 1];
+      if (!lastMessage || lastMessage.role !== 'user' || lastMessage.content !== message) {
+        addToHistory({
+          role: 'user',
+          content: message,
+        });
+      }
+
       submitQuestion(message);
-      addToHistory({
-        role: 'user',
-        content: message,
-      });
       resetTranscript();
     }
-  }, [isListening, transcript, isUserTurn, submitQuestion, addToHistory, resetTranscript]);
+  }, [isListening, transcript, isUserTurn, submitQuestion, addToHistory, resetTranscript, conversationHistory]);
 
   const handleSendMessage = useCallback(() => {
     if (!canSend) return;
 
     const message = inputText.trim();
+
+    // Add to history only if it's not a duplicate
+    const lastMessage = conversationHistory[conversationHistory.length - 1];
+    if (!lastMessage || lastMessage.role !== 'user' || lastMessage.content !== message) {
+      addToHistory({
+        role: 'user',
+        content: message,
+      });
+    }
+
     submitQuestion(message);
-    addToHistory({
-      role: 'user',
-      content: message,
-    });
     setInputText('');
 
     // Focus input after sending
     setTimeout(() => inputRef.current?.focus(), 100);
-  }, [canSend, inputText, submitQuestion, addToHistory]);
+  }, [canSend, inputText, submitQuestion, addToHistory, conversationHistory]);
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
