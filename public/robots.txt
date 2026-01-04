@@ -1,0 +1,14 @@
+# OUIJ-AI - Robots.txt
+# Allow all search engine crawlers
+
+User-agent: *
+Allow: /
+
+# Disallow API endpoints from being indexed
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://ouij-ai.vercel.app/sitemap.xml
+
+# Crawl-delay (optional, in seconds)
+Crawl-delay: 1
