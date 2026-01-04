@@ -1,7 +1,23 @@
+/**
+ * SendIcon - SVG icon component for send/submit action
+ *
+ * Used in the chat input to indicate message submission.
+ */
+
+/**
+ * Props for the SendIcon component
+ */
 interface SendIconProps {
+  /** Additional CSS classes to apply to the SVG */
   className?: string;
 }
 
+/**
+ * Renders a send arrow SVG icon
+ *
+ * @param props - Component props
+ * @returns JSX element containing the send icon
+ */
 export function SendIcon({ className = '' }: SendIconProps) {
   return (
     <svg

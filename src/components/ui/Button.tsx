@@ -1,10 +1,28 @@
+/**
+ * Button - Customizable button component with mystical styling
+ *
+ * Provides three visual variants (primary, secondary, ghost) and three sizes (sm, md, lg).
+ * Styled with Carnivalee Freakshow font to match the Ouija board aesthetic.
+ */
+
 import React from 'react';
 
+/**
+ * Props for the Button component
+ */
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  /** Visual style variant of the button */
   variant?: 'primary' | 'secondary' | 'ghost';
+  /** Size of the button */
   size?: 'sm' | 'md' | 'lg';
 }
 
+/**
+ * Renders a styled button with customizable variant and size
+ *
+ * @param props - Component props including children and standard button attributes
+ * @returns JSX element containing the styled button
+ */
 export function Button({
   children,
   variant = 'primary',

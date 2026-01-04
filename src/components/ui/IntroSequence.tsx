@@ -1,16 +1,49 @@
+/**
+ * IntroSequence - Animated intro screen with spirit verification
+ *
+ * Multi-phase intro sequence:
+ * 1. Fade in app title (OUIJ-AI)
+ * 2. Brief hold period
+ * 3. Fade out title
+ * 4. Show spirit name dialog
+ * 5. Verify spirit name via API
+ * 6. Display verification result
+ * 7. Complete intro and start session
+ *
+ * @remarks
+ * In development mode, API verification is bypassed if the endpoint fails.
+ * Verification checks if the named person is deceased before allowing
+ * communication.
+ */
+
 import { useState, useEffect } from 'react';
 import { animated, useSpring } from '@react-spring/web';
 import { SpiritNameDialog } from './SpiritNameDialog';
 
+/**
+ * Props for the IntroSequence component
+ */
 interface IntroSequenceProps {
+  /** Callback when intro completes successfully with verified spirit name */
   onComplete: (spiritName: string) => void;
 }
 
+/**
+ * State for spirit name verification process
+ */
 interface VerificationState {
+  /** Current status of verification */
   status: 'idle' | 'verifying' | 'success' | 'rejected';
+  /** Message to display during/after verification */
   message?: string;
 }
 
+/**
+ * Renders the animated intro sequence with spirit name verification
+ *
+ * @param props - Component props
+ * @returns JSX element containing the multi-phase intro animation
+ */
 export function IntroSequence({ onComplete }: IntroSequenceProps) {
   const [showDialog, setShowDialog] = useState(false);
   const [verification, setVerification] = useState<VerificationState>({

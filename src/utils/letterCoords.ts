@@ -67,17 +67,29 @@ export const LETTER_COORDS: Record<string, LetterCoord> = {
 
 /**
  * Offset from planchette center to tip (as percentage of planchette size)
- * The tip is at the TOP of the planchette (inverted teardrop - pointed end up)
- * For our planchette2.png: tip at top (0%), magnifying glass at center (50%), rounded at bottom (100%)
  *
- * NOTE: This offset is applied in the ROTATED coordinate system during animation,
- * not in the board X/Y coordinates. See usePlanchetteAnimation.ts for the actual application.
+ * @remarks
+ * The planchette is an inverted teardrop shape (pointed end at top):
+ * - Tip at top (0% Y)
+ * - Magnifying glass at center (50% Y)
+ * - Rounded bottom (100% Y)
+ *
+ * This offset moves the planchette so its TIP points to the target letter,
+ * not its center. Applied in the ROTATED coordinate system during animation.
+ *
+ * @see usePlanchetteAnimation.ts for the actual application
  */
 export const TIP_OFFSET_PERCENT = { x: 0, y: -50 }; // -50% up from center to reach the top tip
 
 /**
- * Determines if a character should use the tip pointer (YES/NO/GOODBYE)
- * vs the center magnifying glass (letters/numbers)
+ * Determines if a character should use the tip pointer or center magnifying glass
+ *
+ * @param char - The character to check
+ * @returns true if YES/NO/GOODBYE (use tip), false for letters/numbers (use magnifying glass)
+ *
+ * @remarks
+ * YES, NO, and GOODBYE are special board positions that the tip points to directly.
+ * Regular letters and numbers are viewed through the center magnifying glass.
  */
 export function shouldUseTipPointer(char: string): boolean {
   const upperChar = char.toUpperCase();
@@ -85,7 +97,14 @@ export function shouldUseTipPointer(char: string): boolean {
 }
 
 /**
- * Get coordinate for a character
+ * Get pixel coordinate for a character
+ *
+ * @param char - The character to look up (case-insensitive)
+ * @returns Pixel coordinates relative to board center
+ *
+ * @remarks
+ * Falls back to space (' ') coordinates if character not found.
+ * Automatically converts to uppercase for lookup.
  */
 export function getLetterCoord(char: string): LetterCoord {
   const upperChar = char.toUpperCase();
@@ -93,8 +112,19 @@ export function getLetterCoord(char: string): LetterCoord {
 }
 
 /**
- * Convert pixel coordinates to percentage (for CSS positioning)
- * NOTE: Does NOT apply tip offset - offset is applied with rotation in usePlanchetteAnimation
+ * Convert pixel coordinates to CSS percentage positioning
+ *
+ * @param coord - Pixel coordinates from LETTER_COORDS
+ * @param boardWidth - Width of the board in pixels
+ * @param boardHeight - Height of the board in pixels
+ * @returns Percentage coordinates for CSS positioning
+ *
+ * @remarks
+ * Converts pixel offsets from board center to percentage values for CSS.
+ * Board center is assumed to be at (50%, 50%).
+ *
+ * NOTE: Does NOT apply tip offset - that's applied with rotation
+ * in usePlanchetteAnimation for proper directional alignment.
  */
 export function coordToPercent(
   coord: LetterCoord,

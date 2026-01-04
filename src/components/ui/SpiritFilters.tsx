@@ -1,6 +1,19 @@
 /**
- * SVG filter definitions for spirit-themed visual effects
- * These filters are used throughout the app for atmospheric styling
+ * SpiritFilters - SVG filter definitions for atmospheric visual effects
+ *
+ * Provides reusable SVG filters used throughout the app for supernatural styling:
+ * - spirit-noise: Fractal noise overlay for texture
+ * - spirit-glow: Gaussian blur glow effect
+ *
+ * @remarks
+ * This component renders invisible SVG defs that can be referenced
+ * by CSS filter properties throughout the app.
+ */
+
+/**
+ * Renders hidden SVG filter definitions for spirit-themed effects
+ *
+ * @returns JSX element containing SVG filter definitions
  */
 export function SpiritFilters() {
   return (

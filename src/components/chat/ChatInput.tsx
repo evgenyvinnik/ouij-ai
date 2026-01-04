@@ -1,20 +1,54 @@
+/**
+ * ChatInput - Input controls for sending messages to the spirit
+ *
+ * Provides text input with:
+ * - Keyboard submission (Enter key)
+ * - Speech recognition button (when supported)
+ * - Send button
+ * - Voice feedback display
+ * - Error messaging
+ *
+ * @remarks
+ * Input is disabled during spirit's turn and while listening.
+ * Shows interim transcript while speech recognition is active.
+ */
+
 import { useRef, useCallback } from 'react';
 import { MicrophoneIcon } from '../icons/MicrophoneIcon';
 import { SendIcon } from '../icons/SendIcon';
 
+/**
+ * Props for the ChatInput component
+ */
 interface ChatInputProps {
+  /** Current text input value */
   inputText: string;
+  /** Callback to update input text */
   setInputText: (text: string) => void;
+  /** Whether it's the user's turn to send a message */
   isUserTurn: boolean;
+  /** Whether the send button should be enabled */
   canSend: boolean;
+  /** Callback when send button is clicked or Enter is pressed */
   onSend: () => void;
+  /** Whether speech recognition is currently active */
   isListening: boolean;
+  /** Interim transcript from speech recognition */
   interimTranscript: string;
+  /** Whether speech recognition is supported in this browser */
   isSpeechSupported: boolean;
+  /** Callback to toggle speech recognition on/off */
   onToggleListening: () => void;
+  /** Error message from speech recognition, if any */
   speechError: string | null;
 }
 
+/**
+ * Renders the chat input area with text and voice input options
+ *
+ * @param props - Component props
+ * @returns JSX element containing the input controls
+ */
 export function ChatInput({
   inputText,
   setInputText,

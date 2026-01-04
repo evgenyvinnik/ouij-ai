@@ -1,7 +1,23 @@
+/**
+ * MicrophoneIcon - SVG icon component for microphone/voice input
+ *
+ * Used in the chat input to indicate voice recording functionality.
+ */
+
+/**
+ * Props for the MicrophoneIcon component
+ */
 interface MicrophoneIconProps {
+  /** Additional CSS classes to apply to the SVG */
   className?: string;
 }
 
+/**
+ * Renders a microphone SVG icon
+ *
+ * @param props - Component props
+ * @returns JSX element containing the microphone icon
+ */
 export function MicrophoneIcon({ className = '' }: MicrophoneIconProps) {
   return (
     <svg

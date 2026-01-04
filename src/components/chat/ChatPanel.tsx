@@ -1,3 +1,19 @@
+/**
+ * ChatPanel - Main chat interface for communicating with the spirit
+ *
+ * Provides a full-featured chat interface with:
+ * - Conversation history display
+ * - Text and voice input options
+ * - Auto-scrolling messages
+ * - Thinking indicators during spirit responses
+ * - Session reset functionality
+ * - Error display
+ *
+ * @remarks
+ * Integrates with speech recognition API for voice input when supported.
+ * Prevents duplicate messages from being added to conversation history.
+ */
+
 import { useRef, useEffect, useState, useCallback } from 'react';
 import { useOuijaStore } from '../../state/useOuijaStore';
 import { useSpeechRecognition } from '../../hooks/useSpeechRecognition';
@@ -7,6 +23,11 @@ import { ThinkingIndicator } from './ThinkingIndicator';
 import { ChatInput } from './ChatInput';
 import { ErrorDisplay } from './ErrorDisplay';
 
+/**
+ * Renders the chat panel with message history and input controls
+ *
+ * @returns JSX element containing the complete chat interface
+ */
 export function ChatPanel() {
   const {
     conversationHistory,

@@ -1,12 +1,39 @@
+/**
+ * SpiritNameDialog - Modal dialog for entering the spirit's name
+ *
+ * An atmospheric modal with:
+ * - Animated entrance/exit transitions using react-spring
+ * - Animated mist background effect
+ * - Uppercase text transformation
+ * - 30 character limit with counter
+ * - Floating particle effects
+ * - Auto-focus on input field
+ *
+ * @remarks
+ * Dialog is submitted by pressing Enter. Input is cleared when dialog
+ * becomes visible again after a rejection.
+ */
+
 import { useState, useEffect, useRef } from 'react';
 import { animated, useSpring } from '@react-spring/web';
 import { SpiritFilters } from './SpiritFilters';
 
+/**
+ * Props for the SpiritNameDialog component
+ */
 interface SpiritNameDialogProps {
+  /** Callback when name is submitted */
   onSubmit: (name: string) => void;
+  /** Whether the dialog should be visible */
   isVisible: boolean;
 }
 
+/**
+ * Renders a modal dialog for entering the spirit's name
+ *
+ * @param props - Component props
+ * @returns JSX element with animated modal dialog, or null if not visible
+ */
 export function SpiritNameDialog({
   onSubmit,
   isVisible,

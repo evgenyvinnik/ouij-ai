@@ -1,5 +1,24 @@
+/**
+ * Planchette - Animated pointer piece that moves across the Ouija board
+ *
+ * Renders the planchette (triangular pointer) that glides across the board
+ * to spell out spirit messages. Position and rotation are controlled by
+ * the global animation state.
+ *
+ * @remarks
+ * Visual effects change based on animation state:
+ * - Scale increases during animation
+ * - Drop shadow glows white while animating
+ * - Smooth transitions for all transformations
+ */
+
 import { useOuijaStore } from '../../state/useOuijaStore';
 
+/**
+ * Renders the planchette with position, rotation, and animation effects
+ *
+ * @returns JSX element containing the animated planchette image
+ */
 export function Planchette() {
   const { planchette } = useOuijaStore();
   const isAnimating = useOuijaStore((state) => state.animation.isAnimating);

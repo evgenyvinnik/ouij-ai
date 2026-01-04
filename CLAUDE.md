@@ -254,3 +254,4 @@ When working on this project, prioritize:
 2. Performance (60fps animations)
 3. User experience (smooth interactions)
 4. Code clarity (readable, maintainable)
+- Claude.md

@@ -1,6 +1,24 @@
+/**
+ * MessageDisplay - Displays the spirit's message with supernatural text effects
+ *
+ * Shows the currently revealed letters from the spirit's message with:
+ * - Zalgo text distortion for spooky aesthetic
+ * - Glitch effect layers
+ * - Animated cursor during message animation
+ *
+ * @remarks
+ * Only visible during animation or when a message has been revealed.
+ * The zalgo effect adds diacritical marks for a supernatural appearance.
+ */
+
 import { useOuijaStore } from '../../state/useOuijaStore';
 import { zalgoifyLight } from '../../utils/zalgo';
 
+/**
+ * Renders the spirit's message with glitch effects and animated cursor
+ *
+ * @returns JSX element containing the stylized spirit message
+ */
 export function MessageDisplay() {
   const { animation, turn } = useOuijaStore();
 

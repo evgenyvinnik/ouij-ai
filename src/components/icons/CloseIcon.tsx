@@ -1,7 +1,23 @@
+/**
+ * CloseIcon - SVG icon component for close/dismiss action
+ *
+ * Used in error displays and dismissible UI elements.
+ */
+
+/**
+ * Props for the CloseIcon component
+ */
 interface CloseIconProps {
+  /** Additional CSS classes to apply to the SVG */
   className?: string;
 }
 
+/**
+ * Renders a close/X SVG icon
+ *
+ * @param props - Component props
+ * @returns JSX element containing the close icon
+ */
 export function CloseIcon({ className = '' }: CloseIconProps) {
   return (
     <svg
