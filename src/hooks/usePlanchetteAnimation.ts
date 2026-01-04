@@ -4,6 +4,7 @@ import {
   getLetterCoord,
   coordToPercent,
   shouldUseTipPointer,
+  TIP_OFFSET_PERCENT,
 } from '../utils/letterCoords';
 import {
   easeOutCubic,
@@ -88,7 +89,7 @@ export function usePlanchetteAnimation() {
 
         if (startPosRef.current && targetPosRef.current) {
           // Use bezier curve for smooth, curved path
-          const position = bezierCurve(
+          let position = bezierCurve(
             startPosRef.current,
             targetPosRef.current,
             positionEased
@@ -101,6 +102,26 @@ export function usePlanchetteAnimation() {
             targetPosRef.current,
             rotationEased // Use separate easing for smoother rotation
           );
+
+          // Apply tip offset if using tip pointer (YES/NO/GOODBYE)
+          // The offset must be rotated to match the planchette's orientation
+          if (useTip) {
+            // Convert rotation angle to radians
+            const angleRad = (angle * Math.PI) / 180;
+
+            // Calculate rotated offset
+            // The planchette rotates +90 from the direction of movement,
+            // so we need to rotate our offset by the same amount
+            const offsetDistance = (TIP_OFFSET_PERCENT.y / 100) * 18; // 18% is planchette width
+            const offsetX = Math.sin(angleRad) * offsetDistance;
+            const offsetY = -Math.cos(angleRad) * offsetDistance;
+
+            // Apply the rotated offset to position the tip at the target
+            position = {
+              x: position.x + offsetX,
+              y: position.y + offsetY,
+            };
+          }
 
           movePlanchette(position, angle);
         }

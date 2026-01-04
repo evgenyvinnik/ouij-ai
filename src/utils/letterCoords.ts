@@ -59,8 +59,11 @@ export const LETTER_COORDS: Record<string, LetterCoord> = {
  * Offset from planchette center to tip (as percentage of planchette size)
  * The tip is at the TOP of the planchette (inverted teardrop - pointed end up)
  * For our planchette2.png: tip at top (0%), magnifying glass at center (50%), rounded at bottom (100%)
+ *
+ * NOTE: This offset is applied in the ROTATED coordinate system during animation,
+ * not in the board X/Y coordinates. See usePlanchetteAnimation.ts for the actual application.
  */
-const TIP_OFFSET_PERCENT = { x: 0, y: -50 }; // -50% up from center to reach the top tip
+export const TIP_OFFSET_PERCENT = { x: 0, y: -50 }; // -50% up from center to reach the top tip
 
 /**
  * Determines if a character should use the tip pointer (YES/NO/GOODBYE)
@@ -81,7 +84,7 @@ export function getLetterCoord(char: string): LetterCoord {
 
 /**
  * Convert pixel coordinates to percentage (for CSS positioning)
- * Optionally applies tip offset for YES/NO/GOODBYE
+ * NOTE: Does NOT apply tip offset - offset is applied with rotation in usePlanchetteAnimation
  */
 export function coordToPercent(
   coord: LetterCoord,
@@ -90,18 +93,11 @@ export function coordToPercent(
   useTipPointer = false
 ): { x: number; y: number } {
   // Assuming board center is at 50%, 50%
-  let xPercent = 50 + (coord.x / boardWidth) * 100;
-  let yPercent = 50 + (coord.y / boardHeight) * 100;
+  const xPercent = 50 + (coord.x / boardWidth) * 100;
+  const yPercent = 50 + (coord.y / boardHeight) * 100;
 
-  // Apply tip offset if using tip pointer
-  if (useTipPointer) {
-    // Offset the planchette position so the TIP (top of planchette) lands on the target
-    // Since our planchette has the tip at the top (-50% from center),
-    // we need to move the planchette DOWN so the tip reaches the target position
-    // yPercent -= (-50 * 0.18) = yPercent += 9 (moves planchette down)
-    yPercent -= TIP_OFFSET_PERCENT.y * 0.18; // 0.18 is planchette width (18% of board)
-    xPercent -= TIP_OFFSET_PERCENT.x * 0.18;
-  }
+  // Tip offset is now applied in usePlanchetteAnimation with rotation
+  // We return the target position where we want the TIP to land
 
   return { x: xPercent, y: yPercent };
 }
