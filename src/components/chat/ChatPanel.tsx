@@ -189,7 +189,7 @@ export function ChatPanel() {
       />
 
       {/* Error Display */}
-      <div className="relative z-10 px-3 pb-3">
+      <div className="relative z-10 px-3 pb-0">
         <ErrorDisplay
           errorMessage={errorMessage}
           onDismiss={() => setError(null)}
