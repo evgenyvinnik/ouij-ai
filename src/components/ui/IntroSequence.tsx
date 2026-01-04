@@ -135,30 +135,12 @@ export function IntroSequence({ onComplete }: IntroSequenceProps) {
           }}
           className="relative z-10"
         >
-          <h1
-            className="text-center text-glow"
-            style={{
-              fontFamily: 'Carnivalee Freakshow, cursive',
-              fontSize: 'clamp(3rem, 15vw, 12rem)',
-              color: '#d35400',
-              textShadow: `
-                0 0 30px rgba(211, 84, 0, 0.9),
-                0 0 60px rgba(211, 84, 0, 0.6),
-                0 0 90px rgba(211, 84, 0, 0.4)
-              `,
-              letterSpacing: '0.1em',
-            }}
-          >
+          <h1 className="intro-title text-center text-glow">
             OUIJ-AI
           </h1>
 
           {/* Pulsing glow effect */}
-          <div
-            className="absolute inset-0 -z-10 animate-pulse-slow rounded-full blur-3xl"
-            style={{
-              background: 'radial-gradient(circle, rgba(211, 84, 0, 0.3) 0%, transparent 70%)',
-            }}
-          />
+          <div className="intro-title-glow animate-pulse-slow" />
         </animated.div>
       )}
 
@@ -176,16 +158,11 @@ export function IntroSequence({ onComplete }: IntroSequenceProps) {
         >
           <div className="text-center">
             {/* Status message */}
-            <p
-              className="mb-8 px-8 text-2xl leading-relaxed"
-              style={{
-                fontFamily: 'Kingthings Trypewriter 2, monospace',
-                color: verification.status === 'rejected' ? '#ff4444' : '#d35400',
-                textShadow: `0 0 20px ${verification.status === 'rejected' ? 'rgba(255, 68, 68, 0.6)' : 'rgba(211, 84, 0, 0.6)'}`,
-                maxWidth: verification.status === 'rejected' ? '500px' : '600px',
-                margin: '0 auto',
-              }}
-            >
+            <p className={`verification-message ${
+              verification.status === 'rejected' ? 'verification-message-rejected' :
+              verification.status === 'success' ? 'verification-message-success' :
+              'verification-message-verifying'
+            }`}>
               {verification.message}
             </p>
 
@@ -234,15 +211,6 @@ export function IntroSequence({ onComplete }: IntroSequenceProps) {
           </div>
         </animated.div>
       )}
-
-      {/* Shake animation for rejection */}
-      <style>{`
-        @keyframes shake {
-          0%, 100% { transform: translateX(0); }
-          25% { transform: translateX(-10px); }
-          75% { transform: translateX(10px); }
-        }
-      `}</style>
     </div>
   );
 }

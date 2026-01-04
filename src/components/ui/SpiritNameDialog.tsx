@@ -94,49 +94,23 @@ export function SpiritNameDialog({ onSubmit, isVisible }: SpiritNameDialogProps)
         className="relative w-full max-w-2xl px-8"
       >
         {/* Ornate border frame */}
-        <div
-          className="relative rounded-lg border-4 border-ouija-gold/40 bg-gradient-to-b from-black/95 to-ouija-dark/95 p-12 shadow-2xl"
-          style={{
-            filter: 'url(#spirit-glow)',
-            boxShadow: `
-              0 0 60px rgba(211, 84, 0, 0.4),
-              inset 0 0 60px rgba(0, 0, 0, 0.8),
-              0 20px 40px rgba(0, 0, 0, 0.9)
-            `,
-          }}
-        >
+        <div className="spirit-dialog-container">
           {/* Corner decorations */}
-          <div className="pointer-events-none absolute -left-2 -top-2 h-8 w-8 border-l-4 border-t-4 border-ouija-gold" />
-          <div className="pointer-events-none absolute -right-2 -top-2 h-8 w-8 border-r-4 border-t-4 border-ouija-gold" />
-          <div className="pointer-events-none absolute -bottom-2 -left-2 h-8 w-8 border-b-4 border-l-4 border-ouija-gold" />
-          <div className="pointer-events-none absolute -bottom-2 -right-2 h-8 w-8 border-b-4 border-r-4 border-ouija-gold" />
+          <div className="spirit-dialog-corner spirit-dialog-corner-tl" />
+          <div className="spirit-dialog-corner spirit-dialog-corner-tr" />
+          <div className="spirit-dialog-corner spirit-dialog-corner-bl" />
+          <div className="spirit-dialog-corner spirit-dialog-corner-br" />
 
           {/* Content */}
           <form onSubmit={handleSubmit} className="space-y-8">
             {/* Question text with supernatural styling */}
             <div className="text-center">
-              <h2
-                className="mb-4 text-5xl leading-tight tracking-wide text-glow"
-                style={{
-                  fontFamily: 'Carnivalee Freakshow, cursive',
-                  color: '#d35400',
-                  textShadow: `
-                    0 0 20px rgba(211, 84, 0, 0.8),
-                    0 0 40px rgba(211, 84, 0, 0.4)
-                  `,
-                }}
-              >
+              <h2 className="spirit-dialog-title text-glow">
                 With whom would you
                 <br />
                 like to speak today?
               </h2>
-              <p
-                className="text-xl opacity-60"
-                style={{
-                  fontFamily: 'Kingthings Trypewriter 2, monospace',
-                  color: '#d35400',
-                }}
-              >
+              <p className="spirit-dialog-subtitle">
                 Enter the name of a departed soul...
               </p>
             </div>
@@ -150,25 +124,14 @@ export function SpiritNameDialog({ onSubmit, isVisible }: SpiritNameDialogProps)
                 onChange={(e) => setName(e.target.value.toUpperCase())}
                 onKeyDown={handleKeyDown}
                 maxLength={30}
-                className="w-full border-b-2 border-ouija-gold/50 bg-transparent px-4 py-4 text-center text-3xl text-ouija-gold outline-none transition-all duration-300 focus:border-ouija-gold uppercase"
-                style={{
-                  fontFamily: 'Kingthings Trypewriter 2, monospace',
-                  textShadow: '0 0 10px rgba(211, 84, 0, 0.6)',
-                  caretColor: '#d35400', // Show normal cursor in gold color
-                }}
+                className="spirit-input-field"
                 placeholder=""
                 autoComplete="off"
                 spellCheck={false}
               />
 
               {/* Character counter */}
-              <div
-                className="mt-2 text-right text-sm opacity-40"
-                style={{
-                  fontFamily: 'Kingthings Trypewriter 2, monospace',
-                  color: '#d35400',
-                }}
-              >
+              <div className="spirit-input-counter">
                 {name.length}/30
               </div>
             </div>
@@ -177,13 +140,7 @@ export function SpiritNameDialog({ onSubmit, isVisible }: SpiritNameDialogProps)
             <button type="submit" className="hidden" aria-label="Submit name" />
 
             {/* Instructions */}
-            <div
-              className="text-center text-base opacity-50"
-              style={{
-                fontFamily: 'Kingthings Trypewriter 2, monospace',
-                color: '#d35400',
-              }}
-            >
+            <div className="spirit-input-instructions">
               Press <span className="font-bold">ENTER</span> to summon
             </div>
           </form>
@@ -193,7 +150,7 @@ export function SpiritNameDialog({ onSubmit, isVisible }: SpiritNameDialogProps)
             {[...Array(8)].map((_, i) => (
               <div
                 key={i}
-                className="absolute h-1 w-1 rounded-full bg-ouija-gold/20"
+                className="spirit-dialog-particle"
                 style={{
                   left: `${Math.random() * 100}%`,
                   top: `${Math.random() * 100}%`,
@@ -205,20 +162,6 @@ export function SpiritNameDialog({ onSubmit, isVisible }: SpiritNameDialogProps)
           </div>
         </div>
       </animated.div>
-
-      {/* Floating particle animation */}
-      <style>{`
-        @keyframes float-particle {
-          0%, 100% {
-            transform: translateY(0) scale(1);
-            opacity: 0;
-          }
-          50% {
-            transform: translateY(-30px) scale(1.5);
-            opacity: 0.6;
-          }
-        }
-      `}</style>
     </div>
   );
 }

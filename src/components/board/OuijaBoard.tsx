@@ -23,57 +23,7 @@ export function OuijaBoard() {
   }, [turn, userMessage, conversationHistory, spiritName, sendMessage]);
 
   return (
-    <div
-      className="ouija-board relative mx-auto z-10"
-      style={{
-        width: '80vw',
-        maxWidth: '1200px',
-        aspectRatio: '1920 / 1282',
-        position: 'absolute',
-        left: '50%',
-        top: '50%',
-        transform: 'translate(-50%, -50%)',
-      }}
-    >
-      {/* Mobile-specific positioning */}
-      <style>{`
-        @media (max-width: 768px) {
-          .ouija-board {
-            top: 32% !important;
-            width: 95vw !important;
-          }
-        }
-        @media (max-height: 700px) {
-          .ouija-board {
-            top: 25% !important;
-          }
-        }
-        @media (min-width: 769px) and (max-width: 1023px) {
-          .ouija-board {
-            top: 50% !important;
-            width: 75vw !important;
-            left: 50% !important;
-          }
-        }
-        @media (min-width: 1024px) {
-          .ouija-board {
-            width: 60vw !important;
-            max-width: 850px !important;
-            top: 58% !important;
-            left: calc(50% - 150px) !important;
-            transform: translate(-50%, -50%) !important;
-          }
-        }
-        @media (min-width: 1600px) {
-          .ouija-board {
-            width: 55vw !important;
-            max-width: 900px !important;
-            top: 58% !important;
-            left: calc(50% - 150px) !important;
-            transform: translate(-50%, -50%) !important;
-          }
-        }
-      `}</style>
+    <div className="ouija-board relative">
       {/* Background */}
       <BoardBackground />
 

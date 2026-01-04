@@ -57,10 +57,10 @@ export const LETTER_COORDS: Record<string, LetterCoord> = {
 
 /**
  * Offset from planchette center to tip (as percentage of planchette size)
- * The tip is at the bottom of the planchette, pointing down
- * Adjusted for 130deg rotation
+ * The tip is at the TOP of the planchette, pointing up
+ * Adjusted to point from the top of the planchette
  */
-const TIP_OFFSET_PERCENT = { x: 0, y: 35 }; // 35% down from center
+const TIP_OFFSET_PERCENT = { x: 0, y: -40 }; // -40% up from center (negative = upward)
 
 /**
  * Determines if a character should use the tip pointer (YES/NO/GOODBYE)
@@ -95,8 +95,8 @@ export function coordToPercent(
 
   // Apply tip offset if using tip pointer
   if (useTipPointer) {
-    // Offset the planchette position so the TIP lands on the target
-    // Since tip is 35% down from center, move planchette UP by 35%
+    // Offset the planchette position so the TIP (top) lands on the target
+    // Since tip is 40% up from center, move planchette DOWN by 40%
     yPercent -= TIP_OFFSET_PERCENT.y * 0.18; // 0.18 is planchette width (18% of board)
     xPercent -= TIP_OFFSET_PERCENT.x * 0.18;
   }
