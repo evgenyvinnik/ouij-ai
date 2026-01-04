@@ -4,9 +4,13 @@ import { OuijaState, Position, Message } from '../types/ouija';
 
 const CONVERSATION_TIMEOUT = 5 * 60 * 1000; // 5 minutes in milliseconds
 
+console.log('[STORE] Creating Ouija store with persist middleware');
+
 export const useOuijaStore = create<OuijaState>()(
   persist(
-    (set) => ({
+    (set) => {
+      console.log('[STORE] Store initializer called');
+      return {
       // Planchette state
       planchette: {
         position: { x: 50, y: 50 }, // Start at center
@@ -158,7 +162,8 @@ export const useOuijaStore = create<OuijaState>()(
           errorMessage: null,
           lastActivityTimestamp: Date.now(),
         })),
-    }),
+    };
+    },
     {
       name: 'ouija-session',
       partialize: (state) => ({

@@ -21,14 +21,30 @@ self.addEventListener('install', (event) => {
 
 // Fetch event - serve from cache when offline
 self.addEventListener('fetch', (event) => {
+  const { request } = event;
+  const url = new URL(request.url);
+
+  // Skip caching for:
+  // 1. Non-GET requests (POST, PUT, DELETE, etc.)
+  // 2. Chrome extensions and other non-http(s) schemes
+  // 3. API routes (they should always be fresh)
+  if (
+    request.method !== 'GET' ||
+    !url.protocol.startsWith('http') ||
+    url.pathname.startsWith('/api/')
+  ) {
+    event.respondWith(fetch(request));
+    return;
+  }
+
   event.respondWith(
-    caches.match(event.request).then((response) => {
+    caches.match(request).then((response) => {
       // Cache hit - return response
       if (response) {
         return response;
       }
 
-      return fetch(event.request).then((response) => {
+      return fetch(request).then((response) => {
         // Check if we received a valid response
         if (!response || response.status !== 200 || response.type !== 'basic') {
           return response;
@@ -38,7 +54,7 @@ self.addEventListener('fetch', (event) => {
         const responseToCache = response.clone();
 
         caches.open(CACHE_NAME).then((cache) => {
-          cache.put(event.request, responseToCache);
+          cache.put(request, responseToCache);
         });
 
         return response;
