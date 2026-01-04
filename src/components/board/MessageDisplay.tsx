@@ -9,30 +9,23 @@ export function MessageDisplay() {
 
   return (
     <>
-      {/* Spirit's message display - bottom edge of board */}
+      {/* Spirit's message display - centered in board */}
       {(turn === 'animating' || displayMessage) && (
         <div
           className="spirit-message absolute text-center"
           style={{
-            bottom: '0%',
+            top: '50%',
             left: '0',
             right: '0',
             width: '100%',
+            transform: 'translateY(-50%)',
             letterSpacing: '0.3em',
           }}
         >
           <style>{`
             @media (max-width: 768px) {
-              .spirit-message {
-                bottom: -8% !important;
-              }
               .spirit-message .message-text {
                 font-size: 5vw !important;
-              }
-            }
-            @media (min-width: 1024px) {
-              .spirit-message {
-                bottom: -5% !important;
               }
             }
           `}</style>
