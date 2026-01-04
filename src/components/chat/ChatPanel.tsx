@@ -138,7 +138,9 @@ export function ChatPanel() {
 
       {/* Header */}
       <div className="chat-panel-header">
-        <h3 className="chat-panel-title text-glow">Spirit Conversation</h3>
+        <h3 className="chat-panel-title text-glow">
+          <span className="hidden sm:inline">Spirit </span>Conversation
+        </h3>
         <Button
           variant="ghost"
           size="sm"
