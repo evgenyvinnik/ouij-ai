@@ -351,7 +351,7 @@
 }
 
 .chat-panel-reset-btn {
-  font-family: 'Kingthings Trypewriter 2', monospace;
+  font-family: 'Kingthings Trypewriter 2', monospace !important;
   color: #d35400;
   font-size: 0.875rem;
 }
