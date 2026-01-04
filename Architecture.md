@@ -294,11 +294,45 @@ const yPercent = 50 + (-58.17 / 300) * 100  // ~30%
 - **Streaming**: Native support for SSE
 - **No cold starts**: Better performance than serverless functions
 
+## Voice Input System
+
+### Web Speech API Integration
+
+**Implementation**: Custom `useSpeechRecognition` hook wraps browser Web Speech API
+
+**Features**:
+- **Browser support detection**: Checks for standard and webkit-prefixed APIs
+- **Real-time transcription**: Shows interim results while user speaks
+- **Auto-submit**: Automatically sends message when speech ends
+- **Error handling**: User-friendly messages for common issues
+- **Auto-dismiss errors**: Error messages clear after 5 seconds
+- **100-char limit**: Transcripts truncated to match text input limit
+
+**Configuration**:
+- Language: English (en-US)
+- Continuous: false (stops after first utterance)
+- Interim results: true (shows live transcription)
+- Max alternatives: 1 (best guess only)
+
+**Supported Browsers**:
+- ✅ Chrome/Edge: Full support
+- ✅ Safari: Full support (webkit prefix)
+- ❌ Firefox: Limited/no support
+
+**Error Types Handled**:
+- `no-speech`: No audio detected
+- `not-allowed`: Microphone permission denied
+- `audio-capture`: No microphone found
+- `network`: Connection issues
+- `service-not-available`: API unavailable
+
 ## Security Considerations
 
 ### Input Validation
 
-- **User messages**: Trimmed and length-limited (500 chars)
+- **User messages**: Trimmed and length-limited (100 chars max)
+- **Voice input**: Speech transcript truncated to 100 chars
+- **Input field**: HTML maxLength attribute prevents typing beyond limit
 - **AI output**: Sanitized to A-Z, 0-9, spaces only
 - **No XSS**: React escapes all user content
 
