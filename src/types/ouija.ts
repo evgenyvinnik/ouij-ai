@@ -17,8 +17,6 @@ export interface OuijaState {
   // Planchette
   planchette: {
     position: Position;
-    offset: Position;
-    isDragging: boolean;
     rotation: number; // Rotation angle in degrees
   };
 
@@ -41,8 +39,6 @@ export interface OuijaState {
 
   // Actions
   movePlanchette: (position: Position, rotation?: number) => void;
-  setOffset: (offset: Position) => void;
-  setDragging: (isDragging: boolean) => void;
   queueLetters: (letters: string[]) => void;
   revealNextLetter: () => void;
   clearAnimation: () => void;

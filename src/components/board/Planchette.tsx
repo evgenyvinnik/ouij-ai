@@ -1,40 +1,33 @@
-import { usePlanchette } from '../../hooks/usePlanchette';
 import { useOuijaStore } from '../../state/useOuijaStore';
 
 export function Planchette() {
-  const { position, isDragging, handleMouseDown } = usePlanchette();
   const { planchette } = useOuijaStore();
+  const isAnimating = useOuijaStore((state) => state.animation.isAnimating);
 
   return (
     <div
-      className={`absolute z-20 cursor-grab ${
-        isDragging ? 'cursor-grabbing' : ''
-      }`}
+      className="absolute z-20 pointer-events-none"
       style={{
-        left: `${position.x}%`,
-        top: `${position.y}%`,
+        left: `${planchette.position.x}%`,
+        top: `${planchette.position.y}%`,
         transform: 'translate(-50%, -50%)',
         width: '18%',
       }}
-      onMouseDown={handleMouseDown}
     >
-      <div className="relative">
-        {/* Actual planchette image */}
-        <img
-          src="/planchette2.png"
-          alt="Planchette"
-          className={`w-full ${isDragging ? 'scale-110' : ''}`}
-          style={{
-            filter: isDragging
-              ? 'drop-shadow(5px 5px 5px rgb(255, 198, 198))'
-              : 'drop-shadow(5px 5px 5px #222)',
-            transform: `rotate(${planchette.rotation}deg)`,
-            transition: isDragging
-              ? 'transform 0.3s ease-out, filter 0.3s ease-out, scale 0.3s ease-out'
-              : 'filter 0.3s ease-out', // No transition on transform during animation
-          }}
-        />
-      </div>
+      <img
+        src="/planchette2.png"
+        alt="Planchette"
+        className={`w-full ${isAnimating ? 'scale-110' : ''}`}
+        style={{
+          filter: isAnimating
+            ? 'drop-shadow(5px 5px 5px rgb(255, 198, 198))'
+            : 'drop-shadow(5px 5px 5px #222)',
+          transform: `rotate(${planchette.rotation}deg)`,
+          transition: isAnimating
+            ? 'transform 0.3s ease-out, filter 0.3s ease-out, scale 0.3s ease-out'
+            : 'filter 0.3s ease-out',
+        }}
+      />
     </div>
   );
 }

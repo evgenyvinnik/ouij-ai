@@ -38,17 +38,17 @@ export const SPELL_MESSAGE_TOOL = {
   description:
     'Spell out a message on the Ouija board. The planchette will move to each letter. KEEP IT SHORT: 1-3 words maximum!',
   input_schema: {
-    type: 'object',
+    type: 'object' as const,
     properties: {
       message: {
-        type: 'string',
+        type: 'string' as const,
         description:
           'Message to spell on the board (letters, numbers, and spaces only). MAXIMUM 1-3 words! Examples: YES, NO, BEWARE, SOON',
       },
     },
-    required: ['message'],
+    required: ['message'] as const,
   },
-};
+} as const;
 
 export const MODEL_CONFIG = {
   model: 'claude-sonnet-4-20250514',

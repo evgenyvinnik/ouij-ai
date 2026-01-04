@@ -11,8 +11,6 @@ export const useOuijaStore = create<OuijaState>()(
       // Planchette state
       planchette: {
         position: { x: 50, y: 50 }, // Start at center
-        offset: { x: 0, y: 0 },
-        isDragging: false,
         rotation: 0, // Default rotation (pointing down)
       },
 
@@ -41,16 +39,6 @@ export const useOuijaStore = create<OuijaState>()(
             position,
             ...(rotation !== undefined && { rotation }),
           },
-        })),
-
-      setOffset: (offset: Position) =>
-        set((state) => ({
-          planchette: { ...state.planchette, offset },
-        })),
-
-      setDragging: (isDragging: boolean) =>
-        set((state) => ({
-          planchette: { ...state.planchette, isDragging },
         })),
 
       queueLetters: (letters: string[]) =>
@@ -141,8 +129,6 @@ export const useOuijaStore = create<OuijaState>()(
         set(() => ({
           planchette: {
             position: { x: 50, y: 50 },
-            offset: { x: 0, y: 0 },
-            isDragging: false,
             rotation: 0,
           },
           animation: {
