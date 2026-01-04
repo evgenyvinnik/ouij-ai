@@ -87,7 +87,6 @@ export function IntroSequence({ onComplete }: IntroSequenceProps) {
       } catch (fetchError) {
         // If in development and API fails, bypass verification
         if (isDevelopment) {
-          console.warn('API not available in dev mode, bypassing verification');
           result = {
             isDeceased: true,
             message: `Channeling ${name} (dev mode - verification bypassed)`,
@@ -121,7 +120,6 @@ export function IntroSequence({ onComplete }: IntroSequenceProps) {
         }, 4000);
       }
     } catch (error) {
-      console.error('Verification error:', error);
       setVerification({
         status: 'rejected',
         message: 'The spirits are silent. Please try again.',

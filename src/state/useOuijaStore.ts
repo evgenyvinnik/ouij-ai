@@ -169,12 +169,7 @@ export const useOuijaStore = create<OuijaState>()(
       }),
       // Custom merge function to check timeout
       merge: (persistedState: unknown, currentState) => {
-        console.log('=== ZUSTAND PERSIST MERGE ===');
-        console.log('persistedState:', persistedState);
-        console.log('currentState:', currentState);
-
         if (!persistedState) {
-          console.log('No persisted state found, using current state');
           return currentState;
         }
 
@@ -187,29 +182,18 @@ export const useOuijaStore = create<OuijaState>()(
         };
         const timeSinceLastActivity = now - (state.lastActivityTimestamp || 0);
 
-        console.log('Time since last activity:', timeSinceLastActivity, 'ms');
-        console.log('Timeout threshold:', CONVERSATION_TIMEOUT, 'ms');
-
         // If more than 5 minutes have passed, start fresh
         if (timeSinceLastActivity > CONVERSATION_TIMEOUT) {
-          console.log('Session expired, starting fresh');
           return currentState;
         }
 
         // Otherwise, restore the conversation
-        console.log('Restoring previous session');
-        console.log('Spirit name:', state.spiritName);
-        console.log('Conversation history length:', state.conversationHistory?.length || 0);
-        console.log('hasCompletedIntro:', state.hasCompletedIntro);
-
         // If there's a spirit name and conversation history, ensure intro is completed
         const hasValidSession =
           (state.spiritName && (state.conversationHistory?.length || 0) > 0) ||
           state.hasCompletedIntro;
 
-        console.log('hasValidSession:', hasValidSession);
-
-        const mergedState = {
+        return {
           ...currentState,
           conversationHistory: state.conversationHistory || [],
           spiritName: state.spiritName || null,
@@ -218,11 +202,6 @@ export const useOuijaStore = create<OuijaState>()(
             : state.hasCompletedIntro || false,
           lastActivityTimestamp: state.lastActivityTimestamp || Date.now(),
         };
-
-        console.log('Merged state:', mergedState);
-        console.log('=== END MERGE ===');
-
-        return mergedState;
       },
     }
   )

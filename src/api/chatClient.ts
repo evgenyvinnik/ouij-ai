@@ -85,7 +85,7 @@ export async function sendChatMessage(
     }
   } catch (error) {
     if (isDevelopment) {
-      console.warn('Chat API not available in dev mode, using mock response');
+      // Chat API not available in dev mode, using mock response
 
       // Simulate a mock spirit response
       const mockMessages = [

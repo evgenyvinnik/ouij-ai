@@ -38,7 +38,6 @@ export function useAIChat() {
             // Animation will handle turn change and add message to history
           },
           onError: (error) => {
-            console.error('Chat error:', error);
             setError(error);
             setTurn('user');
             clearAnimation();
