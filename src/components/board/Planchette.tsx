@@ -6,7 +6,7 @@ export function Planchette() {
   const { position, isDragging, handleMouseDown } = usePlanchette();
   const { animation, planchette } = useOuijaStore();
 
-  // Determine which pointer is active
+  // Determine which pointer is active (still used by animation system)
   const currentLetter = animation.letterQueue[animation.currentLetterIndex];
   const isUsingTip = currentLetter && shouldUseTipPointer(currentLetter);
 

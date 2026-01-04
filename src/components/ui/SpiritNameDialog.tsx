@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { animated, useSpring } from '@react-spring/web';
+import { SpiritFilters } from './SpiritFilters';
 
 interface SpiritNameDialogProps {
   onSubmit: (name: string) => void;
@@ -65,28 +66,8 @@ export function SpiritNameDialog({ onSubmit, isVisible }: SpiritNameDialogProps)
         className="absolute inset-0 bg-black/90"
       />
 
-      {/* SVG noise filter for texture */}
-      <svg className="absolute h-0 w-0">
-        <defs>
-          <filter id="spirit-noise">
-            <feTurbulence
-              type="fractalNoise"
-              baseFrequency="0.9"
-              numOctaves="4"
-              stitchTiles="stitch"
-            />
-            <feColorMatrix type="saturate" values="0" />
-            <feBlend mode="multiply" in="SourceGraphic" />
-          </filter>
-          <filter id="spirit-glow">
-            <feGaussianBlur stdDeviation="8" result="coloredBlur" />
-            <feMerge>
-              <feMergeNode in="coloredBlur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-        </defs>
-      </svg>
+      {/* SVG filters for visual effects */}
+      <SpiritFilters />
 
       {/* Dialog Box */}
       <animated.div

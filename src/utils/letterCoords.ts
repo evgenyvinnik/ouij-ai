@@ -57,10 +57,10 @@ export const LETTER_COORDS: Record<string, LetterCoord> = {
 
 /**
  * Offset from planchette center to tip (as percentage of planchette size)
- * The tip is at the TOP of the planchette, pointing up
- * Adjusted to point from the top of the planchette
+ * The tip is at the TOP of the planchette (inverted teardrop - pointed end up)
+ * For our planchette2.png: tip at top (0%), magnifying glass at center (50%), rounded at bottom (100%)
  */
-const TIP_OFFSET_PERCENT = { x: 0, y: -40 }; // -40% up from center (negative = upward)
+const TIP_OFFSET_PERCENT = { x: 0, y: -50 }; // -50% up from center to reach the top tip
 
 /**
  * Determines if a character should use the tip pointer (YES/NO/GOODBYE)
@@ -95,8 +95,10 @@ export function coordToPercent(
 
   // Apply tip offset if using tip pointer
   if (useTipPointer) {
-    // Offset the planchette position so the TIP (top) lands on the target
-    // Since tip is 40% up from center, move planchette DOWN by 40%
+    // Offset the planchette position so the TIP (top of planchette) lands on the target
+    // Since our planchette has the tip at the top (-50% from center),
+    // we need to move the planchette DOWN so the tip reaches the target position
+    // yPercent -= (-50 * 0.18) = yPercent += 9 (moves planchette down)
     yPercent -= TIP_OFFSET_PERCENT.y * 0.18; // 0.18 is planchette width (18% of board)
     xPercent -= TIP_OFFSET_PERCENT.x * 0.18;
   }
