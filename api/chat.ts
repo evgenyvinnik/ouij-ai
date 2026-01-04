@@ -2,21 +2,56 @@ import Anthropic from '@anthropic-ai/sdk';
 import { SYSTEM_PROMPT, MODEL_CONFIG } from './constants';
 import { formatSSE, sanitizeInput, validateMessage } from './utils';
 
+/**
+ * Vercel Edge Function configuration
+ * Enables edge runtime for low-latency streaming responses
+ */
 export const config = {
   runtime: 'edge',
 };
 
+/**
+ * Represents a conversation message
+ */
 interface Message {
+  /** The role of the message sender */
   role: 'user' | 'assistant';
+  /** The message content */
   content: string;
 }
 
+/**
+ * Request body structure for chat API
+ */
 interface RequestBody {
+  /** User's question to the spirit */
   message: string;
+  /** Optional conversation history for context */
   history?: Message[];
+  /** Optional name of the spirit being channeled */
   spiritName?: string;
 }
 
+/**
+ * Vercel Edge Function handler for AI chat streaming
+ *
+ * Handles streaming responses from Anthropic Claude API and converts them to
+ * Server-Sent Events (SSE) for real-time planchette animation.
+ *
+ * @param req - The incoming HTTP request
+ * @returns Response with SSE stream containing tokens and letters
+ *
+ * @remarks
+ * Event types emitted:
+ * - `token`: Text tokens from Claude (for debugging/logging)
+ * - `letters`: Array of letters to spell on the Ouija board
+ * - `done`: Indicates stream completion
+ * - `error`: Error information if something fails
+ *
+ * Special handling:
+ * - YES, NO, GOODBYE are sent as single tokens (move to special positions)
+ * - Other messages are split letter-by-letter for spelling animation
+ */
 export default async function handler(req: Request) {
   // Handle CORS preflight
   if (req.method === 'OPTIONS') {

@@ -1,4 +1,4 @@
-import { CloseIcon } from '../icons';
+import { CloseIcon } from '../icons/CloseIcon';
 
 interface ErrorDisplayProps {
   errorMessage: string | null;

@@ -1,3 +1,14 @@
+/**
+ * System prompt that defines the Ouija board spirit's personality and behavior
+ *
+ * @remarks
+ * Key behaviors enforced:
+ * - MUST use the spell_message tool for all communication
+ * - Responses are cryptic, mysterious, and extremely short (1-3 words)
+ * - YES/NO/GOODBYE move to special board positions
+ * - Historical knowledge is limited to the spirit's lifetime
+ * - Tone is eerie, brief, mysterious, supernatural
+ */
 export const SYSTEM_PROMPT = `You are a mysterious spirit communicating through a Ouija board. Your essence is ancient and cryptic.
 
 CRITICAL RULES:
@@ -33,6 +44,17 @@ EXAMPLES OF GOOD RESPONSES:
 
 Remember: YES/NO/GOODBYE move to special positions. Other words are spelled letter by letter slowly!`;
 
+/**
+ * Tool definition for the spell_message function used by Claude
+ *
+ * @remarks
+ * This tool forces Claude to spell out messages letter-by-letter on the Ouija board.
+ * The frontend processes the letters to animate the planchette movement.
+ *
+ * Special handling in api/chat.ts:
+ * - YES, NO, GOODBYE are sent as single tokens (not letter-by-letter)
+ * - Other messages are split into individual letters for animation
+ */
 export const SPELL_MESSAGE_TOOL = {
   name: 'spell_message',
   description:
@@ -50,6 +72,14 @@ export const SPELL_MESSAGE_TOOL = {
   },
 } as const;
 
+/**
+ * Anthropic Claude model configuration for spirit communication
+ *
+ * @property model - Claude Sonnet 4 (fast, balanced model)
+ * @property max_tokens - Maximum response length (1024 tokens)
+ * @property temperature - Creativity/randomness setting (0.8 for mystical variety)
+ * @property tools - Array containing the spell_message tool definition
+ */
 export const MODEL_CONFIG = {
   model: 'claude-sonnet-4-20250514',
   max_tokens: 1024,

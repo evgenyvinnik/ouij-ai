@@ -1,19 +1,37 @@
 import Anthropic from '@anthropic-ai/sdk';
 
+/**
+ * Vercel Edge Function configuration
+ * Enables edge runtime for low-latency responses
+ */
 export const config = {
   runtime: 'edge',
 };
 
+/**
+ * Request body structure for spirit verification
+ */
 interface RequestBody {
+  /** Name of the person to verify */
   name: string;
 }
 
+/**
+ * Result of spirit verification check
+ */
 interface VerificationResult {
+  /** Whether the person is deceased */
   isDeceased: boolean;
+  /** Explanation from the AI verification */
   message: string;
+  /** The name that was verified */
   name: string;
 }
 
+/**
+ * System prompt for Claude to verify if a person is deceased
+ * Uses Claude as a historian/genealogist to determine death status
+ */
 const VERIFICATION_PROMPT = `You are a knowledgeable historian and genealogist tasked with determining if a person is deceased.
 
 Given a name, determine:
@@ -36,6 +54,33 @@ Respond in JSON format:
 
 Be respectful and factual in your responses.`;
 
+/**
+ * Vercel Edge Function handler for spirit verification
+ *
+ * Verifies if a given person's name corresponds to a deceased individual
+ * using Claude AI as a knowledgeable historian.
+ *
+ * @param req - The incoming HTTP request with name in body
+ * @returns JSON response with verification result
+ *
+ * @remarks
+ * This endpoint is used during the intro sequence to ensure users only
+ * attempt to channel spirits of deceased individuals. The AI makes an
+ * intelligent determination based on historical knowledge.
+ *
+ * @example
+ * ```json
+ * // Request
+ * { "name": "Albert Einstein" }
+ *
+ * // Response
+ * {
+ *   "isDeceased": true,
+ *   "message": "Albert Einstein was a famous physicist who died in 1955.",
+ *   "name": "Albert Einstein"
+ * }
+ * ```
+ */
 export default async function handler(req: Request) {
   // Handle CORS preflight
   if (req.method === 'OPTIONS') {

@@ -1,5 +1,6 @@
 import { useRef, useCallback } from 'react';
-import { MicrophoneIcon, SendIcon } from '../icons';
+import { MicrophoneIcon } from '../icons/MicrophoneIcon';
+import { SendIcon } from '../icons/SendIcon';
 
 interface ChatInputProps {
   inputText: string;

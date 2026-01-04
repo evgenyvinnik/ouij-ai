@@ -2,8 +2,18 @@ import { LetterCoord } from '../types/ouija';
 
 /**
  * Coordinate map for Ouija board letters, numbers, and special positions
- * Coordinates are in pixels relative to the center of the board
- * Calibrated for the ouija_bg.jpg image using interactive calibration tool
+ *
+ * @remarks
+ * Coordinates are in pixels relative to the center of the board.
+ * Calibrated for the ouija_bg.jpg image using an interactive calibration tool.
+ *
+ * Ported from baobabKoodaa/ouija with adjustments for the OUIJ-AI board image.
+ *
+ * Layout:
+ * - Top row: A-M (arc from left to right)
+ * - Bottom row: N-Z (arc from left to right)
+ * - Numbers: 1-0 (horizontal line at bottom)
+ * - Special: YES (top-left), NO (top-right), GOODBYE (bottom-center)
  */
 export const LETTER_COORDS: Record<string, LetterCoord> = {
   // Top row - Letters A-M

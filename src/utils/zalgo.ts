@@ -1,8 +1,19 @@
 /**
  * Zalgo text effect for spooky message display
- * Adds random combining diacritical marks above and below text
+ *
+ * @remarks
+ * Adds random combining diacritical marks above and below text to create
+ * a corrupted, haunted appearance. Inspired by the legendary Stack Overflow
+ * answer and adapted from tchouky/The Great Rambler implementations.
+ *
+ * The effect works by adding Unicode combining characters that stack on top
+ * of or below regular letters, creating a distorted, supernatural look.
  */
 
+/**
+ * Unicode combining marks that appear above characters
+ * @internal
+ */
 const ZALGO_UP = [
   '\u030d',
   '\u030e',
@@ -56,6 +67,10 @@ const ZALGO_UP = [
   '\u031a',
 ];
 
+/**
+ * Unicode combining marks that appear below characters
+ * @internal
+ */
 const ZALGO_DOWN = [
   '\u0316',
   '\u0317',
@@ -99,6 +114,10 @@ const ZALGO_DOWN = [
   '\u0323',
 ];
 
+/**
+ * Unicode combining marks that appear in the middle of characters
+ * @internal
+ */
 const ZALGO_MID = [
   '\u0315',
   '\u031b',
@@ -125,13 +144,34 @@ const ZALGO_MID = [
   '\u0489',
 ];
 
+/**
+ * Maximum diacritical marks multiplier
+ * Controls the upper bound of zalgo intensity
+ * @internal
+ */
 // Maximum diacritical marks to add per character
 const MAX_MARKS_MULTIPLIER = 5;
 
 /**
  * Generate zalgo text with specified intensity
+ *
  * @param text - Input text to transform
- * @param intensity - How many marks to add (0-1)
+ * @param intensity - How many marks to add per character (0-1, default 0.5)
+ * @returns Zalgofied text with combining diacritical marks
+ *
+ * @remarks
+ * The intensity parameter controls how "corrupted" the text appears:
+ * - 0.0: Minimal distortion (1-2 marks per character)
+ * - 0.5: Medium distortion (2-3 marks per character) - DEFAULT
+ * - 1.0: Maximum distortion (5-6 marks per character)
+ *
+ * Spaces are preserved without modification.
+ *
+ * @example
+ * ```ts
+ * zalgoify("BEWARE", 0.5)
+ * // Returns something like: "B̴̢̛E̴̡̨W̵̢̛A̷̧̛R̸̨̛E̵̡̛"
+ * ```
  */
 export function zalgoify(text: string, intensity: number = 0.5): string {
   const maxMarks = Math.floor(intensity * MAX_MARKS_MULTIPLIER) + 1;
@@ -165,6 +205,12 @@ export function zalgoify(text: string, intensity: number = 0.5): string {
 
 /**
  * Generate lighter zalgo effect for subtle spookiness
+ *
+ * @param text - Input text to transform
+ * @returns Text with light zalgo distortion (intensity 0.3)
+ *
+ * @remarks
+ * Useful for messages that should be eerie but still easily readable.
  */
 export function zalgoifyLight(text: string): string {
   return zalgoify(text, 0.3);
@@ -172,6 +218,13 @@ export function zalgoifyLight(text: string): string {
 
 /**
  * Generate heavier zalgo effect for maximum spookiness
+ *
+ * @param text - Input text to transform
+ * @returns Text with heavy zalgo distortion (intensity 0.8)
+ *
+ * @remarks
+ * Useful for dramatic or climactic spirit messages that should appear
+ * heavily corrupted and supernatural.
  */
 export function zalgoifyHeavy(text: string): string {
   return zalgoify(text, 0.8);

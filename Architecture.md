@@ -18,10 +18,10 @@ OUIJ-AI is a full-stack web application that combines a React-based frontend wit
 │         │                  │                  │                 │
 │  ┌──────▼──────────────────▼──────────────────▼──────┐         │
 │  │           Custom Hooks Layer                      │         │
-│  │  - usePlanchette                                  │         │
 │  │  - usePlanchetteAnimation (RAF)                   │         │
 │  │  - useOuijaSession                                │         │
 │  │  - useAIChat                                      │         │
+│  │  - useSpeechRecognition                           │         │
 │  └───────────────────────────────────────────────────┘         │
 └────────────────────────────┬────────────────────────────────────┘
                              │ HTTP/SSE
@@ -99,16 +99,20 @@ OUIJ-AI is a full-stack web application that combines a React-based frontend wit
 App
 └── QueryClientProvider
     └── AppContent
+        ├── IntroSequence (conditional)
+        │   └── SpiritNameDialog
         ├── Header
         ├── OuijaBoard
         │   ├── BoardBackground (SVG/visual)
-        │   ├── Planchette (draggable)
-        │   │   └── MagnifyingGlass
+        │   ├── Planchette (AI-controlled, no interaction)
         │   └── MessageDisplay
         │       ├── User input buffer
         │       └── Spirit revealed message (zalgo)
         └── ChatPanel
-            ├── Conversation history
+            ├── ChatMessage components
+            ├── ThinkingIndicator
+            ├── ChatInput (text + voice)
+            ├── ErrorDisplay
             └── Reset button
 ```
 
@@ -120,8 +124,7 @@ App
 OuijaState {
   planchette: {
     position: { x: number, y: number }  // percentages
-    offset: { x: number, y: number }    // drag offset
-    isDragging: boolean
+    rotation: number                     // degrees
   }
 
   animation: {
@@ -134,6 +137,10 @@ OuijaState {
   turn: 'user' | 'spirit' | 'animating'
   userMessage: string
   conversationHistory: Message[]
+  spiritName: string | null
+  hasCompletedIntro: boolean
+  errorMessage: string | null
+  lastActivityTimestamp: number        // for session persistence
 
   // Actions...
 }
@@ -368,12 +375,13 @@ const position = useOuijaStore(state => state.planchette.position)
 
 ### Possible Features
 
-1. **Voice Input**: Speech-to-text for questions
+1. **Voice Input**: ✅ IMPLEMENTED - Speech-to-text for questions
 2. **Sound Effects**: Eerie sounds during animation
 3. **Multiple Spirits**: Different AI personalities
-4. **Session Persistence**: Save conversation history
+4. **Session Persistence**: ✅ IMPLEMENTED - Save conversation history with 5-minute timeout
 5. **Multiplayer**: Multiple users on same board
 6. **Custom Boards**: User-uploaded board images
+7. **Spirit Verification**: ✅ IMPLEMENTED - AI verifies if spirit name is deceased
 
 ### Technical Debt
 

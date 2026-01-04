@@ -28,18 +28,27 @@ ouij-ai/
 │   │   │   ├── OuijaBoard.tsx
 │   │   │   ├── BoardBackground.tsx
 │   │   │   ├── Planchette.tsx
-│   │   │   ├── MagnifyingGlass.tsx
 │   │   │   └── MessageDisplay.tsx
 │   │   ├── ui/                   # UI components
 │   │   │   ├── Button.tsx
-│   │   │   └── LoadingOverlay.tsx
-│   │   └── chat/
-│   │       └── ChatPanel.tsx
+│   │   │   ├── LoadingOverlay.tsx
+│   │   │   ├── IntroSequence.tsx
+│   │   │   └── SpiritNameDialog.tsx
+│   │   ├── chat/
+│   │   │   ├── ChatPanel.tsx
+│   │   │   ├── ChatMessage.tsx
+│   │   │   ├── ChatInput.tsx
+│   │   │   ├── ThinkingIndicator.tsx
+│   │   │   └── ErrorDisplay.tsx
+│   │   └── icons/
+│   │       ├── MicrophoneIcon.tsx
+│   │       ├── SendIcon.tsx
+│   │       └── CloseIcon.tsx
 │   ├── hooks/                    # Custom hooks
-│   │   ├── usePlanchette.ts      # Position & drag handling
 │   │   ├── usePlanchetteAnimation.ts  # 60fps animations
 │   │   ├── useOuijaSession.ts    # Keyboard & session
-│   │   └── useAIChat.ts          # TanStack Query + SSE
+│   │   ├── useAIChat.ts          # TanStack Query + SSE
+│   │   └── useSpeechRecognition.ts # Voice input
 │   ├── state/
 │   │   └── useOuijaStore.ts      # Zustand store
 │   ├── types/
@@ -89,16 +98,20 @@ ouij-ai/
 ### Styling
 
 - **Tailwind CSS v4**: Utility-first approach
-- **Custom colors**: `ouija-dark`, `ouija-wood`, `ouija-gold`
+- **Custom colors**: `ouija-dark`, `ouija-wood`, `ouija-gold`, `ouija-text`
+- **Custom fonts**: Feral, Carnivalee Freakshow, Kingthings Trypewriter 2
+- **CSS organization**: All styles in `index.css`, no inline styles or embedded `<style>` tags
 - **Responsive**: Mobile-friendly but desktop-primary
 - **Dark theme**: Atmospheric, mystical aesthetic
 
 ### Animation System
 
 - **requestAnimationFrame**: All animations use RAF for 60fps
-- **Easing functions**: `easeOutCubic` for supernatural feel
+- **Easing functions**: `easeOutCubic` for movement, `easeInOutCubic` for rotation
+- **Bezier curves**: Smooth curved paths for planchette movement
 - **No CSS transitions** for planchette movement (use RAF instead)
-- **Smooth interpolation**: `lerp` function for position changes
+- **Rotation-aware positioning**: Tip offset calculated with trigonometry for YES/NO/GOODBYE
+- **Visual feedback**: White glow when planchette is animating
 
 ## Key Architecture Decisions
 
@@ -130,9 +143,19 @@ ouij-ai/
 
 **Why**: Clean separation of concerns, easier testing
 **Implementation**:
-- `useOuijaStore`: State management
+- `useOuijaStore`: State management with Zustand persistence
 - `usePlanchetteAnimation`: Pure animation logic
 - Hooks communicate via store
+- No user drag interaction - fully AI-controlled
+
+### 5. Session Persistence
+
+**Why**: Maintain conversation context across page refreshes
+**Implementation**:
+- Zustand persist middleware with localStorage
+- 5-minute timeout for conversation expiry
+- Stores: conversation history, spirit name, intro completion status
+- Custom merge function validates session before restoration
 
 ## Common Tasks
 
@@ -192,6 +215,19 @@ ouij-ai/
 - Run `bun run type-check` to see all errors
 - Check for missing type definitions
 - Ensure imports are correct
+
+## Features Implemented
+
+1. **AI-Powered Spirit Communication**: Claude Sonnet 4 responds as a mystical spirit
+2. **Smooth Planchette Animation**: 60fps RAF-based animation with bezier curves
+3. **Voice Input**: Speech-to-text for asking questions
+4. **Session Persistence**: Conversation saved for 5 minutes with localStorage
+5. **Spirit Verification**: AI validates if entered name is deceased
+6. **Intro Sequence**: Animated title and spirit name entry
+7. **Responsive Design**: Works on mobile, tablet, and desktop
+8. **Chat History**: Full conversation display with timestamps
+9. **Error Handling**: Graceful degradation and user-friendly errors
+10. **Atmospheric UI**: Custom fonts, dark theme, mystical effects
 
 ## Best Practices
 
