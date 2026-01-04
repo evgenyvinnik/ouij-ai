@@ -119,7 +119,7 @@ export function IntroSequence({ onComplete }: IntroSequenceProps) {
           setVerification({ status: 'idle' });
         }, 4000);
       }
-    } catch (error) {
+    } catch {
       setVerification({
         status: 'rejected',
         message: 'The spirits are silent. Please try again.',
