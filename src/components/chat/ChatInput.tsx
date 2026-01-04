@@ -86,6 +86,7 @@ export function ChatInput({
           onChange={(e) => setInputText(e.target.value)}
           onKeyDown={handleKeyDown}
           disabled={!isUserTurn || isListening}
+          maxLength={100}
           placeholder={
             isUserTurn ? 'Ask the spirits...' : 'Wait for the spirits...'
           }

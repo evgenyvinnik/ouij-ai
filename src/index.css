@@ -34,7 +34,7 @@
   --color-ouija-wood: #3d2817;
   --color-ouija-gold: #d35400;
   --color-ouija-text: #fbedc8;
-  
+
   --font-family-feral: 'Feral', cursive;
   --font-family-spooky: 'Carnivalee Freakshow', cursive;
   --font-family-vintage: 'Kingthings Trypewriter 2', monospace;
@@ -277,12 +277,12 @@
 
 @media (max-width: 768px) {
   .spirit-message-container {
-    top: 50%;
+    top: 30%;
     width: 95vw;
   }
 }
 
-@media (max-height: 700px) {
+@media (max-height: 700px) and (min-width: 769px) {
   .spirit-message-container {
     top: 25%;
   }
@@ -326,7 +326,7 @@
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(12px);
   background: linear-gradient(135deg, rgba(61, 40, 23, 0.9), rgba(10, 10, 10, 0.95));
-  max-height: 400px;
+  max-height: 300px;
   border: 2px solid rgba(211, 84, 0, 0.3);
   border-left: none;
   border-right: none;
@@ -792,8 +792,6 @@
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
-  margin-left: auto;
-  margin-right: auto;
   width: 80vw;
   max-width: 1200px;
   aspect-ratio: 1920 / 1282;
@@ -801,17 +799,13 @@
 
 @media (max-width: 768px) {
   .ouija-board {
-    top: 50%;
+    top: 30%;
     width: 100vw;
     max-width: 100vw;
-    padding: 0;
-    margin: 0;
-    left: 50%;
-    transform: translate(-50%, -50%);
   }
 }
 
-@media (max-height: 700px) {
+@media (max-height: 700px) and (min-width: 769px) {
   .ouija-board {
     top: 25%;
   }
@@ -819,9 +813,7 @@
 
 @media (min-width: 769px) and (max-width: 1023px) {
   .ouija-board {
-    top: 50%;
     width: 75vw;
-    left: 50%;
   }
 }
 
@@ -831,7 +823,6 @@
     max-width: 850px;
     top: 58%;
     left: calc(50% - 150px);
-    transform: translate(-50%, -50%);
   }
 }
 
@@ -839,9 +830,6 @@
   .ouija-board {
     width: 55vw;
     max-width: 900px;
-    top: 58%;
-    left: calc(50% - 150px);
-    transform: translate(-50%, -50%);
   }
 }
 

@@ -68,7 +68,7 @@ export function ChatPanel() {
   // Submit transcript when listening stops
   useEffect(() => {
     if (!isListening && transcript.trim() && isUserTurn) {
-      const message = transcript.trim();
+      const message = transcript.trim().slice(0, 100); // Limit to 100 characters
 
       // Add to history only if it's not a duplicate
       const lastMessage = conversationHistory[conversationHistory.length - 1];
@@ -99,7 +99,7 @@ export function ChatPanel() {
   const handleSendMessage = useCallback(() => {
     if (!canSend) return;
 
-    const message = inputText.trim();
+    const message = inputText.trim().slice(0, 100); // Limit to 100 characters
 
     // Add to history only if it's not a duplicate
     const lastMessage = conversationHistory[conversationHistory.length - 1];
