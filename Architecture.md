@@ -45,7 +45,7 @@ OUIJ-AI is a full-stack web application that combines a React-based frontend wit
                              │
 ┌────────────────────────────▼────────────────────────────────────┐
 │                      Anthropic Claude API                       │
-│                    (claude-sonnet-4-20250514)                   │
+│                    (claude-sonnet-4-6)                   │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -194,7 +194,7 @@ data: {"error":"API key not configured"}
 
 ### Anthropic Integration
 
-**Model**: `claude-sonnet-4-20250514`
+**Model**: `claude-sonnet-4-6`
 
 **System Prompt**: Defines spirit personality
 - Shows unique personality through word choice (not generically cryptic)

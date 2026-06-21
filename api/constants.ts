@@ -98,14 +98,14 @@ export const SPELL_MESSAGE_TOOL = {
 /**
  * Anthropic Claude model configuration for spirit communication
  *
- * @property model - Claude Sonnet 4 (fast, balanced model)
+ * @property model - Claude Sonnet 4.5 (fast, balanced model)
  * @property max_tokens - Maximum response length (1024 tokens)
  * @property temperature - Creativity/randomness setting (0.8 for mystical variety)
  * @property tools - Array containing the spell_message tool definition
  */
 export const MODEL_CONFIG = {
-  model: 'claude-sonnet-4-20250514',
-  max_tokens: 1024,
+  model: 'claude-sonnet-4-6',
+  max_tokens: 2048,
   temperature: 0.8,
   tools: [SPELL_MESSAGE_TOOL],
 };
