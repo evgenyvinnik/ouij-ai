@@ -108,33 +108,40 @@ ouij-ai/
 OUIJ-AI is fully optimized for search engines and social media sharing:
 
 ### Meta Tags
+
 - **Primary SEO**: Title, description, keywords optimized for "AI Ouija board" searches
 - **Open Graph**: Rich previews for Facebook, LinkedIn, and other social platforms
 - **Twitter Cards**: Beautiful card previews when shared on Twitter/X
 - **Canonical URLs**: Prevent duplicate content issues
 
 ### Structured Data
+
 - **JSON-LD Schema**: WebApplication schema for rich search results
 - **Feature Lists**: Highlights key app capabilities for search engines
 - **Ratings**: Aggregate rating display in search results
 
 ### Search Engine Files
+
 - **robots.txt**: Allows all crawlers, blocks API endpoints
 - **sitemap.xml**: Helps search engines discover and index pages
 - **Canonical tags**: Single source of truth for page URLs
 
 ### Social Media Preview Images
+
 To complete SEO setup, add these images to `/public/`:
+
 - `og-image.png` (1200x630px) - For Open Graph/Facebook
 - `twitter-image.png` (1200x600px) - For Twitter cards
 - `screenshot.png` (any size) - App screenshot for schema.org
 
 **Generate screenshots easily:**
+
 1. Navigate to `http://localhost:3000/#preview` in your browser
 2. Take a screenshot and crop to required dimensions
 3. See [PREVIEW_IMAGES.md](./PREVIEW_IMAGES.md) for detailed instructions
 
 ### Testing Your SEO
+
 - **Google Rich Results Test**: https://search.google.com/test/rich-results
 - **Facebook Sharing Debugger**: https://developers.facebook.com/tools/debug/
 - **Twitter Card Validator**: https://cards-dev.twitter.com/validator
@@ -145,6 +152,7 @@ To complete SEO setup, add these images to `/public/`:
 ### Planchette Animation System
 
 The planchette uses requestAnimationFrame for smooth 60fps animations:
+
 1. AI returns letters via the `spell_message` tool
 2. Letters are queued in Zustand store
 3. `usePlanchetteAnimation` hook processes the queue
@@ -154,6 +162,7 @@ The planchette uses requestAnimationFrame for smooth 60fps animations:
 ### AI Integration
 
 The system uses Anthropic's Claude with a custom tool definition:
+
 - **Tool**: `spell_message` - Forces AI to spell messages letter by letter
 - **System Prompt**: Defines spirit personality (cryptic, mysterious, brief)
 - **Streaming**: Real-time SSE for responsive experience
@@ -162,6 +171,7 @@ The system uses Anthropic's Claude with a custom tool definition:
 ### Letter Coordinates
 
 Coordinate system ported from [baobabKoodaa/ouija](https://github.com/baobabKoodaa/ouija):
+
 - Pixel-based coordinates relative to board center
 - Supports A-Z, 0-9, and special positions (YES, NO, GOODBYE)
 - Converted to percentages for responsive CSS positioning
@@ -186,6 +196,7 @@ The `vercel.json` configuration is already set up for Edge Functions.
 ### Environment Variables
 
 Required environment variables:
+
 - `ANTHROPIC_API_KEY`: Your Anthropic API key
 
 ## 🤝 Contributing
@@ -199,6 +210,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🙏 Acknowledgments
 
 ### Original Project
+
 - **Design and Implementation**: [baobabKoodaa/ouija](https://github.com/baobabKoodaa/ouija) - Original Ouija board design and concept by Baobab Koodaa
 
 ### Assets and Effects
@@ -229,6 +241,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
   - Glass crack PNG from [SeekPNG](https://www.seekpng.com/ipng/u2q8i1y3r5i1t4a9_the-gallery-for-broken-glass-transparent-png-broken/) - personal use permitted
 
 ### Technology & Architecture
+
 - **Architecture Patterns**: Inspired by [evgenyvinnik/MCPlator](https://github.com/evgenyvinnik/MCPlator)
 - **AI Technology**: Powered by [Anthropic Claude](https://www.anthropic.com/)
 - **Framework**: [React 19](https://react.dev/) with React Compiler
@@ -236,6 +249,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
 
 ### Special Thanks
+
 - Baobab Koodaa for the original Ouija board implementation and visual design
 - Anthropic for the Claude AI API
 - All open-source contributors whose work made this project possible
