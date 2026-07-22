@@ -1,17 +1,17 @@
 import { useEffect, useRef } from 'react';
-import { useOuijaStore } from '../state/useOuijaStore';
+import { useOuijaStore } from '@/state/useOuijaStore';
 import {
   getLetterCoord,
   coordToPercent,
   shouldUseTipPointer,
   TIP_OFFSET_PERCENT,
-} from '../utils/letterCoords';
+} from '@/utils/letterCoords';
 import {
   easeOutCubic,
   bezierCurve,
   bezierTangentAngle,
   easeInOutCubic,
-} from '../utils/animations';
+} from '@/utils/animations';
 
 /**
  * Return value from the usePlanchetteAnimation hook

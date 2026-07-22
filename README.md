@@ -2,7 +2,7 @@
 
 An AI-powered Ouija board web experience combining mystical aesthetics with cutting-edge AI technology. Ask questions and watch as AI spirits respond through smooth planchette animations.
 
-![OUIJ-AI Banner](https://img.shields.io/badge/React-19-blue) ![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue) ![Vite](https://img.shields.io/badge/Vite-6.0-purple) ![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-4.0-cyan)
+![OUIJ-AI Banner](https://img.shields.io/badge/React-19-blue) ![TypeScript](https://img.shields.io/badge/TypeScript-6.0-blue) ![Vite](https://img.shields.io/badge/Vite-8.1-purple) ![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-4.0-cyan)
 
 ## ✨ Features
 
@@ -70,7 +70,7 @@ bun run preview
 ## 🏗️ Tech Stack
 
 - **Frontend Framework**: React 19 with React Compiler
-- **Build Tool**: Vite 6
+- **Build Tool**: Vite 8
 - **Language**: TypeScript (strict mode)
 - **Styling**: Tailwind CSS v4
 - **State Management**:
@@ -232,7 +232,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Architecture Patterns**: Inspired by [evgenyvinnik/MCPlator](https://github.com/evgenyvinnik/MCPlator)
 - **AI Technology**: Powered by [Anthropic Claude](https://www.anthropic.com/)
 - **Framework**: [React 19](https://react.dev/) with React Compiler
-- **Build Tool**: [Vite 6](https://vite.dev/)
+- **Build Tool**: [Vite 8](https://vite.dev/)
 - **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
 
 ### Special Thanks

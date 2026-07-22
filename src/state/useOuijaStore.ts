@@ -27,7 +27,7 @@
 
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { OuijaState, Position, Message } from '../types/ouija';
+import { OuijaState, Position, Message, Turn } from '@/types/ouija';
 
 /**
  * Session timeout duration in milliseconds
@@ -37,6 +37,53 @@ import { OuijaState, Position, Message } from '../types/ouija';
  * session is started. This prevents users from resuming stale conversations.
  */
 const CONVERSATION_TIMEOUT = 5 * 60 * 1000; // 5 minutes in milliseconds
+
+/**
+ * The non-action ("data") slice of the store — everything a fresh séance resets.
+ */
+type SessionState = Pick<
+  OuijaState,
+  | 'planchette'
+  | 'animation'
+  | 'turn'
+  | 'userMessage'
+  | 'conversationHistory'
+  | 'spiritName'
+  | 'hasCompletedIntro'
+  | 'errorMessage'
+  | 'lastActivityTimestamp'
+>;
+
+/**
+ * Build the initial (and post-reset) session state.
+ *
+ * @remarks
+ * Shared by the store's initial value and {@link OuijaState.resetSession} so the
+ * "fresh séance" shape lives in exactly one place. `lastActivityTimestamp` is
+ * evaluated on each call so a reset always stamps the current time.
+ */
+const createInitialState = (): SessionState => ({
+  // Planchette starts centered, pointing down
+  planchette: {
+    position: { x: 50, y: 50 },
+    rotation: 0,
+  },
+  // Animation queue starts empty
+  animation: {
+    isAnimating: false,
+    letterQueue: [],
+    revealedLetters: [],
+    currentLetterIndex: 0,
+  },
+  // Game state starts on the user's turn with no conversation
+  turn: 'user',
+  userMessage: '',
+  conversationHistory: [],
+  spiritName: null,
+  hasCompletedIntro: false,
+  errorMessage: null,
+  lastActivityTimestamp: Date.now(),
+});
 
 /**
  * Main Zustand store instance for Ouija board state management
@@ -54,56 +101,11 @@ export const useOuijaStore = create<OuijaState>()(
     (set) => {
       return {
       /**
-       * Planchette position and rotation state
-       *
-       * @remarks
-       * Position is percentage-based (0-100) for responsive layouts.
-       * Rotation is in degrees, used to point the planchette in the direction of movement.
+       * Initial session state (planchette, animation, and game/conversation
+       * fields). Shared with {@link OuijaState.resetSession} via
+       * {@link createInitialState}.
        */
-      // Planchette state
-      planchette: {
-        position: { x: 50, y: 50 }, // Start at center
-        rotation: 0, // Default rotation (pointing down)
-      },
-
-      /**
-       * Animation system state
-       *
-       * @remarks
-       * Controls the letter-by-letter spelling animation:
-       * - `letterQueue`: Letters waiting to be animated (from AI response)
-       * - `revealedLetters`: Letters that have been shown to the user
-       * - `currentLetterIndex`: Current position in the animation sequence
-       * - `isAnimating`: Whether the planchette is actively moving/spelling
-       */
-      // Animation state
-      animation: {
-        isAnimating: false,
-        letterQueue: [],
-        revealedLetters: [],
-        currentLetterIndex: 0,
-      },
-
-      /**
-       * Game state and conversation management
-       *
-       * @remarks
-       * - `turn`: Controls UI state (user input, AI processing, animation)
-       * - `userMessage`: Current question being typed by user
-       * - `conversationHistory`: Full message history (persisted)
-       * - `spiritName`: Name of channeled spirit (persisted)
-       * - `hasCompletedIntro`: Whether intro sequence finished (persisted)
-       * - `errorMessage`: Current error to display, if any
-       * - `lastActivityTimestamp`: For session timeout tracking (persisted)
-       */
-      // Game state
-      turn: 'user',
-      userMessage: '',
-      conversationHistory: [],
-      spiritName: null,
-      hasCompletedIntro: false,
-      errorMessage: null,
-      lastActivityTimestamp: Date.now(),
+      ...createInitialState(),
 
       /**
        * Action methods for state mutations
@@ -285,7 +287,7 @@ export const useOuijaStore = create<OuijaState>()(
        * - `spirit`: AI is processing the question
        * - `animating`: Planchette is spelling the response
        */
-      setTurn: (turn: 'user' | 'spirit' | 'animating') => set(() => ({ turn })),
+      setTurn: (turn: Turn) => set(() => ({ turn })),
 
       /**
        * Set the name of the spirit being channeled
@@ -336,26 +338,7 @@ export const useOuijaStore = create<OuijaState>()(
        * Used when starting a new séance or when the "New Séance" button is clicked.
        * This also clears persisted state from localStorage.
        */
-      resetSession: () =>
-        set(() => ({
-          planchette: {
-            position: { x: 50, y: 50 },
-            rotation: 0,
-          },
-          animation: {
-            isAnimating: false,
-            letterQueue: [],
-            revealedLetters: [],
-            currentLetterIndex: 0,
-          },
-          turn: 'user',
-          userMessage: '',
-          conversationHistory: [],
-          spiritName: null,
-          hasCompletedIntro: false,
-          errorMessage: null,
-          lastActivityTimestamp: Date.now(),
-        })),
+      resetSession: () => set(() => createInitialState()),
     };
     },
     {

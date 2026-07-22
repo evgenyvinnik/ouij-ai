@@ -1,6 +1,11 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { SYSTEM_PROMPT, MODEL_CONFIG } from './constants';
-import { formatSSE, sanitizeInput, validateMessage } from './utils';
+import {
+  formatSSE,
+  sanitizeInput,
+  validateMessage,
+  handleCorsPreflight,
+} from './utils';
 
 /**
  * Vercel Edge Function configuration
@@ -55,14 +60,7 @@ interface RequestBody {
 export default async function handler(req: Request) {
   // Handle CORS preflight
   if (req.method === 'OPTIONS') {
-    return new Response(null, {
-      status: 200,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type',
-      },
-    });
+    return handleCorsPreflight();
   }
 
   if (req.method !== 'POST') {

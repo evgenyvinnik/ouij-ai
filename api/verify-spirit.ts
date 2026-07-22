@@ -1,4 +1,6 @@
 import Anthropic from '@anthropic-ai/sdk';
+import { MODEL } from './constants';
+import { handleCorsPreflight } from './utils';
 
 /**
  * Vercel Edge Function configuration
@@ -84,14 +86,7 @@ Be respectful and factual in your responses.`;
 export default async function handler(req: Request) {
   // Handle CORS preflight
   if (req.method === 'OPTIONS') {
-    return new Response(null, {
-      status: 200,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type',
-      },
-    });
+    return handleCorsPreflight();
   }
 
   if (req.method !== 'POST') {
@@ -127,7 +122,7 @@ export default async function handler(req: Request) {
 
     // Query Claude to verify if the person is deceased
     const response = await anthropic.messages.create({
-      model: 'claude-sonnet-4-6',
+      model: MODEL,
       max_tokens: 2048,
       temperature: 0.3,
       system: VERIFICATION_PROMPT,

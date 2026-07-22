@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useOuijaStore } from '../state/useOuijaStore';
+import { useOuijaStore } from '@/state/useOuijaStore';
 
 /**
  * Return value from the useOuijaSession hook

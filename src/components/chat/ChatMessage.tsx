@@ -5,12 +5,14 @@
  * (user or spirit/assistant).
  */
 
+import type { MessageRole } from '@/types/ouija';
+
 /**
  * Props for the ChatMessage component
  */
 interface ChatMessageProps {
   /** The role of the message sender */
-  role: 'user' | 'assistant';
+  role: MessageRole;
   /** The text content of the message */
   content: string;
   /** Optional custom name for the spirit */

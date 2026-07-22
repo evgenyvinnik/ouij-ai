@@ -14,8 +14,8 @@
  */
 
 import { useRef, useCallback } from 'react';
-import { MicrophoneIcon } from '../icons/MicrophoneIcon';
-import { SendIcon } from '../icons/SendIcon';
+import { MicrophoneIcon } from '@/components/icons/MicrophoneIcon';
+import { SendIcon } from '@/components/icons/SendIcon';
 
 /**
  * Props for the ChatInput component

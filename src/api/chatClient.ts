@@ -6,7 +6,7 @@
  * Provides development mode fallback with mock responses when API is unavailable.
  */
 
-import { Message } from '../types/ouija';
+import { Message } from '@/types/ouija';
 
 /**
  * Request structure for chat API

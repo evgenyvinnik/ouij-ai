@@ -7,7 +7,7 @@
 ## Tech Stack
 
 - **Frontend**: React 19 with React Compiler, TypeScript (strict mode)
-- **Build Tool**: Vite 6
+- **Build Tool**: Vite 8
 - **Styling**: Tailwind CSS v4
 - **State Management**: Zustand (client), TanStack Query (server)
 - **AI Backend**: Anthropic Claude Sonnet 4.5 via Vercel Edge Functions

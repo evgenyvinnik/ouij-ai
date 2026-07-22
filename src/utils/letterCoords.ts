@@ -1,4 +1,4 @@
-import { LetterCoord } from '../types/ouija';
+import { LetterCoord } from '@/types/ouija';
 
 /**
  * Coordinate map for Ouija board letters, numbers, and special positions
