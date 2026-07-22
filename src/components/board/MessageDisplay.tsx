@@ -11,8 +11,8 @@
  * The zalgo effect adds diacritical marks for a supernatural appearance.
  */
 
-import { useOuijaStore } from '../../state/useOuijaStore';
-import { zalgoifyLight } from '../../utils/zalgo';
+import { useOuijaStore } from '@/state/useOuijaStore';
+import { zalgoifyLight } from '@/utils/zalgo';
 
 /**
  * Renders the spirit's message with glitch effects and animated cursor

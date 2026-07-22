@@ -1,3 +1,5 @@
+import type Anthropic from '@anthropic-ai/sdk';
+
 /**
  * System prompt that defines the Ouija board spirit's personality and behavior
  *
@@ -83,28 +85,37 @@ export const SPELL_MESSAGE_TOOL = {
   description:
     'Spell out a message on the Ouija board. The planchette will move to each letter. KEEP IT SHORT: 1-3 words maximum!',
   input_schema: {
-    type: 'object' as const,
+    type: 'object',
     properties: {
       message: {
-        type: 'string' as const,
+        type: 'string',
         description:
           'Message to spell on the board (letters, numbers, and spaces only). MAXIMUM 1-3 words! Examples: YES, NO, BEWARE, SOON',
       },
     },
-    required: ['message'] as const,
+    required: ['message'],
   },
-} as const;
+} satisfies Anthropic.Tool;
+
+/**
+ * Anthropic Claude model ID used across all API endpoints
+ *
+ * @remarks
+ * Shared by both the chat stream ({@link MODEL_CONFIG}) and spirit verification
+ * so the model is configured in exactly one place.
+ */
+export const MODEL = 'claude-sonnet-4-6';
 
 /**
  * Anthropic Claude model configuration for spirit communication
  *
- * @property model - Claude Sonnet 4.5 (fast, balanced model)
- * @property max_tokens - Maximum response length (1024 tokens)
+ * @property model - Shared {@link MODEL} id
+ * @property max_tokens - Maximum response length
  * @property temperature - Creativity/randomness setting (0.8 for mystical variety)
  * @property tools - Array containing the spell_message tool definition
  */
 export const MODEL_CONFIG = {
-  model: 'claude-sonnet-4-6',
+  model: MODEL,
   max_tokens: 2048,
   temperature: 0.8,
   tools: [SPELL_MESSAGE_TOOL],

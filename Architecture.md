@@ -160,6 +160,7 @@ OuijaState {
 **Endpoint**: `POST /api/chat`
 
 **Request**:
+
 ```json
 {
   "message": "What is my future?",
@@ -187,6 +188,7 @@ data: {}
 ```
 
 **Error Response**:
+
 ```
 event: error
 data: {"error":"API key not configured"}
@@ -197,6 +199,7 @@ data: {"error":"API key not configured"}
 **Model**: `claude-sonnet-4-6`
 
 **System Prompt**: Defines spirit personality
+
 - Shows unique personality through word choice (not generically cryptic)
 - Brief responses (1-4 words reflecting character traits)
 - Must use `spell_message` tool
@@ -204,6 +207,7 @@ data: {"error":"API key not configured"}
 - Examples: Einstein uses "RELATIVE", Shakespeare uses "AYE", Mark Twain uses "HELL YES"
 
 **Tool Definition**:
+
 ```json
 {
   "name": "spell_message",
@@ -228,28 +232,28 @@ data: {"error":"API key not configured"}
 ```typescript
 // Pseudo-code for animation
 function animate() {
-  const now = Date.now()
-  const elapsed = now - startTime
+  const now = Date.now();
+  const elapsed = now - startTime;
 
   if (phase === 'moving') {
-    const progress = Math.min(elapsed / MOVE_DURATION, 1)
-    const eased = easeOutCubic(progress)
-    const x = lerp(startX, targetX, eased)
-    const y = lerp(startY, targetY, eased)
-    movePlanchette({ x, y })
+    const progress = Math.min(elapsed / MOVE_DURATION, 1);
+    const eased = easeOutCubic(progress);
+    const x = lerp(startX, targetX, eased);
+    const y = lerp(startY, targetY, eased);
+    movePlanchette({ x, y });
 
     if (progress >= 1) {
-      phase = 'paused'
-      pauseStartTime = now
+      phase = 'paused';
+      pauseStartTime = now;
     }
   } else if (phase === 'paused') {
     if (now - pauseStartTime >= PAUSE_DURATION) {
-      revealNextLetter()
-      return // Exit, will restart for next letter
+      revealNextLetter();
+      return; // Exit, will restart for next letter
     }
   }
 
-  requestAnimationFrame(animate)
+  requestAnimationFrame(animate);
 }
 ```
 
@@ -307,6 +311,7 @@ const yPercent = 50 + (-58.17 / 300) * 100  // ~30%
 **Implementation**: Custom `useSpeechRecognition` hook wraps browser Web Speech API
 
 **Features**:
+
 - **Browser support detection**: Checks for standard and webkit-prefixed APIs
 - **Real-time transcription**: Shows interim results while user speaks
 - **Auto-submit**: Automatically sends message when speech ends
@@ -315,17 +320,20 @@ const yPercent = 50 + (-58.17 / 300) * 100  // ~30%
 - **100-char limit**: Transcripts truncated to match text input limit
 
 **Configuration**:
+
 - Language: English (en-US)
 - Continuous: false (stops after first utterance)
 - Interim results: true (shows live transcription)
 - Max alternatives: 1 (best guess only)
 
 **Supported Browsers**:
+
 - ✅ Chrome/Edge: Full support
 - ✅ Safari: Full support (webkit prefix)
 - ❌ Firefox: Limited/no support
 
 **Error Types Handled**:
+
 - `no-speech`: No audio detected
 - `not-allowed`: Microphone permission denied
 - `audio-capture`: No microphone found
@@ -365,10 +373,10 @@ const yPercent = 50 + (-58.17 / 300) * 100  // ~30%
 
 ```typescript
 // Bad: Subscribes to entire store
-const state = useOuijaStore()
+const state = useOuijaStore();
 
 // Good: Subscribes to specific slice
-const position = useOuijaStore(state => state.planchette.position)
+const position = useOuijaStore((state) => state.planchette.position);
 ```
 
 ### Animation Performance

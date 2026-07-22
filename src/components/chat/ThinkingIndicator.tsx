@@ -5,12 +5,14 @@
  * is generating a response or the planchette is animating.
  */
 
+import type { Turn } from '@/types/ouija';
+
 /**
  * Props for the ThinkingIndicator component
  */
 interface ThinkingIndicatorProps {
   /** Current turn state determining visibility and message */
-  turn: 'user' | 'spirit' | 'animating';
+  turn: Turn;
 }
 
 /**

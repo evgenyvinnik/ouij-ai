@@ -21,14 +21,25 @@ export interface LetterCoord {
 }
 
 /**
+ * The sender of a conversation message
+ */
+export type MessageRole = 'user' | 'assistant';
+
+/**
  * A conversation message between user and spirit
  */
 export interface Message {
   /** The sender of the message */
-  role: 'user' | 'assistant';
+  role: MessageRole;
   /** The message text content */
   content: string;
 }
+
+/**
+ * Turn state driving the UI: the user is typing, the spirit is generating a
+ * response, or the planchette is animating the reply.
+ */
+export type Turn = 'user' | 'spirit' | 'animating';
 
 /**
  * Global Zustand store state for the Ouija board application
@@ -73,7 +84,7 @@ export interface OuijaState {
    */
   // Game state
   /** Current turn: user input, spirit response, or animating */
-  turn: 'user' | 'spirit' | 'animating';
+  turn: Turn;
   /** Current user message being typed */
   userMessage: string;
   /** Full conversation history (persisted) */
@@ -104,7 +115,7 @@ export interface OuijaState {
   /** Add a message to conversation history */
   addToHistory: (message: Message) => void;
   /** Set the current turn */
-  setTurn: (turn: 'user' | 'spirit' | 'animating') => void;
+  setTurn: (turn: Turn) => void;
   /** Set the spirit name */
   setSpiritName: (name: string) => void;
   /** Mark intro sequence as completed */

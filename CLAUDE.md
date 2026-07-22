@@ -7,7 +7,7 @@
 ## Tech Stack
 
 - **Frontend**: React 19 with React Compiler, TypeScript (strict mode)
-- **Build Tool**: Vite 6
+- **Build Tool**: Vite 8
 - **Styling**: Tailwind CSS v4
 - **State Management**: Zustand (client), TanStack Query (server)
 - **AI Backend**: Anthropic Claude Sonnet 4.5 via Vercel Edge Functions
@@ -128,6 +128,7 @@ ouij-ai/
 
 **Why**: Real-time character-by-character streaming creates engaging UX
 **Implementation**:
+
 - Edge function returns SSE stream
 - Client parses events: `token`, `letters`, `done`, `error`
 - Letters queued in Zustand for animation
@@ -136,6 +137,7 @@ ouij-ai/
 
 **Why**: Forces AI to use structured output for planchette control
 **Implementation**:
+
 - `spell_message` tool defined in API
 - AI must call tool to communicate
 - Tool returns array of letters to spell
@@ -144,6 +146,7 @@ ouij-ai/
 
 **Why**: Accurate letter positioning matching traditional Ouija boards
 **Implementation**:
+
 - Pixel coordinates from original implementation
 - Converted to percentages for responsive layout
 - Center-based positioning (50%, 50%)
@@ -152,6 +155,7 @@ ouij-ai/
 
 **Why**: Clean separation of concerns, easier testing
 **Implementation**:
+
 - `useOuijaStore`: State management with Zustand persistence
 - `usePlanchetteAnimation`: Pure animation logic
 - Hooks communicate via store
@@ -161,6 +165,7 @@ ouij-ai/
 
 **Why**: Maintain conversation context across page refreshes
 **Implementation**:
+
 - Zustand persist middleware with localStorage
 - 5-minute timeout for conversation expiry
 - Stores: conversation history, spirit name, intro completion status
@@ -214,16 +219,19 @@ ouij-ai/
 ## Troubleshooting
 
 ### Planchette Not Moving
+
 - Check `usePlanchetteAnimation` is called
 - Verify letters are queued in store
 - Check browser console for RAF errors
 
 ### AI Not Responding
+
 - Verify API key is set
 - Check network tab for `/api/chat` requests
 - Look for SSE parsing errors in console
 
 ### TypeScript Errors
+
 - Run `bun run type-check` to see all errors
 - Check for missing type definitions
 - Ensure imports are correct
@@ -263,6 +271,7 @@ ouij-ai/
 ---
 
 When working on this project, prioritize:
+
 1. Type safety (strict TypeScript)
 2. Performance (60fps animations)
 3. User experience (smooth interactions)

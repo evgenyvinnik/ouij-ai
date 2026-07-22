@@ -15,9 +15,9 @@
 import { useEffect } from 'react';
 import { BoardBackground } from './BoardBackground';
 import { Planchette } from './Planchette';
-import { usePlanchetteAnimation } from '../../hooks/usePlanchetteAnimation';
-import { useOuijaStore } from '../../state/useOuijaStore';
-import { useAIChat } from '../../hooks/useAIChat';
+import { usePlanchetteAnimation } from '@/hooks/usePlanchetteAnimation';
+import { useOuijaStore } from '@/state/useOuijaStore';
+import { useAIChat } from '@/hooks/useAIChat';
 
 /**
  * Renders the main Ouija board interface with planchette animations

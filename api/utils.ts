@@ -1,4 +1,26 @@
 /**
+ * Shared CORS headers for API responses
+ *
+ * @remarks
+ * These are also applied at the platform level in `vercel.json`; keeping them
+ * here lets the edge functions respond correctly during local development too.
+ */
+export const CORS_HEADERS = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type',
+} as const;
+
+/**
+ * Build the response for a CORS preflight (OPTIONS) request
+ *
+ * @returns A `200 OK` response carrying the shared {@link CORS_HEADERS}
+ */
+export function handleCorsPreflight(): Response {
+  return new Response(null, { status: 200, headers: CORS_HEADERS });
+}
+
+/**
  * Format data for Server-Sent Events (SSE) protocol
  *
  * @param event - The event name (e.g., 'token', 'letters', 'done', 'error')

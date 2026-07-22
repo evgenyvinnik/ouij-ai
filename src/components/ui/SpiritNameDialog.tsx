@@ -29,6 +29,21 @@ interface SpiritNameDialogProps {
 }
 
 /**
+ * Decorative floating particles, generated once at module load.
+ *
+ * @remarks
+ * Computed outside render so the random positions/timings stay stable across
+ * re-renders (previously they were re-randomized every render, making the
+ * particles jump) and so render stays pure per the rules of React.
+ */
+const PARTICLES = Array.from({ length: 8 }, () => ({
+  left: `${Math.random() * 100}%`,
+  top: `${Math.random() * 100}%`,
+  animation: `float-particle ${3 + Math.random() * 4}s ease-in-out infinite`,
+  animationDelay: `${Math.random() * 2}s`,
+}));
+
+/**
  * Renders a modal dialog for entering the spirit's name
  *
  * @param props - Component props
@@ -62,14 +77,21 @@ export function SpiritNameDialog({
     config: { duration: 3000 },
   });
 
-  useEffect(() => {
-    if (isVisible && inputRef.current) {
-      // Auto-focus input when dialog appears
-      inputRef.current.focus();
-    }
-    // Clear input when dialog becomes visible (after rejection)
+  // Clear the input when the dialog transitions into view (e.g. after a
+  // rejected name). Adjusting state during render on a prop change is the
+  // React-recommended alternative to resetting state inside an effect.
+  const [wasVisible, setWasVisible] = useState(isVisible);
+  if (isVisible !== wasVisible) {
+    setWasVisible(isVisible);
     if (isVisible) {
       setName('');
+    }
+  }
+
+  useEffect(() => {
+    // Auto-focus input when dialog appears
+    if (isVisible) {
+      inputRef.current?.focus();
     }
   }, [isVisible]);
 
@@ -161,16 +183,11 @@ export function SpiritNameDialog({
 
           {/* Animated particles */}
           <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-lg">
-            {[...Array(8)].map((_, i) => (
+            {PARTICLES.map((particle, i) => (
               <div
                 key={i}
                 className="spirit-dialog-particle"
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  animation: `float-particle ${3 + Math.random() * 4}s ease-in-out infinite`,
-                  animationDelay: `${Math.random() * 2}s`,
-                }}
+                style={particle}
               />
             ))}
           </div>

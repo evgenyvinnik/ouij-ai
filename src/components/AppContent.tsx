@@ -15,8 +15,8 @@ import { OuijaBoard } from './board/OuijaBoard';
 import { ChatPanel } from './chat/ChatPanel';
 import { MessageDisplay } from './board/MessageDisplay';
 import { IntroSequence } from './ui/IntroSequence';
-import { useOuijaSession } from '../hooks/useOuijaSession';
-import { useOuijaStore } from '../state/useOuijaStore';
+import { useOuijaSession } from '@/hooks/useOuijaSession';
+import { useOuijaStore } from '@/state/useOuijaStore';
 
 /**
  * Renders the main application content

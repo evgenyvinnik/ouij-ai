@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
-import { useOuijaStore } from '../state/useOuijaStore';
-import { sendChatMessage } from '../api/chatClient';
-import { Message } from '../types/ouija';
+import { useOuijaStore } from '@/state/useOuijaStore';
+import { sendChatMessage } from '@/api/chatClient';
+import { Message } from '@/types/ouija';
 
 /**
  * Variables passed to the chat mutation

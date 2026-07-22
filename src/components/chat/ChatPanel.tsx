@@ -15,9 +15,9 @@
  */
 
 import { useRef, useEffect, useState, useCallback } from 'react';
-import { useOuijaStore } from '../../state/useOuijaStore';
-import { useSpeechRecognition } from '../../hooks/useSpeechRecognition';
-import { Button } from '../ui/Button';
+import { useOuijaStore } from '@/state/useOuijaStore';
+import { useSpeechRecognition } from '@/hooks/useSpeechRecognition';
+import { Button } from '@/components/ui/Button';
 import { ChatMessage } from './ChatMessage';
 import { ThinkingIndicator } from './ThinkingIndicator';
 import { ChatInput } from './ChatInput';

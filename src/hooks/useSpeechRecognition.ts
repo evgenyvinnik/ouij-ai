@@ -3,7 +3,7 @@ import type {
   SpeechRecognition,
   SpeechRecognitionEvent,
   SpeechRecognitionErrorEvent,
-} from '../types/speech.d';
+} from '@/types/speech.d';
 
 /**
  * Return value from the useSpeechRecognition hook
@@ -220,7 +220,8 @@ export function useSpeechRecognition(): UseSpeechRecognitionReturn {
         'language-not-supported': 'Language is not supported.',
       };
 
-      const errorMessage = errorMessages[event.error] || `Error: ${event.error}`;
+      const errorMessage =
+        errorMessages[event.error] || `Error: ${event.error}`;
       setError(errorMessage);
       setIsListening(false);
 

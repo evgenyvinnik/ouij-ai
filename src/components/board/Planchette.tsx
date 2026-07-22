@@ -12,7 +12,7 @@
  * - Smooth transitions for all transformations
  */
 
-import { useOuijaStore } from '../../state/useOuijaStore';
+import { useOuijaStore } from '@/state/useOuijaStore';
 
 /**
  * Renders the planchette with position, rotation, and animation effects

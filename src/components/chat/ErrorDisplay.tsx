@@ -5,7 +5,7 @@
  * no error is present.
  */
 
-import { CloseIcon } from '../icons/CloseIcon';
+import { CloseIcon } from '@/components/icons/CloseIcon';
 
 /**
  * Props for the ErrorDisplay component
