@@ -1,11 +1,21 @@
-import Anthropic from '@anthropic-ai/sdk';
+import type Anthropic from '@anthropic-ai/sdk';
 import { SYSTEM_PROMPT, MODEL_CONFIG } from './constants';
+import { createMessage } from './anthropic';
 import {
   formatSSE,
   sanitizeInput,
   validateMessage,
   handleCorsPreflight,
 } from './utils';
+
+/**
+ * Anthropic streaming event, widened to include the `error` event that the
+ * SSE stream can emit but the SDK's {@link Anthropic.MessageStreamEvent} union
+ * (which only models the happy path) leaves out.
+ */
+type StreamEvent =
+  | Anthropic.MessageStreamEvent
+  | { type: 'error'; error?: { message?: string } };
 
 /**
  * Vercel Edge Function configuration
@@ -91,8 +101,6 @@ export default async function handler(req: Request) {
       });
     }
 
-    const anthropic = new Anthropic({ apiKey });
-
     // Build system prompt with spirit name
     let systemPrompt = SYSTEM_PROMPT;
     if (spiritName) {
@@ -116,7 +124,7 @@ export default async function handler(req: Request) {
     const stream = new ReadableStream({
       async start(controller) {
         try {
-          const response = await anthropic.messages.create({
+          const upstream = await createMessage(apiKey, {
             model: MODEL_CONFIG.model,
             max_tokens: MODEL_CONFIG.max_tokens,
             temperature: MODEL_CONFIG.temperature,
@@ -126,76 +134,114 @@ export default async function handler(req: Request) {
             stream: true,
           });
 
+          if (!upstream.ok || !upstream.body) {
+            const detail = await upstream.text().catch(() => '');
+            throw new Error(
+              `Anthropic API error (${upstream.status})${detail ? `: ${detail}` : ''}`
+            );
+          }
+
+          const reader = upstream.body.getReader();
+          const decoder = new TextDecoder();
+          let buffer = '';
           let toolUseId = '';
           let toolInput = '';
 
-          for await (const event of response) {
-            // Handle text deltas
-            if (
-              event.type === 'content_block_delta' &&
-              event.delta.type === 'text_delta'
-            ) {
-              const text = event.delta.text;
-              controller.enqueue(
-                encoder.encode(formatSSE('token', { token: text }))
-              );
-            }
+          // Parse Anthropic's raw SSE stream line-by-line and re-emit our own
+          // token/letters/done events for the planchette animation.
+          reading: while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
 
-            // Handle tool use start
-            if (
-              event.type === 'content_block_start' &&
-              event.content_block.type === 'tool_use'
-            ) {
-              toolUseId = event.content_block.id;
-            }
+            buffer += decoder.decode(value, { stream: true });
+            const lines = buffer.split('\n');
+            // Keep the last (possibly incomplete) line in the buffer.
+            buffer = lines.pop() ?? '';
 
-            // Handle tool input delta
-            if (
-              event.type === 'content_block_delta' &&
-              event.delta.type === 'input_json_delta'
-            ) {
-              toolInput += event.delta.partial_json;
-            }
+            for (const line of lines) {
+              if (!line.startsWith('data:')) continue;
+              const payload = line.slice(5).trim();
+              if (!payload) continue;
 
-            // Handle tool use completion
-            if (event.type === 'content_block_stop' && toolUseId) {
+              let event: StreamEvent;
               try {
-                const parsedInput = JSON.parse(toolInput);
-                if (parsedInput.message) {
-                  const cleanedMessage = validateMessage(parsedInput.message);
-
-                  // Special handling for YES, NO, GOODBYE - treat as single tokens
-                  const upperMessage = cleanedMessage.toUpperCase();
-                  let letters: string[];
-
-                  if (
-                    upperMessage === 'YES' ||
-                    upperMessage === 'NO' ||
-                    upperMessage === 'GOODBYE'
-                  ) {
-                    // Send as a single token to move planchette to special position
-                    letters = [upperMessage];
-                  } else {
-                    // Normal letter-by-letter spelling
-                    letters = cleanedMessage.split('');
-                  }
-
-                  controller.enqueue(
-                    encoder.encode(formatSSE('letters', { letters }))
-                  );
-                }
-              } catch (e) {
-                console.error('Failed to parse tool input:', e);
+                event = JSON.parse(payload) as StreamEvent;
+              } catch {
+                continue; // ignore keep-alive/partial lines
               }
-              toolUseId = '';
-              toolInput = '';
-            }
 
-            // Handle stream end
-            if (event.type === 'message_stop') {
-              controller.enqueue(encoder.encode(formatSSE('done', {})));
-              controller.close();
-              return;
+              // Surface upstream errors delivered as SSE `error` events
+              if (event.type === 'error') {
+                throw new Error(
+                  event.error?.message || 'Anthropic stream error'
+                );
+              }
+
+              // Handle text deltas
+              if (
+                event.type === 'content_block_delta' &&
+                event.delta.type === 'text_delta'
+              ) {
+                const text = event.delta.text;
+                controller.enqueue(
+                  encoder.encode(formatSSE('token', { token: text }))
+                );
+              }
+
+              // Handle tool use start
+              if (
+                event.type === 'content_block_start' &&
+                event.content_block.type === 'tool_use'
+              ) {
+                toolUseId = event.content_block.id;
+              }
+
+              // Handle tool input delta
+              if (
+                event.type === 'content_block_delta' &&
+                event.delta.type === 'input_json_delta'
+              ) {
+                toolInput += event.delta.partial_json;
+              }
+
+              // Handle tool use completion
+              if (event.type === 'content_block_stop' && toolUseId) {
+                try {
+                  const parsedInput = JSON.parse(toolInput);
+                  if (parsedInput.message) {
+                    const cleanedMessage = validateMessage(parsedInput.message);
+
+                    // Special handling for YES, NO, GOODBYE - treat as single tokens
+                    const upperMessage = cleanedMessage.toUpperCase();
+                    let letters: string[];
+
+                    if (
+                      upperMessage === 'YES' ||
+                      upperMessage === 'NO' ||
+                      upperMessage === 'GOODBYE'
+                    ) {
+                      // Send as a single token to move planchette to special position
+                      letters = [upperMessage];
+                    } else {
+                      // Normal letter-by-letter spelling
+                      letters = cleanedMessage.split('');
+                    }
+
+                    controller.enqueue(
+                      encoder.encode(formatSSE('letters', { letters }))
+                    );
+                  }
+                } catch (e) {
+                  console.error('Failed to parse tool input:', e);
+                }
+                toolUseId = '';
+                toolInput = '';
+              }
+
+              // Handle stream end
+              if (event.type === 'message_stop') {
+                break reading;
+              }
             }
           }
 

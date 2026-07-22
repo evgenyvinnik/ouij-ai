@@ -1,5 +1,6 @@
-import Anthropic from '@anthropic-ai/sdk';
+import type Anthropic from '@anthropic-ai/sdk';
 import { MODEL } from './constants';
+import { createMessage } from './anthropic';
 import { handleCorsPreflight } from './utils';
 
 /**
@@ -118,10 +119,8 @@ export default async function handler(req: Request) {
       });
     }
 
-    const anthropic = new Anthropic({ apiKey });
-
     // Query Claude to verify if the person is deceased
-    const response = await anthropic.messages.create({
+    const upstream = await createMessage(apiKey, {
       model: MODEL,
       max_tokens: 2048,
       temperature: 0.3,
@@ -133,6 +132,15 @@ export default async function handler(req: Request) {
         },
       ],
     });
+
+    if (!upstream.ok) {
+      const detail = await upstream.text().catch(() => '');
+      throw new Error(
+        `Anthropic API error (${upstream.status})${detail ? `: ${detail}` : ''}`
+      );
+    }
+
+    const response = (await upstream.json()) as Anthropic.Message;
 
     // Extract the response
     const content = response.content[0];
