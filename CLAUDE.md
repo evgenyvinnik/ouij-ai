@@ -10,7 +10,7 @@
 - **Build Tool**: Vite 8
 - **Styling**: Tailwind CSS v4
 - **State Management**: Zustand (client), TanStack Query (server)
-- **AI Backend**: Anthropic Claude Sonnet 4.5 via Vercel Edge Functions
+- **AI Backend**: Anthropic Claude Haiku 4.5 via Vercel Edge Functions
 - **Deployment**: Vercel
 
 ## Project Structure
@@ -238,7 +238,7 @@ ouij-ai/
 
 ## Features Implemented
 
-1. **AI-Powered Spirit Communication**: Claude Sonnet 4.5 responds with unique personality for each spirit
+1. **AI-Powered Spirit Communication**: Claude Haiku 4.5 responds with unique personality for each spirit
 2. **Smooth Planchette Animation**: 60fps RAF-based animation with bezier curves
 3. **Voice Input**: Speech-to-text for asking questions (100 character limit)
 4. **Session Persistence**: Conversation saved for 5 minutes with localStorage

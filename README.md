@@ -6,7 +6,7 @@ An AI-powered Ouija board web experience combining mystical aesthetics with cutt
 
 ## ✨ Features
 
-- **AI-Powered Responses**: Powered by Anthropic's Claude Sonnet 4.5 for cryptic, mysterious responses
+- **AI-Powered Responses**: Powered by Anthropic's Claude Haiku 4.5 for cryptic, mysterious responses
 - **Smooth Animations**: 60fps planchette animations using requestAnimationFrame with bezier curves
 - **Real-time Streaming**: Server-Sent Events (SSE) for live AI responses
 - **Spirit Name Verification**: AI verifies if the spirit you're contacting is a deceased individual

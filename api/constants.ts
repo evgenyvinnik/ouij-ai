@@ -104,7 +104,7 @@ export const SPELL_MESSAGE_TOOL = {
  * Shared by both the chat stream ({@link MODEL_CONFIG}) and spirit verification
  * so the model is configured in exactly one place.
  */
-export const MODEL = 'claude-sonnet-4-6';
+export const MODEL = 'claude-haiku-4-5';
 
 /**
  * Anthropic Claude model configuration for spirit communication
