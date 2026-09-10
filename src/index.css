@@ -65,6 +65,328 @@
   }
 }
 
+/* Static About page and navigation shared with the board */
+.board-site-nav {
+  position: fixed;
+  top: max(0.5rem, env(safe-area-inset-top));
+  right: max(0.75rem, env(safe-area-inset-right));
+  z-index: 60;
+}
+
+.board-site-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.5rem 0.75rem;
+  color: var(--color-ouija-text);
+  font-size: 0.875rem;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+.board-site-nav a:focus-visible,
+.about-page a:focus-visible,
+.about-demo-toggle:focus-visible,
+.about-page summary:focus-visible {
+  outline: 2px solid #ff9933;
+  outline-offset: 4px;
+}
+
+body.about-page {
+  position: static;
+  width: 100%;
+  height: auto;
+  min-height: 100dvh;
+  overflow: auto;
+  overscroll-behavior: auto;
+  background: radial-gradient(ellipse at top, #25150c 0, #0a0a0a 45rem);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+
+.about-page,
+.about-page * {
+  user-select: text;
+}
+
+.about-shell {
+  width: min(100%, 76rem);
+  margin-inline: auto;
+  padding-inline: max(1.25rem, env(safe-area-inset-left))
+    max(1.25rem, env(safe-area-inset-right));
+}
+
+.about-page a {
+  color: #ffac63;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.about-page a:hover,
+.board-site-nav a:hover {
+  color: #fff;
+}
+
+.about-skip-link {
+  position: absolute;
+  top: 0.5rem;
+  left: 1rem;
+  z-index: 10;
+  padding: 0.5rem 1rem;
+  background: black;
+  transform: translateY(-200%);
+}
+
+.about-skip-link:focus {
+  transform: translateY(0);
+}
+
+.about-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  padding-block: max(1rem, env(safe-area-inset-top)) 1rem;
+  border-bottom: 1px solid #fbedc820;
+}
+
+.about-header .about-brand {
+  color: var(--color-ouija-gold);
+  font-family: var(--font-family-spooky);
+  font-size: 2.5rem;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.about-header nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  font-size: 0.9375rem;
+}
+
+.about-header nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+}
+
+.about-header [aria-current='page'] {
+  color: var(--color-ouija-text);
+}
+
+.about-hero {
+  display: grid;
+  align-items: center;
+  gap: 2.5rem;
+  padding-block: 3.5rem;
+}
+
+.about-eyebrow {
+  margin-bottom: 0.75rem;
+  color: #ffac63;
+  font-family: var(--font-family-vintage);
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.about-page h1,
+.about-page h2 {
+  font-family: var(--font-family-spooky);
+  font-weight: normal;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+.about-page h1 {
+  max-width: 18ch;
+  margin-bottom: 1.5rem;
+  font-size: clamp(2.75rem, 5vw, 4.75rem);
+}
+
+.about-page h2 {
+  margin-bottom: 1.5rem;
+  font-size: clamp(2rem, 3vw, 2.75rem);
+}
+
+.about-lead {
+  max-width: 45ch;
+  margin-bottom: 2rem;
+  color: #dfd0b1;
+  font-size: 1.1875rem;
+}
+
+.about-page .about-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid #ff9933;
+  border-radius: 0.25rem;
+  background: #d3540026;
+  color: var(--color-ouija-text);
+  font-family: var(--font-family-vintage);
+  font-size: 1rem;
+  text-decoration: none;
+}
+
+.about-page .about-cta:hover {
+  background: #d3540040;
+}
+
+.about-board-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid #fbedc830;
+  border-radius: 0.5rem;
+  box-shadow: 0 1.5rem 5rem #0009;
+}
+
+.about-board-image figcaption {
+  margin-top: 1rem;
+  color: #c5b59a;
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.about-demo-question,
+.about-demo-answer {
+  color: var(--color-ouija-text);
+  font-size: 1.125rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.about-demo-question {
+  margin-bottom: 1.25rem;
+}
+
+.about-demo-answer {
+  margin-bottom: 0.5rem;
+}
+
+.about-demo-question span,
+.about-demo-answer span {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: #ffac63;
+  font-family: var(--font-family-vintage);
+  font-size: 0.875rem;
+}
+
+.about-demo-toggle {
+  display: block;
+  min-height: 44px;
+  margin: 0.5rem auto 0;
+  padding: 0.5rem 1rem;
+  color: #ffac63;
+  font-size: 0.875rem;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+}
+
+.about-demo-toggle[hidden] {
+  display: none;
+}
+
+.about-demo-toggle:hover {
+  color: #fff;
+}
+
+.about-reading {
+  max-width: 46rem;
+  margin-inline: auto;
+}
+
+.about-section {
+  padding-block: 2.5rem;
+  border-top: 1px solid #fbedc820;
+}
+
+.about-section p + p {
+  margin-top: 1rem;
+}
+
+.about-section > p:not(.about-eyebrow),
+.about-steps p,
+.about-faq details p {
+  color: #dfd0b1;
+}
+
+.about-steps {
+  display: grid;
+  gap: 1.5rem;
+  padding-left: 1.5rem;
+  list-style: decimal;
+}
+
+.about-steps li {
+  padding-left: 0.5rem;
+}
+
+.about-steps li::marker {
+  color: #ffac63;
+}
+
+.about-steps h3 {
+  margin-bottom: 0.25rem;
+  font-size: 1.1875rem;
+  font-weight: bold;
+}
+
+.about-faq details {
+  border-bottom: 1px solid #fbedc820;
+}
+
+.about-faq summary {
+  padding-block: 1.125rem;
+  font-size: 1.0625rem;
+  cursor: pointer;
+}
+
+.about-faq summary::marker {
+  color: #ffac63;
+}
+
+.about-faq details p {
+  padding-bottom: 1.25rem;
+}
+
+.about-footer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+  margin-top: 2rem;
+  padding-block: 1.5rem max(1.5rem, env(safe-area-inset-bottom));
+  border-top: 1px solid #fbedc820;
+  color: #c5b59a;
+  font-size: 0.875rem;
+}
+
+@media (min-width: 768px) {
+  .about-shell {
+    padding-inline: 2.5rem;
+  }
+
+  .about-hero {
+    grid-template-columns: 1.1fr 1fr;
+    gap: 3rem;
+    padding-block: 5rem;
+  }
+
+  .about-section {
+    padding-block: 3.5rem;
+  }
+}
+
 /* Custom animations */
 @layer utilities {
   .animate-pulse-slow {
