@@ -2,7 +2,7 @@
 
 An AI-powered Ouija board web experience combining mystical aesthetics with cutting-edge AI technology. Ask questions and watch as AI spirits respond through smooth planchette animations.
 
-![OUIJ-AI Banner](https://img.shields.io/badge/React-19-blue) ![TypeScript](https://img.shields.io/badge/TypeScript-6.0-blue) ![Vite](https://img.shields.io/badge/Vite-8.1-purple) ![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-4.0-cyan)
+![OUIJ-AI Banner](https://img.shields.io/badge/React-19-blue) ![TypeScript](https://img.shields.io/badge/TypeScript-6.0-blue) ![Vite](https://img.shields.io/badge/Vite-8.2-purple) ![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-4.0-cyan)
 
 ## ✨ Features
 
@@ -20,7 +20,7 @@ An AI-powered Ouija board web experience combining mystical aesthetics with cutt
 
 ### Prerequisites
 
-- [Bun](https://bun.sh/) (recommended) or Node.js 18+
+- [Bun](https://bun.sh/) (recommended) and Node.js 22.12+
 - Anthropic API key ([get one here](https://console.anthropic.com/))
 
 ### Installation
@@ -56,6 +56,17 @@ bun run build
 # Preview production build
 bun run preview
 ```
+
+### Dependency maintenance
+
+Use `bun update` for compatible updates and `bun audit` to check the full
+dependency tree. Keep `package.json` and `bun.lock` together when committing.
+TypeScript stays on 6.0 because the current `typescript-eslint` peer range is
+`>=4.8.4 <6.1.0`; upgrading to TypeScript 7 requires compatible lint tooling.
+
+React Compiler is configured through `@rolldown/plugin-babel` and Vite's
+`reactCompilerPreset()`. The integration requires Node.js 22.12 or newer and
+uses Babel 7.29.7 or newer within the Babel 7 release line.
 
 ## 🎮 How to Use
 
@@ -104,6 +115,22 @@ ouij-ai/
 ```
 
 ## 🔍 SEO Optimization
+
+The `/about` page explains the AI Ouija board, how to play, and common questions.
+Its content, page metadata, and `AboutPage` structured data are served as static
+HTML, so reading and indexing the page do not depend on JavaScript. Edit the copy
+in `about.html` and its styles in `src/index.css`.
+
+Vite builds `index.html` and `about.html` as separate entry points. Vercel's
+`cleanUrls` setting serves the latter at `/about` and redirects `/about.html` to
+that URL. The homepage links to `/about`, and both pages appear in the sitemap.
+The About page uses the existing Vercel Analytics integration to record visits.
+
+Its Tolstoy GIF records the app's board animation spelling the illustrative reply
+“LOVE ONE ANOTHER” to “How should I live?”. It is an example, not a historical
+quotation or a recorded API response. The GIF has a still-image control and uses
+`tolstoy-demo-still.png` when the visitor prefers reduced motion. A smaller
+animated WebP is served in browsers that support it, with the GIF as a fallback.
 
 OUIJ-AI is fully optimized for search engines and social media sharing:
 

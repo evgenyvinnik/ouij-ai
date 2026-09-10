@@ -90,9 +90,11 @@ export function useOuijaSession(): OuijaSessionReturn {
    */
   const handleKeyPress = useCallback(
     (e: KeyboardEvent) => {
-      // Ignore if user is typing in an input/textarea element
+      // Let focused controls and navigation handle their own keyboard input.
       const target = e.target as HTMLElement;
-      if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') {
+      if (
+        target.closest('a, button, input, textarea, select, [contenteditable]')
+      ) {
         return;
       }
 

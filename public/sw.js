@@ -1,8 +1,9 @@
 // Service Worker for OUIJ-AI PWA
-const CACHE_NAME = 'ouij-ai-v2'; // Incremented version to force update
+const CACHE_NAME = 'ouij-ai-v3'; // Refresh the homepage with About navigation
 const urlsToCache = [
   '/',
   '/index.html',
+  '/about',
   '/manifest.json',
   '/favicon.ico',
   '/ouija_bg.jpg',
